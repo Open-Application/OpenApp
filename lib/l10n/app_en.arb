@@ -1,0 +1,483 @@
+{
+  "@@locale": "en",
+
+  "dashboard": "Dashboard",
+  "@dashboard": {
+    "description": "Dashboard navigation label"
+  },
+
+  "profile": "Profile",
+  "@profile": {
+    "description": "Profile navigation label"
+  },
+
+  "connect": "Connect",
+  "@connect": {
+    "description": "Rcc connect button"
+  },
+
+  "disconnect": "Disconnect",
+  "@disconnect": {
+    "description": "Rcc disconnect button"
+  },
+
+  "connecting": "Connecting...",
+  "@connecting": {
+    "description": "Rcc connecting status"
+  },
+
+  "disconnecting": "Disconnecting...",
+  "@disconnecting": {
+    "description": "Rcc disconnecting status"
+  },
+
+  "connected": "Connected",
+  "@connected": {
+    "description": "Rcc connected status"
+  },
+
+  "disconnected": "Disconnected",
+  "@disconnected": {
+    "description": "Rcc disconnected status"
+  },
+
+  "encrypted": "Encrypted",
+  "@encrypted": {
+    "description": "Connection encrypted label"
+  },
+
+  "unprotected": "Unprotected",
+  "@unprotected": {
+    "description": "Connection unprotected warning"
+  },
+
+  "vpnPermissionRequired": "Rcc permission required",
+  "@vpnPermissionRequired": {
+    "description": "Rcc permission message"
+  },
+
+  "failedToStartVpn": "Failed to start Rcc service",
+  "@failedToStartVpn": {
+    "description": "Rcc start failure"
+  },
+
+  "noNetworkConnection": "No network connection. Please check your Wi-Fi or mobile data.",
+  "@noNetworkConnection": {
+    "description": "No network connection error message"
+  },
+
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings section"
+  },
+
+  "darkMode": "Dark Mode",
+  "@darkMode": {
+    "description": "Dark mode toggle"
+  },
+
+  "aboutProject": "About {projectName}",
+  "@aboutProject": {
+    "description": "About section title",
+    "placeholders": {
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "version": "Version",
+  "@version": {
+    "description": "Version label"
+  },
+
+  "openSourceLicense": "License",
+  "@openSourceLicense": {
+    "description": "Open source license label"
+  },
+
+  "coreLibrary": "Core Library",
+  "@coreLibrary": {
+    "description": "Core library label"
+  },
+
+  "termsOfUse": "Terms of Use",
+  "@termsOfUse": {
+    "description": "Terms of use label"
+  },
+
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Privacy policy label"
+  },
+
+  "status": "Status",
+  "@status": {
+    "description": "Status section title"
+  },
+
+  "control": "Control",
+  "@control": {
+    "description": "Control section title"
+  },
+
+  "networkControlCenter": "Network control center",
+  "@networkControlCenter": {
+    "description": "Dashboard subtitle"
+  },
+
+  "connectionStatus": "Status",
+  "@connectionStatus": {
+    "description": "Connection status label"
+  },
+
+  "yourInternetIsSecure": "Your network connection is protected",
+  "@yourInternetIsSecure": {
+    "description": "Secure connection message"
+  },
+
+  "yourInternetIsExposed": "Your network connection is vulnerable",
+  "@yourInternetIsExposed": {
+    "description": "Exposed connection message"
+  },
+
+  "establishingSecureConnection": "Establishing secure connection",
+  "@establishingSecureConnection": {
+    "description": "Connecting status message"
+  },
+
+  "closingSecureConnection": "Closing secure connection",
+  "@closingSecureConnection": {
+    "description": "Disconnecting status message"
+  },
+
+  "language": "Language",
+  "@language": {
+    "description": "Language setting label"
+  },
+
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+
+  "chinese": "Chinese",
+  "@chinese": {
+    "description": "Chinese language option"
+  },
+
+  "systemDefault": "System Default",
+  "@systemDefault": {
+    "description": "System default language option"
+  },
+
+  "selectLanguage": "Select Language",
+  "@selectLanguage": {
+    "description": "Language selection dialog title"
+  },
+
+  "privacy": "Privacy and Support",
+  "@privacy": {
+    "description": "Privacy section title"
+  },
+
+  "about": "About",
+  "@about": {
+    "description": "About section title"
+  },
+
+  "dataCollection": "Data Collection",
+  "@dataCollection": {
+    "description": "Data collection section title"
+  },
+
+  "dataCollectionText": "We do not collect or store any personal information. All network configurations are stored locally on your device.",
+  "@dataCollectionText": {
+    "description": "Data collection description"
+  },
+
+  "networkTraffic": "Network Traffic",
+  "@networkTraffic": {
+    "description": "Network traffic section title"
+  },
+
+  "networkTrafficText": "This educational tool processes network traffic locally for learning purposes. No data is transmitted to external servers for tracking or analytics.",
+  "@networkTrafficText": {
+    "description": "Network traffic description"
+  },
+
+  "thirdPartyServices": "Third-Party Services",
+  "@thirdPartyServices": {
+    "description": "Third-party services section title"
+  },
+
+  "thirdPartyServicesText": "We do not share any information with third parties. All operations are performed locally on your device.",
+  "@thirdPartyServicesText": {
+    "description": "Third-party services description"
+  },
+
+  "dataSecurity": "Data Security",
+  "@dataSecurity": {
+    "description": "Data security section title"
+  },
+
+  "dataSecurityText": "All configurations and settings are encrypted and stored securely on your device using industry-standard encryption methods.",
+  "@dataSecurityText": {
+    "description": "Data security description"
+  },
+
+  "educationalUseOnly": "Educational Use Only",
+  "@educationalUseOnly": {
+    "description": "Educational use only section title"
+  },
+
+  "educationalUseOnlyText": "This software is provided for educational and research purposes only. Users must comply with all applicable laws and regulations.",
+  "@educationalUseOnlyText": {
+    "description": "Educational use only description"
+  },
+
+  "noWarranty": "No Warranty",
+  "@noWarranty": {
+    "description": "No warranty section title"
+  },
+
+  "noWarrantyText": "The software is provided \"as is\" without warranty of any kind. We are not responsible for any damages arising from its use.",
+  "@noWarrantyText": {
+    "description": "No warranty description"
+  },
+
+  "userResponsibility": "User Responsibility",
+  "@userResponsibility": {
+    "description": "User responsibility section title"
+  },
+
+  "userResponsibilityText": "Users are responsible for ensuring their use of this tool complies with local regulations and institutional policies.",
+  "@userResponsibilityText": {
+    "description": "User responsibility description"
+  },
+
+  "academicIntegrity": "Academic Integrity",
+  "@academicIntegrity": {
+    "description": "Academic integrity section title"
+  },
+
+  "academicIntegrityText": "This tool should be used in accordance with academic integrity guidelines and ethical research practices.",
+  "@academicIntegrityText": {
+    "description": "Academic integrity description"
+  },
+
+  "close": "Close",
+  "@close": {
+    "description": "Close button text"
+  },
+
+  "purpose": "Purpose",
+  "@purpose": {
+    "description": "Purpose label"
+  },
+
+  "educational": "Educational",
+  "@educational": {
+    "description": "Educational label"
+  },
+
+  "technology": "Technology",
+  "@technology": {
+    "description": "Technology label"
+  },
+
+  "networkResearch": "Network Research",
+  "@networkResearch": {
+    "description": "Network research label"
+  },
+
+  "stopped": "STOPPED",
+  "@stopped": {
+    "description": "Rcc stopped status"
+  },
+
+  "started": "CONNECTED",
+  "@started": {
+    "description": "Rcc connected status"
+  },
+
+  "starting": "CONNECTING",
+  "@starting": {
+    "description": "Rcc connecting status"
+  },
+
+  "stopping": "DISCONNECTING",
+  "@stopping": {
+    "description": "Rcc disconnecting status"
+  },
+
+  "active": "Active",
+  "@active": {
+    "description": "Active status"
+  },
+
+  "inactive": "Inactive",
+  "@inactive": {
+    "description": "Inactive status"
+  },
+
+  "mobile": "Mobile",
+  "@mobile": {
+    "description": "Mobile device type"
+  },
+
+  "desktop": "Desktop",
+  "@desktop": {
+    "description": "Desktop device type"
+  },
+
+  "serviceLogs": "Service Logs",
+  "@serviceLogs": {
+    "description": "Service logs section title"
+  },
+
+  "logs": "Logs",
+  "@logs": {
+    "description": "Logs section title"
+  },
+
+  "copyLogs": "Copy logs",
+  "@copyLogs": {
+    "description": "Copy logs button tooltip"
+  },
+
+  "logsCopiedToClipboard": "Logs copied to clipboard",
+  "@logsCopiedToClipboard": {
+    "description": "Message shown when logs are copied"
+  },
+
+  "noLogsYet": "No logs yet",
+  "@noLogsYet": {
+    "description": "Message shown when there are no logs"
+  },
+
+  "logEntries": "{count} log entries",
+  "@logEntries": {
+    "description": "Log count display",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "accountManagementHub": "Account management hub",
+  "@accountManagementHub": {
+    "description": "Account management center description"
+  },
+
+  "aboutProjectText": "{projectName} is an educational network security tool designed to help users understand privacy protection and secure network communications. This application is intended for educational and research purposes, enabling users to learn about network protocols, encryption, and privacy technologies. All operations are performed locally on your device in compliance with applicable laws and regulations.",
+  "@aboutProjectText": {
+    "description": "About project description",
+    "placeholders": {
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "configuration": "Configuration",
+  "@configuration": {
+    "description": "Configuration section title"
+  },
+
+  "configurationRequired": "Configuration is required to connect",
+  "@configurationRequired": {
+    "description": "Error message when no configuration is available"
+  },
+
+  "userConfiguration": "User Configuration",
+  "@userConfiguration": {
+    "description": "User configuration label"
+  },
+
+  "enterBase64Config": "Enter Base64 Encoded Config",
+  "@enterBase64Config": {
+    "description": "Hint text for config input field"
+  },
+
+  "pasteConfigHere": "Paste your base64 encoded configuration here",
+  "@pasteConfigHere": {
+    "description": "Placeholder text for config input"
+  },
+
+  "saveConfiguration": "Save",
+  "@saveConfiguration": {
+    "description": "Save configuration button"
+  },
+
+  "clearConfiguration": "Clear Configuration",
+  "@clearConfiguration": {
+    "description": "Clear configuration button"
+  },
+
+  "configSaved": "Configuration saved successfully",
+  "@configSaved": {
+    "description": "Success message when config is saved"
+  },
+
+  "configCleared": "Configuration cleared",
+  "@configCleared": {
+    "description": "Message when config is cleared"
+  },
+
+  "configEmpty": "Configuration cannot be empty",
+  "@configEmpty": {
+    "description": "Error message when trying to save empty config"
+  },
+
+  "configStatus": "Config Status",
+  "@configStatus": {
+    "description": "Config status label"
+  },
+
+  "customConfig": "Saved",
+  "@customConfig": {
+    "description": "Custom config status label"
+  },
+
+  "noCustomConfig": "No saved config",
+  "@noCustomConfig": {
+    "description": "No custom config status label"
+  },
+
+  "arabic": "العربية",
+  "@arabic": {
+    "description": "Arabic language option"
+  },
+
+  "russian": "Русский",
+  "@russian": {
+    "description": "Russian language option"
+  },
+
+  "turkish": "Türkçe",
+  "@turkish": {
+    "description": "Turkish language option"
+  },
+
+  "malay": "Melayu",
+  "@malay": {
+    "description": "Malay language option"
+  },
+
+  "persian": "فارسی",
+  "@persian": {
+    "description": "Persian language option"
+  },
+
+  "hindi": "हिन्दी",
+  "@hindi": {
+    "description": "Hindi language option"
+  },
+
+  "indonesian": "Bahasa Indonesia",
+  "@indonesian": {
+    "description": "Indonesian language option"
+  }
+}
