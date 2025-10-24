@@ -46,6 +46,7 @@ jobs:
           echo "Downloading from: ${DOWNLOAD_URL}"
 
           curl -L -o liboc.tar.gz "${DOWNLOAD_URL}"
+          mkdir -p android/app/libs/
           tar -xzf liboc.tar.gz -C android/app/libs/
 
       - name: Setup Java

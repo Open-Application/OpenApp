@@ -56,6 +56,7 @@ jobs:
           echo "Downloading from: ${DOWNLOAD_URL}"
 
           curl -L -o liboc.zip "${DOWNLOAD_URL}"
+          mkdir -p windows/
           unzip -o liboc.zip -d windows/
 
       - name: Setup Flutter (x64)
