@@ -1,0 +1,186 @@
+name: build-windows
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  contents: write
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: 'Version to build'
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: 'Version to build (e.g., v0.0.1)'
+
+jobs:
+  build-windows-app:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - runner: windows-latest
+            arch: amd64
+            flutter_arch: x64
+            vs_arch: x64
+          - runner: windows-11-arm
+            arch: arm64
+            flutter_arch: arm64
+            vs_arch: arm64
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Download OpenCore release
+        shell: bash
+        run: |
+          set -xeuo pipefail
+
+          # Get the latest release from OpenCore
+          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+          echo "Latest OpenCore release: ${LATEST_RELEASE}"
+
+          # Download the Windows library for this architecture
+          DOWNLOAD_URL="https://github.com/Open-Application/OpenCore/releases/download/${LATEST_RELEASE}/liboc-windows-${{ matrix.arch }}-${LATEST_RELEASE}.zip"
+          echo "Downloading from: ${DOWNLOAD_URL}"
+
+          curl -L -o liboc.zip "${DOWNLOAD_URL}"
+
+          # Extract to windows directory
+          unzip -o liboc.zip -d windows/
+
+          # Rename files to remove architecture suffix
+          mv windows/liboc-${{ matrix.arch }}.dll windows/liboc.dll
+          mv windows/liboc-${{ matrix.arch }}.h windows/liboc.h
+
+          # Verify files exist
+          ls -lh windows/liboc.dll windows/liboc.h
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Set build environment
+        shell: bash
+        run: |
+          set -xeuo pipefail
+          echo "BUILD_VERSION=${{ inputs.version }}" >> "${GITHUB_ENV}"
+
+      - name: Install Flutter dependencies
+        shell: bash
+        run: |
+          flutter pub get
+
+      - name: Check Flutter version
+        shell: bash
+        run: |
+          flutter --version
+
+      - name: Enable Windows desktop
+        shell: bash
+        run: |
+          flutter config --enable-windows-desktop
+
+      - name: Setup Visual Studio Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.vs_arch }}
+
+      - name: Generate import library for liboc.dll
+        shell: pwsh
+        run: |
+          cd windows
+
+          Write-Host "Extracting exports from liboc.dll using dumpbin..."
+
+          # Use dumpbin (from Visual Studio) to extract exports
+          $dumpbinOutput = dumpbin /exports liboc.dll
+
+          # Parse the exports section
+          $exports = @()
+          $inExports = $false
+
+          foreach ($line in $dumpbinOutput) {
+            if ($line -match "ordinal hint RVA      name") {
+              $inExports = $true
+              continue
+            }
+            if ($inExports -and $line -match "^\s+\d+\s+\w+\s+\w+\s+(\w+)") {
+              $exports += $matches[1]
+            }
+            if ($line -match "^  Summary") {
+              break
+            }
+          }
+
+          Write-Host "Found $($exports.Count) exports"
+          Write-Host "Exports: $($exports -join ', ')"
+
+          # Create .def file
+          $defContent = "LIBRARY liboc`nEXPORTS`n"
+          foreach ($export in $exports) {
+            $defContent += "$export`n"
+          }
+
+          Set-Content -Path "liboc.def" -Value $defContent
+
+          Write-Host "`nCreated liboc.def:"
+          Get-Content liboc.def
+
+          # Generate .lib import library using Visual Studio's lib.exe
+          Write-Host "`nGenerating liboc.lib from extracted exports..."
+          lib /def:liboc.def /out:liboc.lib /machine:${{ matrix.vs_arch }}
+
+          # Verify the .lib was created
+          if (Test-Path liboc.lib) {
+            Write-Host "`nSuccessfully created liboc.lib"
+            Get-Item liboc.lib
+          } else {
+            Write-Error "Failed to create liboc.lib"
+            exit 1
+          }
+
+      - name: Build Windows app
+        shell: bash
+        run: |
+          set -xeuo pipefail
+          flutter build windows --release --target-platform windows-${{ matrix.flutter_arch }}
+
+          # Verify build was successful
+          ls -lh build/windows/${{ matrix.flutter_arch }}/runner/Release/
+
+      - name: Compress Windows app
+        shell: bash
+        run: |
+          cd build/windows/${{ matrix.flutter_arch }}/runner/Release
+          powershell -Command "Compress-Archive -Path * -DestinationPath ../../../../../OpenApp-windows-${{ matrix.arch }}-${{ inputs.version }}.zip"
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.version }}
+          name: Release ${{ inputs.version }}
+          draft: false
+          prerelease: false
+          overwrite_files: true
+          files: |
+            OpenApp-windows-${{ matrix.arch }}-${{ inputs.version }}.zip
+          body: |
+            ## Windows Application for ${{ inputs.version }}
+
+            ### Build Configuration
+            - **Platform**: Windows
+            - **Architecture**: ${{ matrix.arch }}
+            - **Build Type**: Release
+
+            ### Installation
+            Download and extract the zip file to run the application

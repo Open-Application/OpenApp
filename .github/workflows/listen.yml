@@ -1,0 +1,46 @@
+name: listen
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - "listen.yaml"
+      - "pubspec.yaml"
+  workflow_dispatch:
+
+jobs:
+  check-for-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v5
+
+      - name: Get version from pubspec.yaml
+        id: get-version
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: *//' | tr -d ' ')
+          echo "version=v${VERSION}" >> $GITHUB_OUTPUT
+          echo "Detected version: v${VERSION}"
+
+  build-windows:
+    needs: check-for-version
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      version: ${{ needs.check-for-version.outputs.version }}
+    secrets: inherit
+
+  build-android:
+    needs: check-for-version
+    uses: ./.github/workflows/build-android.yml
+    with:
+      version: ${{ needs.check-for-version.outputs.version }}
+    secrets: inherit

@@ -1,0 +1,99 @@
+name: build-android
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  contents: write
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: 'Version to build'
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: 'Version to build (e.g., v0.0.1)'
+
+jobs:
+  build-android-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Download OpenCore release
+        run: |
+          set -xeuo pipefail
+
+          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+          echo "Latest OpenCore release: ${LATEST_RELEASE}"
+
+          DOWNLOAD_URL="https://github.com/Open-Application/OpenCore/releases/download/${LATEST_RELEASE}/liboc-android-universal-${LATEST_RELEASE}.tar.gz"
+          echo "Downloading from: ${DOWNLOAD_URL}"
+
+          curl -L -o liboc.tar.gz "${DOWNLOAD_URL}"
+          tar -xzf liboc.tar.gz -C android/app/libs/
+          ls -lh android/app/libs/liboc.aar
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Set build environment
+        run: |
+          set -xeuo pipefail
+          echo "BUILD_VERSION=${{ inputs.version }}" >> "${GITHUB_ENV}"
+
+      - name: Install Flutter dependencies
+        run: |
+          flutter pub get
+
+      - name: Check Flutter version
+        run: |
+          flutter --version
+
+      - name: Build Android APK
+        run: |
+          set -xeuo pipefail
+          flutter build apk --release
+          ls -lh build/app/outputs/flutter-apk/
+
+      - name: Rename APK
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk OpenApp-android-universal-${{ inputs.version }}.apk
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.version }}
+          name: Release ${{ inputs.version }}
+          draft: false
+          prerelease: false
+          overwrite_files: true
+          files: |
+            OpenApp-android-universal-${{ inputs.version }}.apk
+          body: |
+            ## Android Application for ${{ inputs.version }}
+
+            ### Build Configuration
+            - **Platform**: Android
+            - **Architecture**: Universal (arm64-v8a, armeabi-v7a, x86_64)
+            - **Build Type**: Release
+            - **Min SDK**: 21
+
+            ### Installation
+            Download and install the APK on your Android device
