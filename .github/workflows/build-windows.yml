@@ -168,14 +168,14 @@ jobs:
         run: |
           set -xeuo pipefail
 
+          echo "Building OpenApp ${{ inputs.version }} (Release Mode)"
           flutter build windows --release \
-            --target-platform windows-${{ matrix.build_arch }} \
             --obfuscate \
-            --split-debug-info=debug-info/windows-${{ matrix.arch }} \
+            --split-debug-info=debug-info/windows \
             --suppress-analytics \
             --no-tree-shake-icons
-
-          ls -lh build/windows/${{ matrix.build_arch }}/runner/Release/
+          ls -lh build/windows
+          ls -lh build/windows/*/runner/Release/
 
       - name: Upload debug symbols
         uses: actions/upload-artifact@v4
@@ -187,7 +187,7 @@ jobs:
       - name: Compress Windows app
         shell: bash
         run: |
-          cd build/windows/${{ matrix.build_arch }}/runner/Release
+          cd build/windows/*/runner/Release
           powershell -Command "Compress-Archive -Path * -DestinationPath ../../../../../${{ inputs.name }}-windows-${{ matrix.arch }}-${{ inputs.version }}.zip"
 
       - name: Upload to release
