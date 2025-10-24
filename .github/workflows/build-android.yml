@@ -35,7 +35,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Download OpenCore release
+      - name: Download Deps lib
         run: |
           set -xeuo pipefail
 

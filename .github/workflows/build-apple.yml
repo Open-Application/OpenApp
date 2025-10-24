@@ -7,6 +7,16 @@ permissions:
   contents: write
 
 on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+        description: 'App name'
+      version:
+        required: true
+        type: string
+        description: 'Version to build'
   workflow_dispatch:
     inputs:
       name:
@@ -25,20 +35,14 @@ jobs:
       matrix:
         include:
           - platform: ios
-            build_target: ipa
-            artifact_path: build/ios/archive/Runner.xcarchive
-            app_path: build/ios/archive/Runner.xcarchive/Products/Applications/Runner.app
             framework_dir: ios/Frameworks
           - platform: macos
-            build_target: macos
-            artifact_path: build/macos/Build/Products/Release/OpenApp.app
-            app_path: build/macos/Build/Products/Release/OpenApp.app
             framework_dir: macos/Frameworks
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Download OpenCore release
+      - name: Download Deps lib
         run: |
           set -xeuo pipefail
 

@@ -44,7 +44,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Download OpenCore release
+      - name: Download Deps lib
         shell: bash
         run: |
           set -xeuo pipefail
@@ -119,6 +119,13 @@ jobs:
         run: |
           cd windows
 
+          Write-Host "Checking DLL architecture..."
+          dumpbin /headers liboc.dll | Select-String "machine"
+
+          Write-Host "`nCleaning up any existing lib files..."
+          Remove-Item -Path "liboc.lib" -ErrorAction SilentlyContinue
+          Remove-Item -Path "liboc.def" -ErrorAction SilentlyContinue
+
           Write-Host "Extracting exports from liboc.dll using dumpbin..."
 
           $dumpbinOutput = dumpbin /exports liboc.dll
@@ -153,11 +160,14 @@ jobs:
           Get-Content liboc.def
 
           Write-Host "`nGenerating liboc.lib from extracted exports..."
+          Write-Host "Target architecture: ${{ matrix.build_arch }}"
           lib /def:liboc.def /out:liboc.lib /machine:${{ matrix.build_arch }}
 
           if (Test-Path liboc.lib) {
             Write-Host "`nSuccessfully created liboc.lib"
             Get-Item liboc.lib
+            Write-Host "`nVerifying lib architecture..."
+            dumpbin /headers liboc.lib | Select-String "machine"
           } else {
             Write-Error "Failed to create liboc.lib"
             exit 1
@@ -168,10 +178,10 @@ jobs:
         run: |
           set -xeuo pipefail
 
-          echo "Building OpenApp ${{ inputs.version }} (Release Mode)"
+          echo "Building ${{ inputs.name }} ${{ inputs.version }} (Release Mode)"
           flutter build windows --release \
             --obfuscate \
-            --split-debug-info=debug-info/windows \
+            --split-debug-info=debug-info/windows-${{ matrix.arch }} \
             --suppress-analytics \
             --no-tree-shake-icons
           ls -lh build/windows
