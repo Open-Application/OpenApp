@@ -1,15 +1,15 @@
 import NetworkExtension
-import Librcc
+import Liboc
 
 @objc(PacketTunnelProvider)
 class PacketTunnelProvider: NEPacketTunnelProvider {
-    private var boxService: LibrccBoxService?
+    private var boxService: LibocBoxService?
     private var platformInterface: RccPlatformInterface?
 
     override func startTunnel(options: [String : NSObject]?) async throws {
-        LibrccClearServiceError()
+        LibocClearServiceError()
 
-        let setupOptions = LibrccSetupOptions()
+        let setupOptions = LibocSetupOptions()
 
         guard let containerPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.rootcorporation.openapp") else {
             writeFatalError("Failed to get App Group container")
@@ -23,7 +23,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         setupOptions.isTVOS = false
 
         var error: NSError?
-        LibrccSetup(setupOptions, &error)
+        LibocSetup(setupOptions, &error)
 
         if let error = error {
             writeFatalError("Setup error: \(error.localizedDescription)")
@@ -31,13 +31,13 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
 
         let stderrPath = containerPath.appendingPathComponent("stderr.log").path
-        LibrccRedirectStderr(stderrPath, &error)
+        LibocRedirectStderr(stderrPath, &error)
         if let error = error {
             writeFatalError("Failed to redirect stderr: \(error.localizedDescription)")
             return
         }
 
-        LibrccSetMemoryLimit(true)
+        LibocSetMemoryLimit(true)
 
         if platformInterface == nil {
             platformInterface = RccPlatformInterface(provider: self)
@@ -53,7 +53,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
 
         var error: NSError?
-        let service = LibrccNewService(configContent, platformInterface, &error)
+        let service = LibocNewService(configContent, platformInterface, &error)
 
         if let error {
             writeFatalError("Failed to create service: \(error.localizedDescription)")
@@ -113,7 +113,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     func writeFatalError(_ message: String) {
         NSLog("[Rcc] FATAL: \(message)")
         var error: NSError?
-        LibrccWriteServiceError(message, &error)
+        LibocWriteServiceError(message, &error)
         cancelTunnelWithError(nil)
     }
 }

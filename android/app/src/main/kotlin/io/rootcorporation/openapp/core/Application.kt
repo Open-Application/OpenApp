@@ -6,8 +6,8 @@ import android.net.ConnectivityManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
 import go.Seq
-import io.rootcorporation.librcc.Librcc
-import io.rootcorporation.librcc.SetupOptions
+import io.rootcorporation.liboc.Liboc
+import io.rootcorporation.liboc.SetupOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ class Application : Application() {
         System.loadLibrary("gojni")
         
         Seq.setContext(this)
-        Librcc.setLocale(Locale.getDefault().toLanguageTag().replace("-", "_"))
+        Liboc.setLocale(Locale.getDefault().toLanguageTag().replace("-", "_"))
 
         @Suppress("OPT_IN_USAGE")
         GlobalScope.launch(Dispatchers.IO) {
@@ -43,13 +43,13 @@ class Application : Application() {
         workingDir.mkdirs()
         val tempDir = cacheDir
         tempDir.mkdirs()
-        Librcc.setup(SetupOptions().also {
+        Liboc.setup(SetupOptions().also {
             it.basePath = baseDir.path
             it.workingPath = workingDir.path
             it.tempPath = tempDir.path
             it.fixAndroidStack = true
         })
-        Librcc.redirectStderr(File(workingDir, "stderr.log").path)
+        Liboc.redirectStderr(File(workingDir, "stderr.log").path)
     }
 
     companion object {

@@ -28,12 +28,10 @@ jobs:
         include:
           - runner: windows-latest
             arch: amd64
-            flutter_arch: x64
-            vs_arch: x64
+            build_arch: x64
           - runner: windows-11-arm
             arch: arm64
-            flutter_arch: arm64
-            vs_arch: arm64
+            build_arch: arm64
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -43,25 +41,14 @@ jobs:
         run: |
           set -xeuo pipefail
 
-          # Get the latest release from OpenCore
           LATEST_RELEASE=$(curl -s https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
           echo "Latest OpenCore release: ${LATEST_RELEASE}"
 
-          # Download the Windows library for this architecture
           DOWNLOAD_URL="https://github.com/Open-Application/OpenCore/releases/download/${LATEST_RELEASE}/liboc-windows-${{ matrix.arch }}-${LATEST_RELEASE}.zip"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
           curl -L -o liboc.zip "${DOWNLOAD_URL}"
-
-          # Extract to windows directory
           unzip -o liboc.zip -d windows/
-
-          # Rename files to remove architecture suffix
-          mv windows/liboc-${{ matrix.arch }}.dll windows/liboc.dll
-          mv windows/liboc-${{ matrix.arch }}.h windows/liboc.h
-
-          # Verify files exist
-          ls -lh windows/liboc.dll windows/liboc.h
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -93,7 +80,7 @@ jobs:
       - name: Setup Visual Studio Developer Command Prompt
         uses: ilammy/msvc-dev-cmd@v1
         with:
-          arch: ${{ matrix.vs_arch }}
+          arch: ${{ matrix.build_arch }}
 
       - name: Generate import library for liboc.dll
         shell: pwsh
@@ -102,10 +89,8 @@ jobs:
 
           Write-Host "Extracting exports from liboc.dll using dumpbin..."
 
-          # Use dumpbin (from Visual Studio) to extract exports
           $dumpbinOutput = dumpbin /exports liboc.dll
 
-          # Parse the exports section
           $exports = @()
           $inExports = $false
 
@@ -125,7 +110,6 @@ jobs:
           Write-Host "Found $($exports.Count) exports"
           Write-Host "Exports: $($exports -join ', ')"
 
-          # Create .def file
           $defContent = "LIBRARY liboc`nEXPORTS`n"
           foreach ($export in $exports) {
             $defContent += "$export`n"
@@ -136,11 +120,9 @@ jobs:
           Write-Host "`nCreated liboc.def:"
           Get-Content liboc.def
 
-          # Generate .lib import library using Visual Studio's lib.exe
           Write-Host "`nGenerating liboc.lib from extracted exports..."
-          lib /def:liboc.def /out:liboc.lib /machine:${{ matrix.vs_arch }}
+          lib /def:liboc.def /out:liboc.lib /machine:${{ matrix.build_arch }}
 
-          # Verify the .lib was created
           if (Test-Path liboc.lib) {
             Write-Host "`nSuccessfully created liboc.lib"
             Get-Item liboc.lib
@@ -153,15 +135,27 @@ jobs:
         shell: bash
         run: |
           set -xeuo pipefail
-          flutter build windows --release --target-platform windows-${{ matrix.flutter_arch }}
 
-          # Verify build was successful
-          ls -lh build/windows/${{ matrix.flutter_arch }}/runner/Release/
+          flutter build windows --release \
+            --target-platform windows-${{ matrix.build_arch }} \
+            --obfuscate \
+            --split-debug-info=debug-info/windows-${{ matrix.arch }} \
+            --suppress-analytics \
+            --no-tree-shake-icons
+
+          ls -lh build/windows/${{ matrix.build_arch }}/runner/Release/
+
+      - name: Upload debug symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-symbols-windows-${{ matrix.arch }}
+          path: debug-info/windows-${{ matrix.arch }}
+          retention-days: 90
 
       - name: Compress Windows app
         shell: bash
         run: |
-          cd build/windows/${{ matrix.flutter_arch }}/runner/Release
+          cd build/windows/${{ matrix.build_arch }}/runner/Release
           powershell -Command "Compress-Archive -Path * -DestinationPath ../../../../../OpenApp-windows-${{ matrix.arch }}-${{ inputs.version }}.zip"
 
       - name: Upload to release
@@ -180,7 +174,9 @@ jobs:
             ### Build Configuration
             - **Platform**: Windows
             - **Architecture**: ${{ matrix.arch }}
-            - **Build Type**: Release
+            - **Build Type**: Release (Obfuscated)
+            - **Code Obfuscation**: Enabled
+            - **Debug Symbols**: Available as workflow artifact
 
             ### Installation
             Download and extract the zip file to run the application

@@ -28,19 +28,18 @@ target_link_libraries(${BINARY_NAME} PRIVATE flutter flutter_wrapper_app)
 target_link_libraries(${BINARY_NAME} PRIVATE "dwmapi.lib")
 target_include_directories(${BINARY_NAME} PRIVATE "${CMAKE_SOURCE_DIR}")
 
-# Link against librcc.dll (MinGW-built DLL, MSVC linker needs .lib)
-set(LIBRCC_DLL "${CMAKE_SOURCE_DIR}/librcc.dll")
-set(LIBRCC_LIB "${CMAKE_SOURCE_DIR}/librcc.lib")
+set(LIBOC_DLL "${CMAKE_SOURCE_DIR}/liboc.dll")
+set(LIBOC_LIB "${CMAKE_SOURCE_DIR}/liboc.lib")
 
-if(NOT EXISTS "${LIBRCC_DLL}")
-  message(FATAL_ERROR "librcc.dll not found at ${LIBRCC_DLL}. Please build the DLL from core/export and copy it here.")
+if(NOT EXISTS "${LIBOC_DLL}")
+  message(FATAL_ERROR "liboc.dll not found at ${LIBOC_DLL}. Please build the DLL from OpenCore/export and copy it here.")
 endif()
 
-if(NOT EXISTS "${LIBRCC_LIB}")
-  message(FATAL_ERROR "librcc.lib not found at ${LIBRCC_LIB}. Please generate it using lib.exe before building.")
+if(NOT EXISTS "${LIBOC_LIB}")
+  message(FATAL_ERROR "liboc.lib not found at ${LIBOC_LIB}. Please generate it using lib.exe before building.")
 endif()
 
-target_link_libraries(${BINARY_NAME} PRIVATE "${LIBRCC_LIB}")
-message(STATUS "Linking against librcc.lib (import library for ${LIBRCC_DLL})")
+target_link_libraries(${BINARY_NAME} PRIVATE "${LIBOC_LIB}")
+message(STATUS "Linking against liboc.lib (import library for ${LIBOC_DLL})")
 
 add_dependencies(${BINARY_NAME} flutter_assemble)

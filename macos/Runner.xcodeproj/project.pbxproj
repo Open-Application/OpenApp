@@ -36,8 +36,8 @@
 		E5D6F7A8B9C0D1E2F3A4B5C6 /* Pods_RccExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F7A8B9C0D1E2F3A4B5C6D7 /* Pods_RccExtension.framework */; };
 		F3B4C5D6E7F8A9B0C1D2E3F4 /* RccPlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B4C5D6E7F8A9B0C1D2E3F4 /* RccPlatformInterface.swift */; };
 		F6E7A8B9C0D1E2F3A4B5C6D7 /* RccExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A7B8C9D0E1F2A3B4C5D6E7F8 /* RccExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		I2J3K4L5M6N7O8P9Q0R1S2T3 /* Librcc.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = H1I2J3K4L5M6N7O8P9Q0R1S2 /* Librcc.xcframework */; };
-		J3K4L5M6N7O8P9Q0R1S2T3U4 /* Librcc.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = H1I2J3K4L5M6N7O8P9Q0R1S2 /* Librcc.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		I2J3K4L5M6N7O8P9Q0R1S2T3 /* Liboc.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */; };
+		J3K4L5M6N7O8P9Q0R1S2T3U4 /* Liboc.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +92,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				J3K4L5M6N7O8P9Q0R1S2T3U4 /* Librcc.xcframework in Embed Frameworks */,
+				J3K4L5M6N7O8P9Q0R1S2T3U4 /* Liboc.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,7 +139,7 @@
 		F2A3B4C5D6E7F8A9B0C1D2E3 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		F495F718FF068D8D1BBCB4AF /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-RccExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.release.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.release.xcconfig"; sourceTree = "<group>"; };
-		H1I2J3K4L5M6N7O8P9Q0R1S2 /* Librcc.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Librcc.xcframework; path = Frameworks/Librcc.xcframework; sourceTree = "<group>"; };
+		H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Liboc.xcframework; path = Frameworks/Liboc.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,7 +165,7 @@
 			files = (
 				D4C5E6F7A8B9C0D1E2F3A4B5 /* NetworkExtension.framework in Frameworks */,
 				E5D6F7A8B9C0D1E2F3A4B5C6 /* Pods_RccExtension.framework in Frameworks */,
-				I2J3K4L5M6N7O8P9Q0R1S2T3 /* Librcc.xcframework in Frameworks */,
+				I2J3K4L5M6N7O8P9Q0R1S2T3 /* Liboc.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +274,7 @@
 				1F6DCEE977E9A434773ACA3C /* Pods_RunnerTests.framework */,
 				C5E6F7A8B9C0D1E2F3A4B5C6 /* NetworkExtension.framework */,
 				D6F7A8B9C0D1E2F3A4B5C6D7 /* Pods_RccExtension.framework */,
-				H1I2J3K4L5M6N7O8P9Q0R1S2 /* Librcc.xcframework */,
+				H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -938,7 +938,7 @@
 					"$(inherited)",
 					"-lresolv.9",
 					"-framework",
-					Librcc,
+					Liboc,
 					"-Wl,-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
@@ -978,7 +978,7 @@
 					"$(inherited)",
 					"-lresolv.9",
 					"-framework",
-					Librcc,
+					Liboc,
 					"-Wl,-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
@@ -1016,7 +1016,7 @@
 					"$(inherited)",
 					"-lresolv.9",
 					"-framework",
-					Librcc,
+					Liboc,
 					"-Wl,-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;

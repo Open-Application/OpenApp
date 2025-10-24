@@ -2,7 +2,7 @@ package io.rootcorporation.openapp.bg
 
 import android.net.Network
 import android.os.Build
-import io.rootcorporation.librcc.InterfaceUpdateListener
+import io.rootcorporation.liboc.InterfaceUpdateListener
 import io.rootcorporation.openapp.Application
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

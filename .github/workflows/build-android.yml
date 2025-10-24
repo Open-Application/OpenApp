@@ -22,7 +22,7 @@ on:
 
 jobs:
   build-android-app:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -39,7 +39,6 @@ jobs:
 
           curl -L -o liboc.tar.gz "${DOWNLOAD_URL}"
           tar -xzf liboc.tar.gz -C android/app/libs/
-          ls -lh android/app/libs/liboc.aar
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -69,7 +68,13 @@ jobs:
       - name: Build Android APK
         run: |
           set -xeuo pipefail
-          flutter build apk --release
+
+          flutter build apk --release \
+            --obfuscate \
+            --split-debug-info=debug-info/android \
+            --suppress-analytics \
+            --no-tree-shake-icons
+
           ls -lh build/app/outputs/flutter-apk/
 
       - name: Rename APK
@@ -92,8 +97,11 @@ jobs:
             ### Build Configuration
             - **Platform**: Android
             - **Architecture**: Universal (arm64-v8a, armeabi-v7a, x86_64)
-            - **Build Type**: Release
+            - **Build Type**: Release (Obfuscated)
             - **Min SDK**: 21
+            - **Code Obfuscation**: Enabled
+            - **Debug Symbols**: Available as workflow artifact
 
             ### Installation
             Download and install the APK on your Android device
+

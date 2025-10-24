@@ -43,7 +43,7 @@ bool VPNService::Start(const std::string& config) {
   free(config_cstr);
 
   if (service_id < 0) {
-    char* error = LibrccGetLastError();
+    char* error = LibocGetLastError();
     std::string error_msg = error ? error : "Unknown error";
     FreeString(error);
 
@@ -170,7 +170,6 @@ void VPNService::InitLogger() {
     return;
   }
 
-  // Create directory if it doesn't exist
   size_t pos = path.find_last_of("\\/");
   if (pos != std::string::npos) {
     std::string dir = path.substr(0, pos);

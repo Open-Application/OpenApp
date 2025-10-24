@@ -26,7 +26,6 @@ class Navigation extends StatelessWidget {
   }
 
   void _onItemTapped(int index, BuildContext context) {
-    // Close any open modals/dialogs before navigating
     if (Navigator.canPop(context)) {
       Navigator.pop(context);
     }

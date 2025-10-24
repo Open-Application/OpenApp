@@ -11,9 +11,9 @@ import android.os.ParcelFileDescriptor
 import android.os.PowerManager
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import io.rootcorporation.librcc.BoxService as LibrccBoxService
-import io.rootcorporation.librcc.Librcc
-import io.rootcorporation.librcc.PlatformInterface
+import io.rootcorporation.liboc.BoxService as LibocBoxService
+import io.rootcorporation.liboc.Liboc
+import io.rootcorporation.liboc.PlatformInterface
 import io.rootcorporation.openapp.Application
 import io.rootcorporation.openapp.utils.FileLogger
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -65,7 +65,7 @@ class BoxService(
 
     var fileDescriptor: ParcelFileDescriptor? = null
 
-    private var boxService: LibrccBoxService? = null
+    private var boxService: LibocBoxService? = null
     private var receiverRegistered = false
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -94,12 +94,12 @@ class BoxService(
             FileLogger.info("Initializing Service...")
 
             DefaultNetworkMonitor.start()
-            Librcc.setMemoryLimit(true)
+            Liboc.setMemoryLimit(true)
 
             FileLogger.info("Starting service with retry mechanism")
             var retryCount = 0
             val maxRetries = 10
-            var newService: LibrccBoxService? = null
+            var newService: LibocBoxService? = null
             var lastException: Exception? = null
 
             while (retryCount < maxRetries) {
@@ -108,9 +108,7 @@ class BoxService(
                     FileLogger.info("Waiting ${delayMs}ms before attempt ${retryCount + 1}/${maxRetries}")
                     kotlinx.coroutines.delay(delayMs)
 
-                    // Create a NEW service instance for each attempt
-                    // This is critical because sing-box closes itself on start failure
-                    val serviceInstance = Librcc.newService(content, platformInterface)
+                    val serviceInstance = Liboc.newService(content, platformInterface)
                     serviceInstance.start()
 
                     FileLogger.info("Service started successfully after ${retryCount + 1} attempts")
@@ -226,7 +224,6 @@ class BoxService(
     }
 
     internal fun onDestroy() {
-        // Clean up if needed
     }
 
     private fun updateStatus(status: String) {

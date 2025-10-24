@@ -1,7 +1,3 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '13.0'
-
-# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
@@ -36,12 +32,8 @@ target 'Runner' do
   end
 end
 
-# RccExtension target - Network Extension for Rcc
 target 'RccExtension' do
   use_frameworks!
-
-  # Librcc framework is located in ios/Frameworks/
-  # Built from /Users/rootcorporation/code/root-corp/core
 end
 
 post_install do |installer|

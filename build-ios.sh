@@ -10,24 +10,21 @@ echo "Building $APP_NAME v$VERSION for App Store"
 echo "=========================================="
 echo ""
 
-# Clean previous builds
 rm -rf .dart_tool ios/.gradle
 flutter gen-l10n
 flutter pub run flutter_launcher_icons
 
-# Build for App Store with manual signing
 echo ""
 echo "Building IPA with Xcode manual signing..."
 flutter build ipa --release \
     --obfuscate \
-    --split-debug-info=debug-info \
+    --split-debug-info=debug-info/ios \
     --suppress-analytics \
     --no-tree-shake-icons
 
 IPA_PATH="build/ios/ipa/${APP_NAME}.ipa"
 APP_PATH="build/ios/archive/Runner.xcarchive/Products/Applications/Runner.app"
 
-# Verify code signing
 if [ -d "$APP_PATH" ]; then
     echo ""
     echo "Verifying code signature..."
@@ -41,7 +38,6 @@ if [ -d "$APP_PATH" ]; then
         echo "$SIGNATURE_CHECK"
     fi
 
-    # Check for extensions
     EXTENSION_PATH="$APP_PATH/PlugIns"
     if [ -d "$EXTENSION_PATH" ]; then
         echo ""

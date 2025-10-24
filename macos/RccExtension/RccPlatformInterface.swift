@@ -1,9 +1,9 @@
 import Foundation
 import NetworkExtension
-import Librcc
+import Liboc
 import Network
 
-class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
+class RccPlatformInterface: NSObject, LibocPlatformInterfaceProtocol {
     private weak var provider: PacketTunnelProvider?
     private var networkSettings: NEPacketTunnelNetworkSettings?
     private var nwMonitor: NWPathMonitor?
@@ -13,7 +13,7 @@ class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
         self.provider = provider
     }
 
-    func openTun(_ options: LibrccTunOptionsProtocol?, ret0_: UnsafeMutablePointer<Int32>?) throws {
+    func openTun(_ options: LibocTunOptionsProtocol?, ret0_: UnsafeMutablePointer<Int32>?) throws {
         guard let options = options, let provider = provider else {
             throw NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid parameters"])
         }
@@ -127,7 +127,7 @@ class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
             return
         }
 
-        let tunFd = LibrccGetTunnelFileDescriptor()
+        let tunFd = LibocGetTunnelFileDescriptor()
         if tunFd != -1 {
             ret0_.pointee = tunFd
         } else {
@@ -135,7 +135,7 @@ class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
         }
     }
 
-    func localDNSTransport() -> LibrccLocalDNSTransportProtocol? {
+    func localDNSTransport() -> LibocLocalDNSTransportProtocol? {
         return nil
     }
 
@@ -167,7 +167,7 @@ class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
         provider?.writeLog(message)
     }
 
-    func startDefaultInterfaceMonitor(_ listener: LibrccInterfaceUpdateListenerProtocol?) throws {
+    func startDefaultInterfaceMonitor(_ listener: LibocInterfaceUpdateListenerProtocol?) throws {
         guard let listener = listener else { return }
 
         let monitor = NWPathMonitor()
@@ -187,7 +187,7 @@ class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
         semaphore.wait()
     }
 
-    private func onUpdateDefaultInterface(_ listener: LibrccInterfaceUpdateListenerProtocol, _ path: Network.NWPath) {
+    private func onUpdateDefaultInterface(_ listener: LibocInterfaceUpdateListenerProtocol, _ path: Network.NWPath) {
         if path.status == .unsatisfied {
             listener.updateDefaultInterface("", interfaceIndex: -1, isExpensive: false, isConstrained: false)
         } else if let defaultInterface = path.availableInterfaces.first {
@@ -200,12 +200,12 @@ class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
         }
     }
 
-    func closeDefaultInterfaceMonitor(_ listener: LibrccInterfaceUpdateListenerProtocol?) throws {
+    func closeDefaultInterfaceMonitor(_ listener: LibocInterfaceUpdateListenerProtocol?) throws {
         nwMonitor?.cancel()
         nwMonitor = nil
     }
 
-    func getInterfaces() throws -> LibrccNetworkInterfaceIteratorProtocol {
+    func getInterfaces() throws -> LibocNetworkInterfaceIteratorProtocol {
         guard let nwMonitor = nwMonitor else {
             throw NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "NWMonitor not started"])
         }
@@ -215,21 +215,21 @@ class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
             return NetworkInterfaceArray([])
         }
 
-        var interfaces: [LibrccNetworkInterface] = []
+        var interfaces: [LibocNetworkInterface] = []
         for interface in path.availableInterfaces {
-            let netInterface = LibrccNetworkInterface()
+            let netInterface = LibocNetworkInterface()
             netInterface.name = interface.name
             netInterface.index = Int32(interface.index)
 
             switch interface.type {
             case .wifi:
-                netInterface.type = LibrccInterfaceTypeWIFI
+                netInterface.type = LibocInterfaceTypeWIFI
             case .cellular:
-                netInterface.type = LibrccInterfaceTypeCellular
+                netInterface.type = LibocInterfaceTypeCellular
             case .wiredEthernet:
-                netInterface.type = LibrccInterfaceTypeEthernet
+                netInterface.type = LibocInterfaceTypeEthernet
             default:
-                netInterface.type = LibrccInterfaceTypeOther
+                netInterface.type = LibocInterfaceTypeOther
             }
 
             interfaces.append(netInterface)
@@ -246,27 +246,27 @@ class RccPlatformInterface: NSObject, LibrccPlatformInterfaceProtocol {
         return false
     }
 
-    func readWIFIState() -> LibrccWIFIState? {
+    func readWIFIState() -> LibocWIFIState? {
         return nil
     }
 
-    func systemCertificates() -> LibrccStringIteratorProtocol? {
+    func systemCertificates() -> LibocStringIteratorProtocol? {
         return nil
     }
 
     func clearDNSCache() {
     }
 
-    func send(_ notification: LibrccNotification?) throws {
+    func send(_ notification: LibocNotification?) throws {
     }
 }
 
 
-class NetworkInterfaceArray: NSObject, LibrccNetworkInterfaceIteratorProtocol {
-    private let interfaces: [LibrccNetworkInterface]
+class NetworkInterfaceArray: NSObject, LibocNetworkInterfaceIteratorProtocol {
+    private let interfaces: [LibocNetworkInterface]
     private var index = 0
 
-    init(_ interfaces: [LibrccNetworkInterface]) {
+    init(_ interfaces: [LibocNetworkInterface]) {
         self.interfaces = interfaces
     }
 
@@ -274,7 +274,7 @@ class NetworkInterfaceArray: NSObject, LibrccNetworkInterfaceIteratorProtocol {
         return index < interfaces.count
     }
 
-    func next() -> LibrccNetworkInterface? {
+    func next() -> LibocNetworkInterface? {
         defer { index += 1 }
         return interfaces[index]
     }

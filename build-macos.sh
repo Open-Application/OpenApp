@@ -10,12 +10,15 @@ rm -rf .dart_tool macos/.gradle
 flutter gen-l10n
 flutter pub run flutter_launcher_icons
 
-# Build 1: DMG for direct distribution
 echo ""
 echo "=========================================="
 echo "Building DMG for direct distribution..."
 echo "=========================================="
-flutter build macos --release --obfuscate --split-debug-info=debug-info --suppress-analytics --no-tree-shake-icons
+flutter build macos --release \
+    --obfuscate \
+    --split-debug-info=debug-info/macos \
+    --suppress-analytics \
+    --no-tree-shake-icons
 
 APP_PATH="build/macos/Build/Products/Release/OpenApp.app"
 DMG_PATH="build/macos/$APP_NAME-$VERSION.dmg"
@@ -38,7 +41,6 @@ rm -rf "${DMG_TEMP}"
 
 echo "✓ Release DMG created: $APP_NAME-$VERSION.dmg"
 
-# Build 2: PKG for App Store Connect
 echo ""
 echo "=========================================="
 echo "Building for App Store Connect..."
@@ -47,18 +49,20 @@ echo "Using manual signing with provisioning profiles configured in Xcode"
 echo ""
 
 flutter clean
-flutter build macos --release --suppress-analytics --no-tree-shake-icons
+flutter build macos --release \
+    --obfuscate \
+    --split-debug-info=debug-info/macos \
+    --suppress-analytics \
+    --no-tree-shake-icons
 
 APP_PATH="build/macos/Build/Products/Release/OpenApp.app"
 PKG_PATH="build/macos/$APP_NAME-$VERSION.pkg"
 
-# Verify app signing
 echo ""
 echo "Verifying code signature..."
 echo "Main app signature:"
 codesign -dvv "${APP_PATH}" 2>&1 | grep -E "Authority=|TeamIdentifier=|Identifier="
 
-# Verify extension
 EXTENSION_PATH="${APP_PATH}/Contents/PlugIns/RccExtension.appex"
 if [ -d "$EXTENSION_PATH" ]; then
     echo ""
@@ -66,7 +70,6 @@ if [ -d "$EXTENSION_PATH" ]; then
     codesign -dvv "${EXTENSION_PATH}" 2>&1 | grep -E "Authority=|Identifier="
 fi
 
-# Deep verification of the app and extension
 echo ""
 echo "Performing deep signature verification..."
 SIGNATURE_CHECK=$(codesign --verify --deep --strict --verbose=2 "${APP_PATH}" 2>&1)
@@ -81,7 +84,6 @@ else
     exit 1
 fi
 
-# Check for Mac Installer Distribution certificate for PKG signing
 echo ""
 echo "Checking for installer certificate..."
 INSTALLER_CERT=$(security find-identity -v -p basic | grep "3rd Party Mac Developer Installer" | head -1 | awk -F'"' '{print $2}')
@@ -119,7 +121,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Verify PKG signature
 echo ""
 echo "Verifying PKG signature..."
 PKG_SIG_CHECK=$(pkgutil --check-signature "${PKG_PATH}")
@@ -135,7 +136,6 @@ fi
 echo ""
 echo "✓ App Store package created: $APP_NAME-$VERSION.pkg"
 
-# Summary
 echo ""
 echo "=========================================="
 echo "Build Complete!"

@@ -21,7 +21,8 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		9EB6AB9193E1F4A795329434 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B48E4D4CA0D552E6E08FB6 /* Pods_Runner.framework */; };
 		D2D87DD4BBFE5EF1789078AC /* Pods_RccExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A74EB7B3535031003322E7C /* Pods_RccExtension.framework */; };
-		D67B923EC85C46C8ABF530CF /* Librcc.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66556D6E5F3D286293995BD9 /* Librcc.xcframework */; };
+		D67B923EC85C46C8ABF530CF /* Liboc.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66556D6E5F3D286293995BD9 /* Liboc.xcframework */; };
+		AA11BB22CC33DD44EE55FF66 /* Liboc.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 66556D6E5F3D286293995BD9 /* Liboc.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF1477E00FB94042730BC830 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A3A8CD0731C04D6A088340 /* FileLogger.swift */; };
 		F2E4CC73438A2A81A351EEFB /* RccExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E0B549865BBDD99155F6A473 /* RccExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F52B9709089205D26D49D943 /* RccPlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA3DC3EAED5165D8159A83 /* RccPlatformInterface.swift */; };
@@ -67,6 +68,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BB22CC33DD44EE55FF66AA11 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AA11BB22CC33DD44EE55FF66 /* Liboc.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -82,7 +94,7 @@
 		48B48E4D4CA0D552E6E08FB6 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E1F5386DBBA0FDE1ABC8B10 /* Pods-RccExtension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.profile.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.profile.xcconfig"; sourceTree = "<group>"; };
 		55A3A8CD0731C04D6A088340 /* FileLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogger.swift; sourceTree = "<group>"; };
-		66556D6E5F3D286293995BD9 /* Librcc.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = Librcc.xcframework; path = Frameworks/Librcc.xcframework; sourceTree = "<group>"; };
+		66556D6E5F3D286293995BD9 /* Liboc.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = Liboc.xcframework; path = Frameworks/Liboc.xcframework; sourceTree = "<group>"; };
 		6BDA3DC3EAED5165D8159A83 /* RccPlatformInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RccPlatformInterface.swift; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,7 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3658B3E8AFF123D76E870905 /* Foundation.framework in Frameworks */,
-				D67B923EC85C46C8ABF530CF /* Librcc.xcframework in Frameworks */,
+				D67B923EC85C46C8ABF530CF /* Liboc.xcframework in Frameworks */,
 				40B429B937F4CC967FCE4169 /* NetworkExtension.framework in Frameworks */,
 				D2D87DD4BBFE5EF1789078AC /* Pods_RccExtension.framework in Frameworks */,
 				57935955AFDD1135020822D2 /* libresolv.tbd in Frameworks */,
@@ -245,7 +257,7 @@
 				48B48E4D4CA0D552E6E08FB6 /* Pods_Runner.framework */,
 				D91AEDF43AD0CE045811ADAB /* Pods_RunnerTests.framework */,
 				8815B5538439A7543055FBDA /* iOS */,
-				66556D6E5F3D286293995BD9 /* Librcc.xcframework */,
+				66556D6E5F3D286293995BD9 /* Liboc.xcframework */,
 				7A74EB7B3535031003322E7C /* Pods_RccExtension.framework */,
 				F70775829D8657FE56C7C66C /* libresolv.tbd */,
 			);
@@ -306,6 +318,7 @@
 				15FA070739BA75E47E3A1624 /* Sources */,
 				FE85608DAA8E1E017C0366CF /* Frameworks */,
 				E9712DA6B4FC2EEC9D28E3F7 /* Resources */,
+				BB22CC33DD44EE55FF66AA11 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

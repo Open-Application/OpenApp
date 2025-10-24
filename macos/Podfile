@@ -1,6 +1,5 @@
 platform :osx, '11.0'
 
-# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
@@ -35,12 +34,8 @@ target 'Runner' do
   end
 end
 
-# RccExtension target - Network Extension for Rcc
 target 'RccExtension' do
   use_frameworks!
-
-  # Librcc framework is located in macos/Frameworks/
-  # Built from /Users/rootcorporation/code/root-corp/core
 end
 
 post_install do |installer|
@@ -48,18 +43,15 @@ post_install do |installer|
     flutter_additional_macos_build_settings(target)
   end
 
-  # Force static linking of Librcc framework for RccExtension
   installer.pods_project.targets.each do |target|
     if target.name == 'Pods-RccExtension'
       target.build_configurations.each do |config|
-        # Add framework search path
         config.build_settings['FRAMEWORK_SEARCH_PATHS'] ||= ['$(inherited)']
         config.build_settings['FRAMEWORK_SEARCH_PATHS'] << '$(PROJECT_DIR)/../Frameworks'
 
-        # Force static linking by adding -framework flag
         config.build_settings['OTHER_LDFLAGS'] ||= ['$(inherited)']
-        config.build_settings['OTHER_LDFLAGS'] << '-framework Librcc'
-        config.build_settings['OTHER_LDFLAGS'] << '-F$(PROJECT_DIR)/../Frameworks/Librcc.xcframework/macos-arm64_x86_64'
+        config.build_settings['OTHER_LDFLAGS'] << '-framework Liboc'
+        config.build_settings['OTHER_LDFLAGS'] << '-F$(PROJECT_DIR)/../Frameworks/Liboc.xcframework/macos-arm64_x86_64'
       end
     end
   end

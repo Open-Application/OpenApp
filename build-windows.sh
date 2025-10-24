@@ -38,7 +38,11 @@ if [ "$DEBUG_MODE" = false ]; then
     rm -rf .dart_tool windows/.gradle
     flutter gen-l10n
     flutter pub run flutter_launcher_icons
-    flutter build windows --release --obfuscate --split-debug-info=debug-info --suppress-analytics --no-tree-shake-icons
+    flutter build windows --release \
+        --obfuscate \
+        --split-debug-info=debug-info/windows \
+        --suppress-analytics \
+        --no-tree-shake-icons
 fi
 
 if [ "$TEST_MODE" = true ]; then
@@ -56,11 +60,9 @@ if [ "$RELEASE_MODE" = true ]; then
     echo "Version: ${VERSION}"
     echo ""
 
-    # Check if running on Windows (via Git Bash, WSL, or Cygwin)
     if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
         echo "Step 1: Creating MSIX package..."
 
-        # Build MSIX package
         flutter pub run msix:create --version "$VERSION" --build-windows false
 
         if [ -f "build/windows/runner/Release/openapp.msix" ]; then
@@ -128,7 +130,6 @@ if [ "$RELEASE_MODE" = true ]; then
         fi
     fi
 else
-    # Development build
     echo ""
     echo "Build complete!"
     echo ""
@@ -137,7 +138,6 @@ else
         echo "Windows build: build/windows/runner/Release/"
         echo ""
 
-        # Check if running on Windows
         if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
             echo "To run the app:"
             echo "  ./build/windows/runner/Release/openapp.exe"

@@ -7,7 +7,7 @@
 #include <mutex>
 #include <fstream>
 
-#include "librcc.h"
+#include "liboc.h"
 
 class VPNService {
  public:

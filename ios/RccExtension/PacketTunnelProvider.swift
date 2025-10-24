@@ -1,12 +1,12 @@
 import NetworkExtension
-import Librcc
+import Liboc
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
-    private var boxService: LibrccBoxService?
+    private var boxService: LibocBoxService?
     private var platformInterface: RccPlatformInterface?
 
     override func startTunnel(options: [String : NSObject]?) async throws {
-        let setupOptions = LibrccSetupOptions()
+        let setupOptions = LibocSetupOptions()
 
         guard let containerPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.rootcorporation.openapp") else {
             throw NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to get App Group container"])
@@ -19,7 +19,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         setupOptions.isTVOS = false
 
         var error: NSError?
-        LibrccSetup(setupOptions, &error)
+        LibocSetup(setupOptions, &error)
 
         if let error = error {
             writeLog("Setup error: \(error.localizedDescription)")
@@ -27,12 +27,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
 
         let stderrPath = containerPath.appendingPathComponent("stderr.log").path
-        LibrccRedirectStderr(stderrPath, &error)
+        LibocRedirectStderr(stderrPath, &error)
         if let error = error {
             writeLog("Failed to redirect stderr: \(error.localizedDescription)")
         }
 
-        LibrccSetMemoryLimit(true)
+        LibocSetMemoryLimit(true)
 
         if platformInterface == nil {
             platformInterface = RccPlatformInterface(provider: self)
@@ -60,7 +60,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
             do {
                 var error: NSError?
-                guard let service = LibrccNewService(configContent, platformInterface, &error) else {
+                guard let service = LibocNewService(configContent, platformInterface, &error) else {
                     throw error ?? NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create service"])
                 }
 

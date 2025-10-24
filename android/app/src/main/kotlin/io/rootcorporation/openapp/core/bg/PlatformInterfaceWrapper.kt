@@ -8,20 +8,20 @@ import android.os.Process
 import android.system.OsConstants
 import android.util.Log
 import androidx.annotation.RequiresApi
-import io.rootcorporation.librcc.InterfaceUpdateListener
-import io.rootcorporation.librcc.Librcc
-import io.rootcorporation.librcc.LocalDNSTransport
-import io.rootcorporation.librcc.NetworkInterfaceIterator
-import io.rootcorporation.librcc.PlatformInterface
-import io.rootcorporation.librcc.StringIterator
-import io.rootcorporation.librcc.TunOptions
-import io.rootcorporation.librcc.WIFIState
+import io.rootcorporation.liboc.InterfaceUpdateListener
+import io.rootcorporation.liboc.Liboc
+import io.rootcorporation.liboc.LocalDNSTransport
+import io.rootcorporation.liboc.NetworkInterfaceIterator
+import io.rootcorporation.liboc.PlatformInterface
+import io.rootcorporation.liboc.StringIterator
+import io.rootcorporation.liboc.TunOptions
+import io.rootcorporation.liboc.WIFIState
 import io.rootcorporation.openapp.Application
 import java.net.Inet6Address
 import java.net.InetSocketAddress
 import java.net.InterfaceAddress
 import java.net.NetworkInterface
-import io.rootcorporation.librcc.NetworkInterface as LibrccNetworkInterface
+import io.rootcorporation.liboc.NetworkInterface as LibocNetworkInterface
 
 interface PlatformInterfaceWrapper : PlatformInterface {
 
@@ -98,9 +98,9 @@ interface PlatformInterfaceWrapper : PlatformInterface {
     override fun getInterfaces(): NetworkInterfaceIterator {
         val networks = Application.connectivity.allNetworks
         val networkInterfaces = NetworkInterface.getNetworkInterfaces().toList()
-        val interfaces = mutableListOf<LibrccNetworkInterface>()
+        val interfaces = mutableListOf<LibocNetworkInterface>()
         for (network in networks) {
-            val boxInterface = LibrccNetworkInterface()
+            val boxInterface = LibocNetworkInterface()
             val linkProperties = Application.connectivity.getLinkProperties(network) ?: continue
             val networkCapabilities =
                 Application.connectivity.getNetworkCapabilities(network) ?: continue
@@ -110,10 +110,10 @@ interface PlatformInterfaceWrapper : PlatformInterface {
             boxInterface.dnsServer =
                 StringArray(linkProperties.dnsServers.mapNotNull { it.hostAddress }.iterator())
             boxInterface.type = when {
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> Librcc.InterfaceTypeWIFI
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> Librcc.InterfaceTypeCellular
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> Librcc.InterfaceTypeEthernet
-                else -> Librcc.InterfaceTypeOther
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> Liboc.InterfaceTypeWIFI
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> Liboc.InterfaceTypeCellular
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> Liboc.InterfaceTypeEthernet
+                else -> Liboc.InterfaceTypeOther
             }
             boxInterface.index = networkInterface.index
             runCatching {
@@ -166,18 +166,17 @@ interface PlatformInterfaceWrapper : PlatformInterface {
     }
 
     override fun systemCertificates(): StringIterator {
-        // Return empty iterator - not used in VPN workflow
         return StringArray(emptyList<String>().iterator())
     }
 
-    private class InterfaceArray(private val iterator: Iterator<LibrccNetworkInterface>) :
+    private class InterfaceArray(private val iterator: Iterator<LibocNetworkInterface>) :
         NetworkInterfaceIterator {
 
         override fun hasNext(): Boolean {
             return iterator.hasNext()
         }
 
-        override fun next(): LibrccNetworkInterface {
+        override fun next(): LibocNetworkInterface {
             return iterator.next()
         }
 

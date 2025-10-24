@@ -14,7 +14,7 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import io.rootcorporation.openapp.MainActivity
 import io.rootcorporation.openapp.R
-import io.rootcorporation.librcc.TunOptions
+import io.rootcorporation.liboc.TunOptions
 import android.net.IpPrefix
 import java.net.InetAddress
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -171,11 +171,6 @@ class VPNService : VpnService(), PlatformInterfaceWrapper {
                     }
                 }
             }
-
-            // Per-app VPN routing removed for cross-platform consistency
-            // iOS/macOS don't support this feature, so we don't use it on Android either
-            // val includePackage = options.includePackage
-            // val excludePackage = options.excludePackage
         }
 
         if (options.isHTTPProxyEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -204,6 +199,6 @@ class VPNService : VpnService(), PlatformInterfaceWrapper {
     }
 
     override fun writeLog(message: String) = service.writeLog(message)
-    override fun sendNotification(notification: io.rootcorporation.librcc.Notification) {}
+    override fun sendNotification(notification: io.rootcorporation.liboc.Notification) {}
 
 }

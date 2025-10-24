@@ -44,3 +44,10 @@ jobs:
     with:
       version: ${{ needs.check-for-version.outputs.version }}
     secrets: inherit
+
+  # build-apple:
+  #   needs: check-for-version
+  #   uses: ./.github/workflows/build-apple.yml
+  #   with:
+  #     version: ${{ needs.check-for-version.outputs.version }}
+  #   secrets: inherit

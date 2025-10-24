@@ -1,0 +1,184 @@
+name: build-apple
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: 'Version to build (e.g., v0.0.1)'
+
+jobs:
+  build-and-upload:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        include:
+          - platform: ios
+            build_target: ipa
+            artifact_path: build/ios/archive/Runner.xcarchive
+            app_path: build/ios/archive/Runner.xcarchive/Products/Applications/Runner.app
+            framework_dir: ios/Frameworks
+          - platform: macos
+            build_target: macos
+            artifact_path: build/macos/Build/Products/Release/OpenApp.app
+            app_path: build/macos/Build/Products/Release/OpenApp.app
+            framework_dir: macos/Frameworks
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Download OpenCore release
+        run: |
+          set -xeuo pipefail
+
+          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+          echo "Latest OpenCore release: ${LATEST_RELEASE}"
+
+          DOWNLOAD_URL="https://github.com/Open-Application/OpenCore/releases/download/${LATEST_RELEASE}/liboc-${{ matrix.platform }}-universal-${LATEST_RELEASE}.tar.gz"
+          echo "Downloading from: ${DOWNLOAD_URL}"
+
+          curl -L -o liboc.tar.gz "${DOWNLOAD_URL}"
+          mkdir -p ${{ matrix.framework_dir }}
+          tar -xzf liboc.tar.gz -C ${{ matrix.framework_dir }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Set build environment
+        run: |
+          set -xeuo pipefail
+          echo "BUILD_VERSION=${{ inputs.version }}" >> "${GITHUB_ENV}"
+
+      - name: Install Flutter dependencies
+        run: |
+          flutter pub get
+
+      - name: Check Flutter version
+        run: |
+          flutter --version
+
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ${{ matrix.platform }}
+          pod install
+
+      - name: Setup certificates and provisioning profiles
+        run: |
+          CERTIFICATE_PATH=$RUNNER_TEMP/Certificates.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          echo "Creating keychain..."
+          security create-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" $KEYCHAIN_PATH
+
+          echo "Importing certificates..."
+          echo -n "${{ secrets.CERTIFICATES_P12 }}" | base64 --decode -o $CERTIFICATE_PATH
+          security import $CERTIFICATE_PATH -P "${{ secrets.P12_PASSWORD }}" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+
+          security set-key-partition-list -S apple-tool:,apple: -k "${{ secrets.KEYCHAIN_PASSWORD }}" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          echo "Installing provisioning profiles..."
+          PROFILES_ZIP_PATH=$RUNNER_TEMP/Profiles.zip
+          echo -n "${{ secrets.PROVISIONING_PROFILES }}" | base64 --decode -o $PROFILES_ZIP_PATH
+
+          PROFILES_PATH="$HOME/Library/MobileDevice/Provisioning Profiles"
+          mkdir -p "$PROFILES_PATH"
+          unzip $PROFILES_ZIP_PATH -d "$PROFILES_PATH"
+
+          echo "Setting up App Store Connect API key..."
+          ASC_KEY_PATH=$RUNNER_TEMP/AuthKey.p8
+          echo -n "${{ secrets.ASC_API_KEY }}" | base64 --decode -o $ASC_KEY_PATH
+
+          echo "ASC_KEY_PATH=$ASC_KEY_PATH" >> "$GITHUB_ENV"
+          echo "ASC_KEY_ID=${{ secrets.ASC_KEY_ID }}" >> "$GITHUB_ENV"
+          echo "ASC_ISSUER_ID=${{ secrets.ASC_ISSUER_ID }}" >> "$GITHUB_ENV"
+
+      - name: Build ${{ matrix.platform }} app
+        run: |
+          set -xeuo pipefail
+
+          BUILD_FLAGS="--release \
+            --obfuscate \
+            --split-debug-info=debug-info/${{ matrix.platform }} \
+            --suppress-analytics \
+            --no-tree-shake-icons"
+
+          if [ "${{ matrix.platform }}" == "ios" ]; then
+            flutter build ipa $BUILD_FLAGS
+          else
+            flutter build macos $BUILD_FLAGS
+          fi
+
+          ls -lh ${{ matrix.artifact_path }}
+
+      - name: Upload debug symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-symbols-${{ matrix.platform }}
+          path: debug-info/${{ matrix.platform }}
+          retention-days: 90
+
+      - name: Verify code signature
+        run: |
+          echo "Verifying code signature..."
+          codesign -dvv "${{ matrix.app_path }}" 2>&1 | grep -E "Authority=|TeamIdentifier=|Identifier="
+
+          echo "Deep verification..."
+          codesign --verify --deep --strict --verbose=2 "${{ matrix.app_path }}"
+
+      - name: Create archive for iOS
+        if: matrix.platform == 'ios'
+        run: |
+          echo "iOS archive already created by flutter build ipa"
+          ls -lh build/ios/archive/
+
+      - name: Create PKG for macOS
+        if: matrix.platform == 'macos'
+        run: |
+          set -xeuo pipefail
+
+          APP_PATH="${{ matrix.app_path }}"
+          PKG_PATH="build/macos/OpenApp-${{ inputs.version }}.pkg"
+
+          echo "Creating installer package..."
+          productbuild --component "$APP_PATH" /Applications \
+            --sign "3rd Party Mac Developer Installer: ${{ secrets.APPLE_DEVELOPER_NAME }}" \
+            "$PKG_PATH"
+
+          echo "Verifying PKG signature..."
+          pkgutil --check-signature "$PKG_PATH"
+
+          echo "PKG_PATH=$PKG_PATH" >> "$GITHUB_ENV"
+
+      - name: Upload to App Store Connect
+        run: |
+          set -xeuo pipefail
+
+          if [ "${{ matrix.platform }}" == "ios" ]; then
+            UPLOAD_FILE="build/ios/ipa/OpenApp.ipa"
+            PLATFORM_TYPE="ios"
+          else
+            UPLOAD_FILE="$PKG_PATH"
+            PLATFORM_TYPE="macos"
+          fi
+
+          echo "Uploading $UPLOAD_FILE to App Store Connect..."
+          xcrun altool --upload-app \
+            --type $PLATFORM_TYPE \
+            --file "$UPLOAD_FILE" \
+            --apiKey "$ASC_KEY_ID" \
+            --apiIssuer "$ASC_ISSUER_ID"
+
+          echo "Upload completed successfully!"

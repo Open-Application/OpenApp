@@ -51,6 +51,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
-    implementation(files("libs/librcc.aar"))
+    implementation(files("libs/liboc.aar"))
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }
