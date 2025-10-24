@@ -75,6 +75,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         boxService = service
         writeLog("Service started successfully")
 
+        if service.needWIFIState() {
+            writeLog("WiFi state requested but not available (location permission not granted)")
+        }
+
         UserDefaults(suiteName: "group.io.rootcorporation.openapp")?.set("STARTED", forKey: "io.rootcorporation.openapp.status")
     }
 

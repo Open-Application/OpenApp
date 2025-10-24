@@ -44,6 +44,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Clean build artifacts
+        shell: bash
+        run: |
+          rm -rf build windows/.Dart_tool .dart_tool
+          echo "Cleaned build artifacts for fresh ${{ matrix.arch }} build"
+
       - name: Download Deps lib
         shell: bash
         run: |
@@ -108,6 +114,14 @@ jobs:
         shell: bash
         run: |
           flutter config --enable-windows-desktop
+
+      - name: Verify system architecture
+        shell: pwsh
+        run: |
+          Write-Host "System information:"
+          Write-Host "Processor architecture: $env:PROCESSOR_ARCHITECTURE"
+          Write-Host "Processor identifier: $env:PROCESSOR_IDENTIFIER"
+          systeminfo | Select-String "System Type"
 
       - name: Setup Visual Studio Developer Command Prompt
         uses: ilammy/msvc-dev-cmd@v1
@@ -179,13 +193,27 @@ jobs:
           set -xeuo pipefail
 
           echo "Building ${{ inputs.name }} ${{ inputs.version }} (Release Mode)"
+
           flutter build windows --release \
             --obfuscate \
             --split-debug-info=debug-info/windows-${{ matrix.arch }} \
             --suppress-analytics \
             --no-tree-shake-icons
+
+          echo "Verifying build output:"
           ls -lh build/windows
           ls -lh build/windows/*/runner/Release/
+
+          # Verify the built architecture matches expected
+          if [ -d "build/windows/arm64" ] && [ "${{ matrix.arch }}" = "arm64" ]; then
+            echo "✓ ARM64 build verified"
+          elif [ -d "build/windows/x64" ] && [ "${{ matrix.arch }}" = "amd64" ]; then
+            echo "✓ x64 build verified"
+          else
+            echo "⚠ Warning: Build architecture may not match expected ${{ matrix.arch }}"
+            echo "Available build directories:"
+            ls -la build/windows/ || true
+          fi
 
       - name: Upload debug symbols
         uses: actions/upload-artifact@v4

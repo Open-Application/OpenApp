@@ -131,18 +131,9 @@ class BoxService(
                 return
             }
 
+
             if (newService.needWIFIState()) {
-                val wifiPermission = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                } else {
-                    android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                }
-                if (service.checkSelfPermission(wifiPermission) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                    newService.close()
-                    FileLogger.error("Location permission required for WiFi state")
-                    startedByUser = false
-                    return
-                }
+                FileLogger.info("WiFi state requested but not available (location permission not granted)")
             }
 
             boxService = newService

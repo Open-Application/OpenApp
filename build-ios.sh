@@ -7,8 +7,10 @@ VERSION=$(grep "^version:" pubspec.yaml | sed 's/version: //')
 
 echo "Building $APP_NAME v$VERSION (Release Mode)"
 rm -rf .dart_tool build/ios ios/.Pods
+flutter clean
 flutter gen-l10n
 flutter pub run flutter_launcher_icons
+
 flutter build ipa --release \
     --obfuscate \
     --split-debug-info=debug-info/ios \

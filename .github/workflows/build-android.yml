@@ -74,7 +74,19 @@ jobs:
         run: |
           flutter --version
 
-      - name: Build Android APK
+      - name: Setup Android signing
+        run: |
+          echo "${{ secrets.PKCS12_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+
+          # Create key.properties file
+          cat > android/key.properties << EOF
+          storePassword=${{ secrets.PKCS12_PASSWORD }}
+          keyPassword=${{ secrets.PKCS12_PASSWORD }}
+          keyAlias=${{ secrets.PKCS12_NAME }}
+          storeFile=upload-keystore.jks
+          EOF
+
+      - name: Build Android APK and App Bundle
         run: |
           set -xeuo pipefail
 
@@ -82,6 +94,8 @@ jobs:
           rm -rf .dart_tool android/.gradle
           flutter gen-l10n
           flutter pub run flutter_launcher_icons
+
+          echo "Building APK..."
           flutter build apk --release \
               --obfuscate \
               --split-debug-info=debug-info/android \
@@ -91,6 +105,17 @@ jobs:
           echo "Renaming APK for release..."
           mv build/app/outputs/flutter-apk/app-release.apk "${{ inputs.name }}-android-universal-${{ inputs.version }}.apk"
           echo "Release APK created: ${{ inputs.name }}-android-universal-${{ inputs.version }}.apk"
+
+          echo "Building App Bundle..."
+          flutter build appbundle --release \
+              --obfuscate \
+              --split-debug-info=debug-info/android \
+              --suppress-analytics \
+              --no-tree-shake-icons
+
+          echo "Renaming AAB for release..."
+          mv build/app/outputs/bundle/release/app-release.aab "${{ inputs.name }}-android-${{ inputs.version }}.aab"
+          echo "Release AAB created: ${{ inputs.name }}-android-${{ inputs.version }}.aab"
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
@@ -102,17 +127,17 @@ jobs:
           overwrite_files: true
           files: |
             ${{ inputs.name }}-android-universal-${{ inputs.version }}.apk
+            ${{ inputs.name }}-android-${{ inputs.version }}.aab
           body: |
             ## Android Application for ${{ inputs.version }}
 
             ### Build Configuration
             - **Platform**: Android
+            - **Formats**: APK (universal) + App Bundle (AAB)
             - **Architecture**: Universal (arm64-v8a, armeabi-v7a, x86_64)
             - **Build Type**: Release (Obfuscated)
             - **Min SDK**: 21
+            - **Target SDK**: 35
             - **Code Obfuscation**: Enabled
             - **Debug Symbols**: Available as workflow artifact
-
-            ### Installation
-            Download and install the APK on your Android device
 
