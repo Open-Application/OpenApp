@@ -22,11 +22,11 @@ on:
       name:
         required: true
         type: string
-        description: 'App name
+        description: 'App name'
       version:
         required: true
         type: string
-        description: 'Version to build
+        description: 'Version to build'
 
 jobs:
   build-android-app:
