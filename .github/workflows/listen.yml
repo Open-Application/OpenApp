@@ -19,22 +19,27 @@ jobs:
   check-for-version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get-version.outputs.version }}
+      name: ${{ steps.get-info.outputs.name }}
+      version: ${{ steps.get-info.outputs.version }}
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v5
 
-      - name: Get version from pubspec.yaml
-        id: get-version
+      - name: Get name and version from pubspec.yaml
+        id: get-info
         run: |
+          NAME=$(grep '^name:' pubspec.yaml | sed 's/name: *//' | tr -d ' ')
           VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: *//' | tr -d ' ')
+          echo "name=${NAME}" >> $GITHUB_OUTPUT
           echo "version=v${VERSION}" >> $GITHUB_OUTPUT
+          echo "Detected name: ${NAME}"
           echo "Detected version: v${VERSION}"
 
   build-windows:
     needs: check-for-version
     uses: ./.github/workflows/build-windows.yml
     with:
+      name: ${{ needs.check-for-version.outputs.name }}
       version: ${{ needs.check-for-version.outputs.version }}
     secrets: inherit
 
@@ -42,6 +47,7 @@ jobs:
     needs: check-for-version
     uses: ./.github/workflows/build-android.yml
     with:
+      name: ${{ needs.check-for-version.outputs.name }}
       version: ${{ needs.check-for-version.outputs.version }}
     secrets: inherit
 
@@ -49,5 +55,6 @@ jobs:
   #   needs: check-for-version
   #   uses: ./.github/workflows/build-apple.yml
   #   with:
+  #     name: ${{ needs.check-for-version.outputs.name }}
   #     version: ${{ needs.check-for-version.outputs.version }}
   #   secrets: inherit

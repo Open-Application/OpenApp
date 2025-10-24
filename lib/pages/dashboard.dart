@@ -775,7 +775,12 @@ class _DashboardState extends State<Dashboard>
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () async {
-                        final config = _configController.text.trim();
+                        // Remove trailing spaces and newlines from each line
+                        final config = _configController.text
+                            .split('\n')
+                            .map((line) => line.trimRight())
+                            .join('\n')
+                            .trim();
                         if (config.isEmpty) {
                           HapticUtils.error();
                           RccMessenger.showError(
@@ -788,6 +793,9 @@ class _DashboardState extends State<Dashboard>
                         HapticUtils.success();
                         await provider.setUserConfig(config);
                         if (context.mounted) {
+                          setState(() {
+                            _expandedSection = null;
+                          });
                           RccMessenger.showSuccess(
                             context: context,
                             message: AppLocalizations.of(context)!.configSaved,

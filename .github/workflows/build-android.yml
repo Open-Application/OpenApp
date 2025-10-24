@@ -9,16 +9,24 @@ permissions:
 on:
   workflow_call:
     inputs:
+      name:
+        required: true
+        type: string
+        description: 'App name'
       version:
         required: true
         type: string
         description: 'Version to build'
   workflow_dispatch:
     inputs:
+      name:
+        required: true
+        type: string
+        description: 'App name
       version:
         required: true
         type: string
-        description: 'Version to build (e.g., v0.0.1)'
+        description: 'Version to build
 
 jobs:
   build-android-app:
@@ -69,17 +77,19 @@ jobs:
         run: |
           set -xeuo pipefail
 
+          echo "Building ${{ inputs.name }} ${{ inputs.version }} (Release Mode)"
+          rm -rf .dart_tool android/.gradle
+          flutter gen-l10n
+          flutter pub run flutter_launcher_icons
           flutter build apk --release \
-            --obfuscate \
-            --split-debug-info=debug-info/android \
-            --suppress-analytics \
-            --no-tree-shake-icons
+              --obfuscate \
+              --split-debug-info=debug-info/android \
+              --suppress-analytics \
+              --no-tree-shake-icons
 
-          ls -lh build/app/outputs/flutter-apk/
-
-      - name: Rename APK
-        run: |
-          mv build/app/outputs/flutter-apk/app-release.apk OpenApp-android-universal-${{ inputs.version }}.apk
+          echo "Renaming APK for release..."
+          mv build/app/outputs/flutter-apk/app-release.apk "${{ inputs.name }}-android-universal-${{ inputs.version }}.apk"
+          echo "Release APK created: ${{ inputs.name }}-android-universal-${{ inputs.version }}.apk"
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
@@ -90,7 +100,7 @@ jobs:
           prerelease: false
           overwrite_files: true
           files: |
-            OpenApp-android-universal-${{ inputs.version }}.apk
+            ${{ inputs.name }}-android-universal-${{ inputs.version }}.apk
           body: |
             ## Android Application for ${{ inputs.version }}
 

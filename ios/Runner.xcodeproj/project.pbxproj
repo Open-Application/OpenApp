@@ -22,11 +22,11 @@
 		9EB6AB9193E1F4A795329434 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B48E4D4CA0D552E6E08FB6 /* Pods_Runner.framework */; };
 		D2D87DD4BBFE5EF1789078AC /* Pods_RccExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A74EB7B3535031003322E7C /* Pods_RccExtension.framework */; };
 		D67B923EC85C46C8ABF530CF /* Liboc.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66556D6E5F3D286293995BD9 /* Liboc.xcframework */; };
-		AA11BB22CC33DD44EE55FF66 /* Liboc.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 66556D6E5F3D286293995BD9 /* Liboc.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF1477E00FB94042730BC830 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A3A8CD0731C04D6A088340 /* FileLogger.swift */; };
 		F2E4CC73438A2A81A351EEFB /* RccExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E0B549865BBDD99155F6A473 /* RccExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F52B9709089205D26D49D943 /* RccPlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA3DC3EAED5165D8159A83 /* RccPlatformInterface.swift */; };
 		F92F95C8B7ECC6CC527460FB /* FlutterBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1D376A75B5B61873F1604 /* FlutterBridge.swift */; };
+		LIBOC1234567890ABCDEF1234 /* Liboc.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 66556D6E5F3D286293995BD9 /* Liboc.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +64,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				LIBOC1234567890ABCDEF1234 /* Liboc.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,7 +75,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AA11BB22CC33DD44EE55FF66 /* Liboc.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -586,7 +586,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Q32QHMXBB2;
@@ -601,6 +602,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
 				PRODUCT_NAME = RccExtension;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp Core iOS";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -670,13 +672,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q32QHMXBB2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -698,7 +698,7 @@
 			baseConfigurationReference = 9F6AA1E850914CAD5ED4926B /* Pods-RunnerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -716,7 +716,7 @@
 			baseConfigurationReference = E0C2831E4E053BCA6179642B /* Pods-RunnerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -732,7 +732,7 @@
 			baseConfigurationReference = 9938D659C033E71A008D1586 /* Pods-RunnerTests.profile.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -750,7 +750,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Q32QHMXBB2;
@@ -765,7 +765,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
 				PRODUCT_NAME = RccExtension;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = openappcore;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp iOS";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -894,13 +894,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q32QHMXBB2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -910,7 +908,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp iOS";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -925,7 +922,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
@@ -955,12 +952,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Q32QHMXBB2;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q32QHMXBB2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RccExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -971,7 +966,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
 				PRODUCT_NAME = RccExtension;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = openappcore;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

@@ -3,7 +3,7 @@ import NetworkExtension
 import Liboc
 import Network
 
-class RccPlatformInterface: NSObject, LibocPlatformInterface {
+class RccPlatformInterface: NSObject, LibocPlatformInterfaceProtocol {
     private weak var provider: PacketTunnelProvider?
     private var networkSettings: NEPacketTunnelNetworkSettings?
     private var nwMonitor: NWPathMonitor?
@@ -13,7 +13,7 @@ class RccPlatformInterface: NSObject, LibocPlatformInterface {
         self.provider = provider
     }
 
-    func openTun(_ options: LibocTunOptions?, ret0_: UnsafeMutablePointer<Int32>?) throws {
+    func openTun(_ options: LibocTunOptionsProtocol?, ret0_: UnsafeMutablePointer<Int32>?) throws {
         guard let options = options, let provider = provider else {
             throw NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid parameters"])
         }
@@ -135,7 +135,7 @@ class RccPlatformInterface: NSObject, LibocPlatformInterface {
         }
     }
 
-    func localDNSTransport() -> LibocLocalDNSTransport? {
+    func localDNSTransport() -> LibocLocalDNSTransportProtocol? {
         return nil
     }
 
@@ -167,7 +167,7 @@ class RccPlatformInterface: NSObject, LibocPlatformInterface {
         provider?.writeLog(message)
     }
 
-    func startDefaultInterfaceMonitor(_ listener: LibocInterfaceUpdateListener?) throws {
+    func startDefaultInterfaceMonitor(_ listener: LibocInterfaceUpdateListenerProtocol?) throws {
         guard let listener = listener else { return }
 
         let monitor = NWPathMonitor()
@@ -187,7 +187,7 @@ class RccPlatformInterface: NSObject, LibocPlatformInterface {
         semaphore.wait()
     }
 
-    private func onUpdateDefaultInterface(_ listener: LibocInterfaceUpdateListener, _ path: Network.NWPath) {
+    private func onUpdateDefaultInterface(_ listener: LibocInterfaceUpdateListenerProtocol, _ path: Network.NWPath) {
         if path.status == .unsatisfied {
             listener.updateDefaultInterface("", interfaceIndex: -1, isExpensive: false, isConstrained: false)
         } else if let defaultInterface = path.availableInterfaces.first {
@@ -200,12 +200,12 @@ class RccPlatformInterface: NSObject, LibocPlatformInterface {
         }
     }
 
-    func closeDefaultInterfaceMonitor(_ listener: LibocInterfaceUpdateListener?) throws {
+    func closeDefaultInterfaceMonitor(_ listener: LibocInterfaceUpdateListenerProtocol?) throws {
         nwMonitor?.cancel()
         nwMonitor = nil
     }
 
-    func getInterfaces() throws -> LibocNetworkInterfaceIterator {
+    func getInterfaces() throws -> LibocNetworkInterfaceIteratorProtocol {
         guard let nwMonitor = nwMonitor else {
             throw NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "NWMonitor not started"])
         }
@@ -250,19 +250,19 @@ class RccPlatformInterface: NSObject, LibocPlatformInterface {
         return nil
     }
 
-    func systemCertificates() -> LibocStringIterator? {
+    func systemCertificates() -> LibocStringIteratorProtocol? {
         return nil
     }
 
     func clearDNSCache() {
     }
 
-    func sendNotification(_ notification: LibocNotification?) throws {
+    func send(_ notification: LibocNotification?) throws {
     }
 }
 
 
-class NetworkInterfaceArray: NSObject, LibocNetworkInterfaceIterator {
+class NetworkInterfaceArray: NSObject, LibocNetworkInterfaceIteratorProtocol {
     private let interfaces: [LibocNetworkInterface]
     private var index = 0
 

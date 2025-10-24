@@ -9,10 +9,14 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
+      name:
+        required: true
+        type: string
+        description: 'App name'
       version:
         required: true
         type: string
-        description: 'Version to build (e.g., v0.0.1)'
+        description: 'Version to build'
 
 jobs:
   build-and-upload:
@@ -109,19 +113,39 @@ jobs:
         run: |
           set -xeuo pipefail
 
-          BUILD_FLAGS="--release \
-            --obfuscate \
-            --split-debug-info=debug-info/${{ matrix.platform }} \
-            --suppress-analytics \
-            --no-tree-shake-icons"
+          echo "Building ${{ inputs.name }} ${{ inputs.version }} (Release Mode)"
+          rm -rf .dart_tool build/${{ matrix.platform }} ${{ matrix.platform }}/.Pods
+          flutter gen-l10n
+          flutter pub run flutter_launcher_icons
 
           if [ "${{ matrix.platform }}" == "ios" ]; then
-            flutter build ipa $BUILD_FLAGS
-          else
-            flutter build macos $BUILD_FLAGS
-          fi
+            flutter build ipa --release \
+                --obfuscate \
+                --split-debug-info=debug-info/ios \
+                --suppress-analytics \
+                --no-tree-shake-icons \
+                --export-options-plist=ios/ExportOptions.plist
 
-          ls -lh ${{ matrix.artifact_path }}
+            echo "Renaming IPA for release..."
+            mv "build/ios/ipa/${{ inputs.name }}.ipa" "build/ios/ipa/${{ inputs.name }}-${{ inputs.version }}.ipa"
+            echo "Release IPA created: ${{ inputs.name }}-${{ inputs.version }}.ipa"
+            echo "UPLOAD_FILE=build/ios/ipa/${{ inputs.name }}-${{ inputs.version }}.ipa" >> "$GITHUB_ENV"
+          else
+            flutter build macos --release \
+                --obfuscate \
+                --split-debug-info=debug-info/macos \
+                --suppress-analytics \
+                --no-tree-shake-icons
+
+            APP_PATH="build/macos/Build/Products/Release/${{ inputs.name }}.app"
+            PKG_PATH="build/macos/${{ inputs.name }}-${{ inputs.version }}.pkg"
+
+            echo "Creating PKG for App Store..."
+            INSTALLER_CERT=$(security find-identity -v -p basic | grep "3rd Party Mac Developer Installer" | head -1 | awk -F'"' '{print $2}')
+            productbuild --component "${APP_PATH}" /Applications --sign "$INSTALLER_CERT" "${PKG_PATH}"
+            echo "Release PKG created: ${{ inputs.name }}-${{ inputs.version }}.pkg"
+            echo "UPLOAD_FILE=$PKG_PATH" >> "$GITHUB_ENV"
+          fi
 
       - name: Upload debug symbols
         uses: actions/upload-artifact@v4
@@ -130,47 +154,13 @@ jobs:
           path: debug-info/${{ matrix.platform }}
           retention-days: 90
 
-      - name: Verify code signature
-        run: |
-          echo "Verifying code signature..."
-          codesign -dvv "${{ matrix.app_path }}" 2>&1 | grep -E "Authority=|TeamIdentifier=|Identifier="
-
-          echo "Deep verification..."
-          codesign --verify --deep --strict --verbose=2 "${{ matrix.app_path }}"
-
-      - name: Create archive for iOS
-        if: matrix.platform == 'ios'
-        run: |
-          echo "iOS archive already created by flutter build ipa"
-          ls -lh build/ios/archive/
-
-      - name: Create PKG for macOS
-        if: matrix.platform == 'macos'
-        run: |
-          set -xeuo pipefail
-
-          APP_PATH="${{ matrix.app_path }}"
-          PKG_PATH="build/macos/OpenApp-${{ inputs.version }}.pkg"
-
-          echo "Creating installer package..."
-          productbuild --component "$APP_PATH" /Applications \
-            --sign "3rd Party Mac Developer Installer: ${{ secrets.APPLE_DEVELOPER_NAME }}" \
-            "$PKG_PATH"
-
-          echo "Verifying PKG signature..."
-          pkgutil --check-signature "$PKG_PATH"
-
-          echo "PKG_PATH=$PKG_PATH" >> "$GITHUB_ENV"
-
       - name: Upload to App Store Connect
         run: |
           set -xeuo pipefail
 
           if [ "${{ matrix.platform }}" == "ios" ]; then
-            UPLOAD_FILE="build/ios/ipa/OpenApp.ipa"
             PLATFORM_TYPE="ios"
           else
-            UPLOAD_FILE="$PKG_PATH"
             PLATFORM_TYPE="macos"
           fi
 
