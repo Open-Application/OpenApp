@@ -194,12 +194,21 @@ jobs:
 
           echo "Building ${{ inputs.name }} ${{ inputs.version }} (Release Mode)"
 
-          flutter build windows --release \
-            --target-platform windows-${{ matrix.build_arch }} \
-            --obfuscate \
-            --split-debug-info=debug-info/windows-${{ matrix.arch }} \
-            --suppress-analytics \
-            --no-tree-shake-icons
+          # Build command with conditional target-platform flag
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            flutter build windows --release \
+              --target-platform windows-${{ matrix.build_arch }} \
+              --obfuscate \
+              --split-debug-info=debug-info/windows-${{ matrix.arch }} \
+              --suppress-analytics \
+              --no-tree-shake-icons
+          else
+            flutter build windows --release \
+              --obfuscate \
+              --split-debug-info=debug-info/windows-${{ matrix.arch }} \
+              --suppress-analytics \
+              --no-tree-shake-icons
+          fi
 
           echo "Verifying build output:"
           ls -lh build/windows
