@@ -195,6 +195,7 @@ jobs:
           echo "Building ${{ inputs.name }} ${{ inputs.version }} (Release Mode)"
 
           flutter build windows --release \
+            --target-platform windows-${{ matrix.build_arch }} \
             --obfuscate \
             --split-debug-info=debug-info/windows-${{ matrix.arch }} \
             --suppress-analytics \
