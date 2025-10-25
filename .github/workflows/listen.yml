@@ -13,7 +13,7 @@ on:
     branches:
       - "master"
     paths:
-      - "listen.yaml"
+      - ".github/workflows/listen.yml"
       - "pubspec.yaml"
   workflow_dispatch:
 
