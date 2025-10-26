@@ -568,12 +568,6 @@ abstract class AppLocalizations {
   /// **'Configuration is required to connect'**
   String get configurationRequired;
 
-  /// User configuration label
-  ///
-  /// In en, this message translates to:
-  /// **'User Configuration'**
-  String get userConfiguration;
-
   /// Hint text for config input field
   ///
   /// In en, this message translates to:
@@ -615,18 +609,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Configuration cannot be empty'**
   String get configEmpty;
-
-  /// Config status label
-  ///
-  /// In en, this message translates to:
-  /// **'Config Status'**
-  String get configStatus;
-
-  /// Custom config status label
-  ///
-  /// In en, this message translates to:
-  /// **'Saved'**
-  String get customConfig;
 
   /// No custom config status label
   ///
@@ -675,48 +657,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bahasa Indonesia'**
   String get indonesian;
-
-  /// Service data privacy dialog title
-  ///
-  /// In en, this message translates to:
-  /// **'{appName} Network Connect Data Privacy'**
-  String serviceDataPrivacy(String appName);
-
-  /// Service data collection question title
-  ///
-  /// In en, this message translates to:
-  /// **'What user information is the app collecting using the service?'**
-  String get serviceDataCollectionTitle;
-
-  /// Service data collection answer
-  ///
-  /// In en, this message translates to:
-  /// **'This application does NOT collect any user information through the service. All network traffic processing is performed locally on your device. No browsing history, personal data, or identifiable information is collected, logged, or transmitted.'**
-  String get serviceDataCollectionAnswer;
-
-  /// Service data purpose question title
-  ///
-  /// In en, this message translates to:
-  /// **'For what purposes is this information collected?'**
-  String get serviceDataPurposeTitle;
-
-  /// Service data purpose answer
-  ///
-  /// In en, this message translates to:
-  /// **'Since no user data is collected, there are no purposes for data collection. The service functionality is used solely to route network traffic according to your configuration for educational and privacy protection purposes. All operations are local to your device.'**
-  String get serviceDataPurposeAnswer;
-
-  /// Service data sharing question title
-  ///
-  /// In en, this message translates to:
-  /// **'Will the data be shared with any third parties?'**
-  String get serviceDataSharingTitle;
-
-  /// Service data sharing answer
-  ///
-  /// In en, this message translates to:
-  /// **'No data is shared with any third parties because no data is collected. This application operates entirely locally on your device and does not transmit any user information to external servers. Your privacy is completely protected.'**
-  String get serviceDataSharingAnswer;
 }
 
 class _AppLocalizationsDelegate

@@ -252,9 +252,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get configurationRequired => 'التكوين مطلوب للاتصال';
 
   @override
-  String get userConfiguration => 'تكوين المستخدم';
-
-  @override
   String get enterBase64Config => 'أدخل التكوين المشفر بـ Base64';
 
   @override
@@ -274,12 +271,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get configEmpty => 'لا يمكن أن يكون التكوين فارغًا';
-
-  @override
-  String get configStatus => 'حالة التكوين';
-
-  @override
-  String get customConfig => 'محفوظ';
 
   @override
   String get noCustomConfig => 'لا يوجد تكوين محفوظ';
@@ -304,32 +295,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
-
-  @override
-  String serviceDataPrivacy(String appName) {
-    return '$appName خصوصية بيانات الاتصال بالشبكة';
-  }
-
-  @override
-  String get serviceDataCollectionTitle =>
-      'ما هي معلومات المستخدم التي يجمعها التطبيق باستخدام الخدمة؟';
-
-  @override
-  String get serviceDataCollectionAnswer =>
-      'لا يقوم هذا التطبيق بجمع أي معلومات عن المستخدم من خلال الخدمة. تتم معالجة جميع حركة مرور الشبكة محليًا على جهازك. لا يتم جمع أو تسجيل أو نقل سجل التصفح أو البيانات الشخصية أو المعلومات التعريفية.';
-
-  @override
-  String get serviceDataPurposeTitle => 'لأي أغراض يتم جمع هذه المعلومات؟';
-
-  @override
-  String get serviceDataPurposeAnswer =>
-      'نظرًا لعدم جمع بيانات المستخدم، فلا توجد أغراض لجمع البيانات. يتم استخدام وظيفة الخدمة فقط لتوجيه حركة مرور الشبكة وفقًا لتكوينك للأغراض التعليمية وحماية الخصوصية. يتم تنفيذ جميع العمليات محليًا على جهازك.';
-
-  @override
-  String get serviceDataSharingTitle =>
-      'هل سيتم مشاركة البيانات مع أي أطراف ثالثة؟';
-
-  @override
-  String get serviceDataSharingAnswer =>
-      'لا تتم مشاركة أي بيانات مع أي أطراف ثالثة لأنه لا يتم جمع أي بيانات. يعمل هذا التطبيق بالكامل محليًا على جهازك ولا ينقل أي معلومات عن المستخدم إلى خوادم خارجية. خصوصيتك محمية بالكامل.';
 }

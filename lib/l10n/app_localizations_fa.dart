@@ -252,9 +252,6 @@ class AppLocalizationsFa extends AppLocalizations {
   String get configurationRequired => 'برای اتصال پیکربندی لازم است';
 
   @override
-  String get userConfiguration => 'پیکربندی کاربر';
-
-  @override
   String get enterBase64Config => 'پیکربندی رمزگذاری شده Base64 را وارد کنید';
 
   @override
@@ -275,12 +272,6 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get configEmpty => 'پیکربندی نمی‌تواند خالی باشد';
-
-  @override
-  String get configStatus => 'وضعیت پیکربندی';
-
-  @override
-  String get customConfig => 'ذخیره شده';
 
   @override
   String get noCustomConfig => 'پیکربندی ذخیره شده وجود ندارد';
@@ -305,33 +296,4 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
-
-  @override
-  String serviceDataPrivacy(String appName) {
-    return '$appName حریم خصوصی داده‌های اتصال شبکه';
-  }
-
-  @override
-  String get serviceDataCollectionTitle =>
-      'برنامه با استفاده از سرویس چه اطلاعات کاربری جمع‌آوری می‌کند؟';
-
-  @override
-  String get serviceDataCollectionAnswer =>
-      'این برنامه از طریق سرویس هیچ اطلاعات کاربری جمع‌آوری نمی‌کند. تمام پردازش ترافیک شبکه به صورت محلی در دستگاه شما انجام می‌شود. تاریخچه مرور، داده‌های شخصی یا اطلاعات قابل شناسایی جمع‌آوری، ثبت یا منتقل نمی‌شود.';
-
-  @override
-  String get serviceDataPurposeTitle =>
-      'این اطلاعات برای چه اهدافی جمع‌آوری می‌شود؟';
-
-  @override
-  String get serviceDataPurposeAnswer =>
-      'از آنجایی که داده کاربری جمع‌آوری نمی‌شود، هیچ هدفی برای جمع‌آوری داده وجود ندارد. عملکرد سرویس صرفاً برای هدایت ترافیک شبکه بر اساس پیکربندی شما برای اهداف آموزشی و حفاظت از حریم خصوصی استفاده می‌شود. تمام عملیات به صورت محلی در دستگاه شما انجام می‌شود.';
-
-  @override
-  String get serviceDataSharingTitle =>
-      'آیا داده‌ها با اشخاص ثالث به اشتراک گذاشته می‌شود؟';
-
-  @override
-  String get serviceDataSharingAnswer =>
-      'هیچ داده‌ای با اشخاص ثالث به اشتراک گذاشته نمی‌شود زیرا هیچ داده‌ای جمع‌آوری نمی‌شود. این برنامه کاملاً به صورت محلی در دستگاه شما کار می‌کند و هیچ اطلاعات کاربری به سرورهای خارجی منتقل نمی‌کند. حریم خصوصی شما کاملاً محافظت می‌شود.';
 }

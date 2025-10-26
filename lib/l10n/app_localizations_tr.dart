@@ -252,9 +252,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get configurationRequired => 'Bağlanmak için yapılandırma gerekli';
 
   @override
-  String get userConfiguration => 'Kullanıcı Yapılandırması';
-
-  @override
   String get enterBase64Config => 'Base64 Kodlu Yapılandırmayı Girin';
 
   @override
@@ -275,12 +272,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get configEmpty => 'Yapılandırma boş olamaz';
-
-  @override
-  String get configStatus => 'Yapılandırma Durumu';
-
-  @override
-  String get customConfig => 'Kaydedildi';
 
   @override
   String get noCustomConfig => 'Kaydedilmiş yapılandırma yok';
@@ -305,33 +296,4 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
-
-  @override
-  String serviceDataPrivacy(String appName) {
-    return '$appName Ağ Bağlantısı Veri Gizliliği';
-  }
-
-  @override
-  String get serviceDataCollectionTitle =>
-      'Uygulama hizmet kullanarak hangi kullanıcı bilgilerini topluyor?';
-
-  @override
-  String get serviceDataCollectionAnswer =>
-      'Bu uygulama, hizmet aracılığıyla herhangi bir kullanıcı bilgisi TOPLAMAZ. Tüm ağ trafiği işleme cihazınızda yerel olarak gerçekleştirilir. Tarama geçmişi, kişisel veriler veya tanımlayıcı bilgiler toplanmaz, kaydedilmez veya iletilmez.';
-
-  @override
-  String get serviceDataPurposeTitle =>
-      'Bu bilgiler hangi amaçlarla toplanıyor?';
-
-  @override
-  String get serviceDataPurposeAnswer =>
-      'Kullanıcı verisi toplanmadığı için veri toplama amacı yoktur. Hizmet işlevselliği yalnızca yapılandırmanıza göre ağ trafiğini yönlendirmek için eğitim ve gizlilik koruma amaçları doğrultusunda kullanılır. Tüm işlemler cihazınızda yerel olarak yapılır.';
-
-  @override
-  String get serviceDataSharingTitle =>
-      'Veriler üçüncü taraflarla paylaşılacak mı?';
-
-  @override
-  String get serviceDataSharingAnswer =>
-      'Hiçbir veri toplanmadığı için üçüncü taraflarla hiçbir veri paylaşılmaz. Bu uygulama tamamen cihazınızda yerel olarak çalışır ve harici sunuculara herhangi bir kullanıcı bilgisi iletmez. Gizliliğiniz tamamen korunur.';
 }

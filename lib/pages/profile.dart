@@ -281,8 +281,9 @@ class _ProfileState extends State<Profile>
       context: context,
       titleText: localizations.selectLanguage,
       titleIcon: Constants.iconLanguage,
-      child: Padding(
-        padding: UI.paddingSymmetric(horizontal: 24),
+      child: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        padding: UI.paddingSymmetric(horizontal: 24, vertical: 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

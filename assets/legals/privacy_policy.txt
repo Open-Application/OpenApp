@@ -1,0 +1,131 @@
+PRIVACY POLICY
+
+Last Updated: October 26, 2024
+
+This Privacy Policy is provided by Root-Corporation PTY LTD Australia ("we," "our," or "us"), the developer and operator of OpenApp. We are committed to protecting your privacy. This Privacy Policy explains how our educational network security application handles information when you use our services.
+
+1. DATA COLLECTION
+
+We do not collect or store any personal information. All network configurations are stored locally on your device.
+
+Information We DO NOT Collect:
+- Personal identification information
+- Browsing history
+- Location data
+- Device identifiers for tracking purposes
+- Contact information
+- Payment information
+- Usage analytics or telemetry data
+
+Local Data Storage:
+- All application settings and configurations are stored locally on your device
+- No data is transmitted to our servers or any third-party servers
+- You have full control over your local data through your device's storage management
+
+
+2. NETWORK TRAFFIC
+
+This educational tool processes network traffic locally for learning purposes. No data is transmitted to external servers for tracking or analytics.
+
+How Network Traffic is Processed:
+- All network traffic processing occurs entirely on your local device
+- No browsing history, personal data, or identifiable information is collected, logged, or transmitted
+- The service functionality is used solely to route network traffic according to your configuration
+- No connection logs are stored or transmitted
+
+
+3. NETWORK CONNECT SERVICE DATA PRIVACY
+
+What user information is the app collecting using the service?
+This application does NOT collect any user information through the service. All network traffic processing is performed locally on your device. No browsing history, personal data, or identifiable information is collected, logged, or transmitted.
+
+For what purposes is this information collected?
+Since no user data is collected, there are no purposes for data collection. The service functionality is used solely to route network traffic according to your configuration for educational and privacy protection purposes. All operations are local to your device.
+
+Will the data be shared with any third parties?
+No data is shared with any third parties because no data is collected. This application operates entirely locally on your device and does not transmit any user information to external servers. Your privacy is completely protected.
+
+
+4. THIRD-PARTY SERVICES
+
+We do not share any information with third parties. All operations are performed locally on your device.
+
+Third-Party Integrations:
+- This application does not integrate with any third-party analytics services
+- No advertising networks are integrated
+- No social media integrations that transmit data
+- No cloud services that store your data
+
+
+5. DATA SECURITY
+
+All configurations and settings are encrypted and stored securely on your device using industry-standard encryption methods.
+
+Security Measures:
+- Local data encryption using platform-native security features
+- Secure storage using device keychain/keystore where applicable
+- No transmission of sensitive data over the network
+- Regular security updates through app updates
+
+
+6. CHILDREN'S PRIVACY
+
+This application does not knowingly collect any information from children under the age of 13. Since we do not collect any personal information from any users, children can use this application safely under parental guidance.
+
+
+7. YOUR RIGHTS AND CHOICES
+
+Since we do not collect any personal data, there is no data to access, modify, or delete from our servers. However, you can:
+- Delete the application to remove all locally stored data
+- Clear application data through your device settings
+- Configure or reset your network settings at any time
+
+
+8. CHANGES TO THIS PRIVACY POLICY
+
+We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
+
+You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+
+
+9. EDUCATIONAL USE
+
+This application is designed for educational and research purposes to help users understand:
+- Network security concepts
+- Privacy protection technologies
+- Secure network communications
+- Encryption and privacy technologies
+
+
+10. CONTACT INFORMATION
+
+If you have any questions about this Privacy Policy, please contact us:
+
+Root-Corporation PTY LTD Australia
+- GitHub: https://github.com/Open-Application/OpenApp
+- Email: developer@root-corporation.com
+
+
+11. COMPLIANCE
+
+This application complies with:
+- General Data Protection Regulation (GDPR)
+- California Consumer Privacy Act (CCPA)
+- Children's Online Privacy Protection Act (COPPA)
+- Apple App Store Review Guidelines
+- Google Play Store Developer Policies
+
+
+12. DATA RETENTION
+
+Since we do not collect any data, there is no data retention policy. All data stored locally on your device remains on your device until you choose to delete it.
+
+
+13. INTERNATIONAL DATA TRANSFERS
+
+This application does not transfer any data internationally, as all operations are performed locally on your device.
+
+
+14. CONSENT
+
+By using our application, you hereby consent to our Privacy Policy and agree to its terms. Your continued use of the application following the posting of changes to this policy will be deemed your acceptance of those changes.

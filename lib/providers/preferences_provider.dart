@@ -10,6 +10,8 @@ class PreferencesProvider extends ChangeNotifier {
   static const String _userConfigKey = 'user_encoded_config';
   static const String _userConfigTimestampKey = 'user_config_timestamp';
   static const String _privacyAcceptedKey = 'privacy_accepted';
+  static const String _termsAcceptedKey = 'terms_accepted';
+  static const String _privacyPolicyAcceptedKey = 'privacy_policy_accepted';
 
   ThemeMode _themeMode = ThemeMode.system;
   bool _hasUserThemePreference = false;
@@ -27,6 +29,8 @@ class PreferencesProvider extends ChangeNotifier {
   String? _userEncodedConfig;
   DateTime? _userConfigTimestamp;
   bool _privacyAccepted = false;
+  bool _termsAccepted = false;
+  bool _privacyPolicyAccepted = false;
 
   ThemeMode get themeMode => _themeMode;
   bool get hasUserThemePreference => _hasUserThemePreference;
@@ -46,6 +50,8 @@ class PreferencesProvider extends ChangeNotifier {
   bool get hasUserConfig => _userEncodedConfig != null && _userEncodedConfig!.isNotEmpty;
   DateTime? get userConfigTimestamp => _userConfigTimestamp;
   bool get privacyAccepted => _privacyAccepted;
+  bool get termsAccepted => _termsAccepted;
+  bool get privacyPolicyAccepted => _privacyPolicyAccepted;
 
   bool get isHuaweiDevice => DeviceHelper().isHuaweiDevice;
   bool get needsRenderingOptimization =>
@@ -71,6 +77,7 @@ class PreferencesProvider extends ChangeNotifier {
       _loadDeviceInfo(),
       _loadUserConfig(),
       _loadPrivacyAcceptance(),
+      _loadLegalAcceptance(),
     ]);
   }
 
@@ -205,12 +212,37 @@ class PreferencesProvider extends ChangeNotifier {
     } catch (_) {}
   }
 
+  Future<void> _loadLegalAcceptance() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _termsAccepted = prefs.getBool(_termsAcceptedKey) ?? false;
+      _privacyPolicyAccepted = prefs.getBool(_privacyPolicyAcceptedKey) ?? false;
+      notifyListeners();
+    } catch (_) {}
+  }
+
   Future<void> setPrivacyAccepted(bool accepted) async {
     _privacyAccepted = accepted;
     notifyListeners();
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_privacyAcceptedKey, accepted);
+  }
+
+  Future<void> setTermsAccepted(bool accepted) async {
+    _termsAccepted = accepted;
+    notifyListeners();
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_termsAcceptedKey, accepted);
+  }
+
+  Future<void> setPrivacyPolicyAccepted(bool accepted) async {
+    _privacyPolicyAccepted = accepted;
+    notifyListeners();
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_privacyPolicyAcceptedKey, accepted);
   }
 
   Future<void> setUserConfig(String config) async {

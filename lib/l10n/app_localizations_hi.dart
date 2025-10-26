@@ -254,9 +254,6 @@ class AppLocalizationsHi extends AppLocalizations {
       'कनेक्ट करने के लिए कॉन्फ़िगरेशन आवश्यक है';
 
   @override
-  String get userConfiguration => 'उपयोगकर्ता कॉन्फ़िगरेशन';
-
-  @override
   String get enterBase64Config => 'Base64 एन्कोडेड कॉन्फ़िगरेशन दर्ज करें';
 
   @override
@@ -277,12 +274,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get configEmpty => 'कॉन्फ़िगरेशन खाली नहीं हो सकता';
-
-  @override
-  String get configStatus => 'कॉन्फ़िगरेशन स्थिति';
-
-  @override
-  String get customConfig => 'सहेजा गया';
 
   @override
   String get noCustomConfig => 'कोई सहेजा गया कॉन्फ़िगरेशन नहीं';
@@ -307,33 +298,4 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
-
-  @override
-  String serviceDataPrivacy(String appName) {
-    return '$appName नेटवर्क कनेक्शन डेटा गोपनीयता';
-  }
-
-  @override
-  String get serviceDataCollectionTitle =>
-      'ऐप सेवा का उपयोग करके कौन सी उपयोगकर्ता जानकारी एकत्र कर रहा है?';
-
-  @override
-  String get serviceDataCollectionAnswer =>
-      'यह एप्लिकेशन सेवा के माध्यम से कोई भी उपयोगकर्ता जानकारी एकत्र नहीं करता है। सभी नेटवर्क ट्रैफ़िक प्रसंस्करण आपके डिवाइस पर स्थानीय रूप से किया जाता है। ब्राउज़िंग इतिहास, व्यक्तिगत डेटा, या पहचान योग्य जानकारी एकत्र, लॉग या प्रसारित नहीं की जाती है।';
-
-  @override
-  String get serviceDataPurposeTitle =>
-      'यह जानकारी किन उद्देश्यों के लिए एकत्र की जाती है?';
-
-  @override
-  String get serviceDataPurposeAnswer =>
-      'चूंकि कोई उपयोगकर्ता डेटा एकत्र नहीं किया जाता है, इसलिए डेटा संग्रह के लिए कोई उद्देश्य नहीं हैं। सेवा कार्यक्षमता का उपयोग केवल शैक्षिक और गोपनीयता सुरक्षा उद्देश्यों के लिए आपके कॉन्फ़िगरेशन के अनुसार नेटवर्क ट्रैफ़िक को रूट करने के लिए किया जाता है। सभी संचालन आपके डिवाइस पर स्थानीय रूप से किए जाते हैं।';
-
-  @override
-  String get serviceDataSharingTitle =>
-      'क्या डेटा किसी तीसरे पक्ष के साथ साझा किया जाएगा?';
-
-  @override
-  String get serviceDataSharingAnswer =>
-      'कोई डेटा किसी तीसरे पक्ष के साथ साझा नहीं किया जाता है क्योंकि कोई डेटा एकत्र नहीं किया जाता है। यह एप्लिकेशन पूरी तरह से आपके डिवाइस पर स्थानीय रूप से संचालित होता है और बाहरी सर्वर को कोई उपयोगकर्ता जानकारी प्रसारित नहीं करता है। आपकी गोपनीयता पूरी तरह से सुरक्षित है।';
 }

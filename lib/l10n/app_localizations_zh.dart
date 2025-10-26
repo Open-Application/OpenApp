@@ -243,9 +243,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get configurationRequired => '连接需要配置';
 
   @override
-  String get userConfiguration => '用户配置';
-
-  @override
   String get enterBase64Config => '输入Base64编码配置';
 
   @override
@@ -265,12 +262,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get configEmpty => '配置不能为空';
-
-  @override
-  String get configStatus => '配置状态';
-
-  @override
-  String get customConfig => '已保存';
 
   @override
   String get noCustomConfig => '无已保存配置';
@@ -295,30 +286,4 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
-
-  @override
-  String serviceDataPrivacy(String appName) {
-    return '$appName 网络连接数据隐私';
-  }
-
-  @override
-  String get serviceDataCollectionTitle => '应用程序通过服务收集哪些用户信息？';
-
-  @override
-  String get serviceDataCollectionAnswer =>
-      '本应用程序不会通过服务收集任何用户信息。所有网络流量处理都在您的设备上本地执行。不会收集、记录或传输浏览历史、个人数据或可识别信息。';
-
-  @override
-  String get serviceDataPurposeTitle => '收集这些信息的目的是什么？';
-
-  @override
-  String get serviceDataPurposeAnswer =>
-      '由于不收集用户数据，因此没有数据收集目的。该服务功能仅用于根据您的配置路由网络流量，用于教育和隐私保护目的。所有操作都在您的设备上本地执行。';
-
-  @override
-  String get serviceDataSharingTitle => '数据会与第三方共享吗？';
-
-  @override
-  String get serviceDataSharingAnswer =>
-      '不会与任何第三方共享数据，因为不收集数据。本应用程序完全在您的设备上本地运行，不会将任何用户信息传输到外部服务器。您的隐私得到完全保护。';
 }

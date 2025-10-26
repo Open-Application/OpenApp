@@ -10,6 +10,8 @@ class Constants {
   static const String licenseFullText = '''
 MIT License
 
+Copyright (c) 2025 Root-Corporation PTY LTD Australia
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -31,7 +33,11 @@ SOFTWARE.
 
   static const String encodedConfig = '';
 
+  // Asset paths
   static const String iconAppIcon = 'assets/logo.png';
+  static const String licensePath = 'assets/legals/LICENSE';
+  static const String privacyPolicyPath = 'assets/legals/privacy_policy.txt';
+  static const String userAgreementPath = 'assets/legals/user_agreement.txt';
 
   static const IconData iconDashboard = Icons.dashboard_outlined;
   static const IconData iconDashboardFill = Icons.dashboard;

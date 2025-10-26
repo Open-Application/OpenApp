@@ -252,9 +252,6 @@ class AppLocalizationsMs extends AppLocalizations {
   String get configurationRequired => 'Konfigurasi diperlukan untuk menyambung';
 
   @override
-  String get userConfiguration => 'Konfigurasi Pengguna';
-
-  @override
   String get enterBase64Config => 'Masukkan Konfigurasi Berkod Base64';
 
   @override
@@ -274,12 +271,6 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get configEmpty => 'Konfigurasi tidak boleh kosong';
-
-  @override
-  String get configStatus => 'Status Konfigurasi';
-
-  @override
-  String get customConfig => 'Disimpan';
 
   @override
   String get noCustomConfig => 'Tiada konfigurasi tersimpan';
@@ -304,33 +295,4 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
-
-  @override
-  String serviceDataPrivacy(String appName) {
-    return '$appName Privasi Data Sambungan Rangkaian';
-  }
-
-  @override
-  String get serviceDataCollectionTitle =>
-      'Apakah maklumat pengguna yang dikumpulkan oleh aplikasi menggunakan perkhidmatan?';
-
-  @override
-  String get serviceDataCollectionAnswer =>
-      'Aplikasi ini TIDAK mengumpulkan sebarang maklumat pengguna melalui perkhidmatan. Semua pemprosesan trafik rangkaian dilakukan secara tempatan di peranti anda. Sejarah pelayaran, data peribadi atau maklumat yang boleh dikenal pasti tidak dikumpulkan, direkodkan atau dihantar.';
-
-  @override
-  String get serviceDataPurposeTitle =>
-      'Untuk tujuan apakah maklumat ini dikumpulkan?';
-
-  @override
-  String get serviceDataPurposeAnswer =>
-      'Oleh kerana tiada data pengguna dikumpulkan, tiada tujuan untuk pengumpulan data. Fungsi perkhidmatan digunakan semata-mata untuk mengarahkan trafik rangkaian mengikut konfigurasi anda untuk tujuan pendidikan dan perlindungan privasi. Semua operasi dilakukan secara tempatan pada peranti anda.';
-
-  @override
-  String get serviceDataSharingTitle =>
-      'Adakah data akan dikongsi dengan mana-mana pihak ketiga?';
-
-  @override
-  String get serviceDataSharingAnswer =>
-      'Tiada data dikongsi dengan mana-mana pihak ketiga kerana tiada data dikumpulkan. Aplikasi ini beroperasi sepenuhnya secara tempatan di peranti anda dan tidak menghantar sebarang maklumat pengguna ke pelayan luaran. Privasi anda dilindungi sepenuhnya.';
 }

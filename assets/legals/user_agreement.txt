@@ -1,0 +1,233 @@
+TERMS OF USE / USER AGREEMENT
+
+Last Updated: October 26, 2024
+
+PLEASE READ THESE TERMS OF USE CAREFULLY BEFORE USING THIS APPLICATION.
+
+These Terms of Use are provided by Root-Corporation PTY LTD Australia ("we," "our," or "us"), the developer and operator of OpenApp.
+
+By downloading, installing, or using OpenApp ("the Application"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, do not use the Application.
+
+
+1. EDUCATIONAL USE ONLY
+
+1.1 Purpose
+This software is provided for educational and research purposes only. The Application is designed to help users understand:
+- Network security concepts
+- Privacy protection technologies
+- Secure network communications
+- Network protocols and encryption
+- Privacy technologies
+
+1.2 Intended Use
+Users must comply with all applicable laws and regulations when using this Application. The Application is intended solely for legitimate educational, research, and personal privacy protection purposes.
+
+1.3 Prohibited Use
+You may NOT use this Application for:
+- Any illegal activities
+- Unauthorized access to computer systems or networks
+- Circumventing network security measures without proper authorization
+- Any activities that violate local, state, national, or international laws
+- Commercial purposes without proper licensing
+- Distribution or transmission of malware or harmful code
+- Harassment, abuse, or harm to others
+
+
+2. NO WARRANTY
+
+2.1 As-Is Basis
+The software is provided "AS IS" without warranty of any kind, express or implied, including but not limited to:
+- Warranties of merchantability
+- Fitness for a particular purpose
+- Non-infringement
+- Accuracy or reliability
+- Continuous, uninterrupted, or error-free operation
+
+2.2 Disclaimer
+We are not responsible for any damages arising from the use of this Application, including but not limited to:
+- Direct, indirect, incidental, or consequential damages
+- Loss of data or profits
+- Business interruption
+- Network disruptions
+- Security breaches
+- Any other pecuniary loss
+
+
+3. USER RESPONSIBILITY
+
+3.1 Legal Compliance
+Users are responsible for ensuring their use of this tool complies with:
+- Local regulations and laws
+- Institutional policies and guidelines
+- Network usage policies
+- Terms of service of network providers
+- Applicable privacy laws and regulations
+
+3.2 Network Authorization
+You represent and warrant that:
+- You have proper authorization to use the networks you connect to
+- You will not use the Application to access unauthorized networks
+- You understand and accept the risks associated with network security tools
+- You will use the Application in accordance with all applicable laws
+
+3.3 Personal Responsibility
+You acknowledge that:
+- You are solely responsible for your use of the Application
+- You will be held accountable for any misuse of the Application
+- You understand the technical implications of network routing and security
+
+
+4. ACADEMIC INTEGRITY
+
+4.1 Research Ethics
+This tool should be used in accordance with:
+- Academic integrity guidelines
+- Ethical research practices
+- Institutional review board (IRB) requirements where applicable
+- Professional codes of conduct
+
+4.2 Educational Context
+If using this Application in an academic setting:
+- Follow your institution's policies on software use
+- Respect academic honesty policies
+- Use the tool only for authorized coursework or research
+- Obtain necessary approvals before conducting research
+
+
+5. INTELLECTUAL PROPERTY
+
+5.1 License
+This Application is licensed under the MIT License. The full license text is included with the Application.
+
+5.2 Ownership
+All rights, title, and interest in and to the Application, excluding third-party components, remain with Root-Corporation PTY LTD Australia.
+
+5.3 Third-Party Components
+This Application may include third-party open-source software components, each subject to their own license terms.
+
+
+6. PRIVACY AND DATA
+
+6.1 No Data Collection
+As outlined in our Privacy Policy:
+- We do not collect or store any personal information
+- All operations are performed locally on your device
+- No data is transmitted to our servers
+- You maintain full control over your local data
+
+6.2 User Data
+You are responsible for:
+- Protecting your device and local data
+- Understanding how the Application processes network traffic
+- Configuring the Application appropriately for your needs
+
+
+7. LIMITATION OF LIABILITY
+
+7.1 Maximum Liability
+To the maximum extent permitted by applicable law, in no event shall the developers, contributors, or copyright holders be liable for any claim, damages, or other liability arising from:
+- The use or inability to use the Application
+- Any interaction with the Application
+- Any data loss or corruption
+- Any security incidents
+- Any network disruptions
+
+7.2 Exclusions
+Some jurisdictions do not allow the exclusion or limitation of liability for consequential or incidental damages. In such jurisdictions, our liability is limited to the greatest extent permitted by law.
+
+
+8. UPDATES AND MODIFICATIONS
+
+8.1 Application Updates
+- We reserve the right to modify, update, or discontinue the Application at any time
+- Updates may be provided to improve functionality, security, or compatibility
+- Continued use after updates constitutes acceptance of changes
+
+8.2 Terms Updates
+- We may update these Terms from time to time
+- Significant changes will be communicated through the Application or website
+- Your continued use constitutes acceptance of updated Terms
+
+
+9. TERMINATION
+
+9.1 Termination Rights
+We reserve the right to:
+- Terminate or suspend access to the Application at any time
+- Modify or discontinue any feature of the Application
+- Take action if we believe you have violated these Terms
+
+9.2 Effect of Termination
+Upon termination:
+- Your right to use the Application ceases immediately
+- You must delete all copies of the Application
+- Provisions that by nature should survive termination will survive
+
+
+10. GOVERNING LAW
+
+10.1 Jurisdiction
+These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.
+
+10.2 Dispute Resolution
+Any disputes arising from these Terms or use of the Application shall be resolved through:
+- Good faith negotiations
+- Mediation if negotiations fail
+- Arbitration or legal proceedings as a last resort
+
+
+11. EXPORT COMPLIANCE
+
+11.1 Export Controls
+You acknowledge that the Application may be subject to export control laws and agree to:
+- Comply with all applicable export and import laws
+- Not export or re-export the Application in violation of such laws
+- Not use the Application in any country subject to embargo
+
+
+12. AGE RESTRICTIONS
+
+12.1 Minimum Age
+You must be at least 13 years old to use this Application. Users under 18 should use the Application under parental guidance and supervision.
+
+12.2 Parental Consent
+If you are under the age of majority in your jurisdiction, you represent that your parent or legal guardian has reviewed and agreed to these Terms.
+
+
+13. SEVERABILITY
+
+If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall continue to be valid and enforceable to the fullest extent permitted by law.
+
+
+14. ENTIRE AGREEMENT
+
+These Terms, together with our Privacy Policy, constitute the entire agreement between you and us regarding the use of the Application and supersede all prior agreements and understandings.
+
+
+15. NO WAIVER
+
+Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.
+
+
+16. CONTACT INFORMATION
+
+For questions about these Terms, please contact us:
+
+Root-Corporation PTY LTD Australia
+- GitHub: https://github.com/Open-Application/OpenApp
+- Email: developer@root-corporation.com
+
+
+17. ACKNOWLEDGMENT
+
+By using OpenApp, you acknowledge that:
+- You have read and understood these Terms of Use
+- You agree to be bound by these Terms
+- You understand the educational nature of this Application
+- You will use the Application responsibly and legally
+- You accept all risks associated with using the Application
+
+
+18. ACCEPTANCE
+
+Your use of the Application constitutes your acceptance of these Terms. If you do not accept these Terms, you must immediately cease using the Application and delete all copies from your devices.

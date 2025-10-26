@@ -8,6 +8,7 @@ import '../components/rcc_list_view.dart';
 import '../components/rcc_widget.dart';
 import '../components/rcc_messenger.dart';
 import '../components/rcc_animation.dart';
+import '../components/legal_dialogs.dart';
 import '../l10n/app_localizations.dart';
 import '../constants.dart';
 import '../ui.dart';
@@ -428,20 +429,37 @@ class _DashboardState extends State<Dashboard>
             final prefsProvider = ProviderHelper.getPreferencesProvider(context);
             if (prefsProvider != null) {
               final prefs = prefsProvider as dynamic;
-              // Check if user has accepted privacy policy
-              if (!prefs.privacyAccepted) {
-                // Show privacy dialog and wait for user response
-                final accepted = await _showServiceDataPrivacyDialog(context, requireAcceptance: true);
 
-                if (!context.mounted) return;
+              // Check if user has accepted both Terms of Use and Privacy Policy
+              final needsTerms = !prefs.termsAccepted;
+              final needsPrivacy = !prefs.privacyPolicyAccepted;
 
-                // If user didn't agree, don't proceed with connection
-                if (accepted != true) {
-                  return;
+              if (needsTerms || needsPrivacy) {
+                // Show Terms of Use first if not accepted
+                if (needsTerms) {
+                  await LegalDialogs.showTermsOfUse(context);
+
+                  if (!context.mounted) return;
+
+                  // Check if user accepted after showing
+                  if (!prefs.termsAccepted) {
+                    // User didn't accept terms, don't proceed
+                    return;
+                  }
                 }
 
-                // User agreed, save the preference
-                await prefs.setPrivacyAccepted(true);
+                // Show Privacy Policy if not accepted
+                if (needsPrivacy) {
+                  await LegalDialogs.showPrivacyPolicy(context);
+
+                  if (!context.mounted) return;
+
+                  // Check if user accepted after showing
+                  if (!prefs.privacyPolicyAccepted) {
+                    // User didn't accept privacy policy, don't proceed
+                    return;
+                  }
+                }
               }
             }
           }
@@ -725,120 +743,6 @@ class _DashboardState extends State<Dashboard>
     return DateFormat('yyyy-MM-dd HH:mm').format(timestamp);
   }
 
-
-  Future<bool?> _showServiceDataPrivacyDialog(BuildContext context, {bool requireAcceptance = false}) async {
-    final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
-
-    return showDialog<bool>(
-      context: context,
-      barrierDismissible: !requireAcceptance,
-      builder: (context) => AlertDialog(
-        title: Text(
-          l10n.serviceDataPrivacy(Constants.appName),
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        content: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                l10n.serviceDataCollectionTitle,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.primary,
-                ),
-              ),
-              SizedBox(height: UI.scaledDimension(8)),
-              Text(
-                l10n.serviceDataCollectionAnswer,
-                style: theme.textTheme.bodyMedium,
-              ),
-              SizedBox(height: UI.scaledDimension(16)),
-              Text(
-                l10n.serviceDataPurposeTitle,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.primary,
-                ),
-              ),
-              SizedBox(height: UI.scaledDimension(8)),
-              Text(
-                l10n.serviceDataPurposeAnswer,
-                style: theme.textTheme.bodyMedium,
-              ),
-              SizedBox(height: UI.scaledDimension(16)),
-              Text(
-                l10n.serviceDataSharingTitle,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.primary,
-                ),
-              ),
-              SizedBox(height: UI.scaledDimension(8)),
-              Text(
-                l10n.serviceDataSharingAnswer,
-                style: theme.textTheme.bodyMedium,
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          if (requireAcceptance) ...[
-            TextButton(
-              onPressed: () {
-                HapticUtils.selectionClick();
-                Navigator.of(context).pop(false);
-              },
-              child: Text(
-                l10n.close,
-                style: TextStyle(
-                  fontSize: UI.buttonTextSize,
-                  fontWeight: FontWeight.w600,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                HapticUtils.primaryAction();
-                Navigator.of(context).pop(true);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: theme.colorScheme.primary,
-                foregroundColor: Colors.white,
-              ),
-              child: Text(
-                l10n.agree,
-                style: TextStyle(
-                  fontSize: UI.buttonTextSize,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ] else ...[
-            TextButton(
-              onPressed: () {
-                HapticUtils.selectionClick();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                l10n.close,
-                style: TextStyle(
-                  fontSize: UI.buttonTextSize,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
   Widget _buildConfigurationCard(BuildContext context) {
     final theme = Theme.of(context);
     final preferencesProvider = ProviderHelper.getPreferencesProvider(context);
@@ -874,7 +778,7 @@ class _DashboardState extends State<Dashboard>
           trailingAction: GestureDetector(
             onTap: () {
               HapticUtils.selectionClick();
-              _showServiceDataPrivacyDialog(context);
+              LegalDialogs.showPrivacyPolicy(context);
             },
             child: Icon(
               Constants.iconInfo,

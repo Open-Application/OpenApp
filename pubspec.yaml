@@ -2,7 +2,7 @@ name: openapp
 description: "An Open Root-Corporation Flutter project."
 publish_to: 'none'
 
-version: 0.0.8
+version: 0.0.9
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -35,6 +35,7 @@ flutter:
   generate: true
   assets:
     - assets/
+    - assets/legals/
 
 flutter_launcher_icons:
   android: true
