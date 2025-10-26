@@ -72,6 +72,7 @@ class RccExpandableItem extends StatelessWidget {
   final VoidCallback onTap;
   final Widget expandedContent;
   final Widget? expandedAction;
+  final Widget? trailingAction;
 
   const RccExpandableItem({
     super.key,
@@ -81,6 +82,7 @@ class RccExpandableItem extends StatelessWidget {
     required this.onTap,
     required this.expandedContent,
     this.expandedAction,
+    this.trailingAction,
   });
 
   @override
@@ -133,6 +135,8 @@ class RccExpandableItem extends StatelessWidget {
                     ),
                     if (isExpanded && expandedAction != null)
                       expandedAction!
+                    else if (trailingAction != null)
+                      trailingAction!
                     else
                       AnimatedRotation(
                         turns: isExpanded ? 0.5 : 0,

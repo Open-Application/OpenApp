@@ -30,16 +30,7 @@ on:
 
 jobs:
   build-windows-app:
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      matrix:
-        include:
-          - runner: windows-latest
-            arch: amd64
-            build_arch: x64
-          - runner: windows-11-arm
-            arch: arm64
-            build_arch: arm64
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -48,7 +39,7 @@ jobs:
         shell: bash
         run: |
           rm -rf build windows/.Dart_tool .dart_tool
-          echo "Cleaned build artifacts for fresh ${{ matrix.arch }} build"
+          echo "Cleaned build artifacts for fresh amd64 build"
 
       - name: Download Deps lib
         shell: bash
@@ -58,41 +49,18 @@ jobs:
           LATEST_RELEASE=$(curl -s https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
           echo "Latest OpenCore release: ${LATEST_RELEASE}"
 
-          DOWNLOAD_URL="https://github.com/Open-Application/OpenCore/releases/download/${LATEST_RELEASE}/liboc-windows-${{ matrix.arch }}-${LATEST_RELEASE}.zip"
+          DOWNLOAD_URL="https://github.com/Open-Application/OpenCore/releases/download/${LATEST_RELEASE}/liboc-windows-amd64-${LATEST_RELEASE}.zip"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
           curl -L -o liboc.zip "${DOWNLOAD_URL}"
           mkdir -p windows/
           unzip -o liboc.zip -d windows/
 
-      - name: Setup Flutter (x64)
-        if: matrix.arch == 'amd64'
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
-
-      - name: Setup Flutter (ARM64)
-        if: matrix.arch == 'arm64'
-        shell: bash
-        run: |
-          set -xeuo pipefail
-
-          # Download Flutter SDK for Windows
-          FLUTTER_VERSION="3.35.1"
-          FLUTTER_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_${FLUTTER_VERSION}-stable.zip"
-
-          echo "Downloading Flutter ${FLUTTER_VERSION} for Windows..."
-          curl -L -o flutter.zip "${FLUTTER_URL}"
-
-          echo "Extracting Flutter SDK..."
-          unzip -q flutter.zip -d "${HOME}"
-
-          echo "Adding Flutter to PATH..."
-          echo "${HOME}/flutter/bin" >> "${GITHUB_PATH}"
-
-          # Verify installation
-          "${HOME}/flutter/bin/flutter" --version
 
       - name: Set build environment
         shell: bash
@@ -115,78 +83,6 @@ jobs:
         run: |
           flutter config --enable-windows-desktop
 
-      - name: Verify system architecture
-        shell: pwsh
-        run: |
-          Write-Host "System information:"
-          Write-Host "Processor architecture: $env:PROCESSOR_ARCHITECTURE"
-          Write-Host "Processor identifier: $env:PROCESSOR_IDENTIFIER"
-          systeminfo | Select-String "System Type"
-
-      - name: Setup Visual Studio Developer Command Prompt
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: ${{ matrix.build_arch }}
-
-      - name: Generate import library for liboc.dll
-        shell: pwsh
-        run: |
-          cd windows
-
-          Write-Host "Checking DLL architecture..."
-          dumpbin /headers liboc.dll | Select-String "machine"
-
-          Write-Host "`nCleaning up any existing lib files..."
-          Remove-Item -Path "liboc.lib" -ErrorAction SilentlyContinue
-          Remove-Item -Path "liboc.def" -ErrorAction SilentlyContinue
-
-          Write-Host "Extracting exports from liboc.dll using dumpbin..."
-
-          $dumpbinOutput = dumpbin /exports liboc.dll
-
-          $exports = @()
-          $inExports = $false
-
-          foreach ($line in $dumpbinOutput) {
-            if ($line -match "ordinal hint RVA      name") {
-              $inExports = $true
-              continue
-            }
-            if ($inExports -and $line -match "^\s+\d+\s+\w+\s+\w+\s+(\w+)") {
-              $exports += $matches[1]
-            }
-            if ($line -match "^  Summary") {
-              break
-            }
-          }
-
-          Write-Host "Found $($exports.Count) exports"
-          Write-Host "Exports: $($exports -join ', ')"
-
-          $defContent = "LIBRARY liboc`nEXPORTS`n"
-          foreach ($export in $exports) {
-            $defContent += "$export`n"
-          }
-
-          Set-Content -Path "liboc.def" -Value $defContent
-
-          Write-Host "`nCreated liboc.def:"
-          Get-Content liboc.def
-
-          Write-Host "`nGenerating liboc.lib from extracted exports..."
-          Write-Host "Target architecture: ${{ matrix.build_arch }}"
-          lib /def:liboc.def /out:liboc.lib /machine:${{ matrix.build_arch }}
-
-          if (Test-Path liboc.lib) {
-            Write-Host "`nSuccessfully created liboc.lib"
-            Get-Item liboc.lib
-            Write-Host "`nVerifying lib architecture..."
-            dumpbin /headers liboc.lib | Select-String "machine"
-          } else {
-            Write-Error "Failed to create liboc.lib"
-            exit 1
-          }
-
       - name: Build Windows app
         shell: bash
         run: |
@@ -194,49 +90,22 @@ jobs:
 
           echo "Building ${{ inputs.name }} ${{ inputs.version }} (Release Mode)"
 
-          # Build command with conditional target-platform flag
-          if [ "${{ matrix.arch }}" = "arm64" ]; then
-            flutter build windows --release \
-              --target-platform windows-${{ matrix.build_arch }} \
-              --obfuscate \
-              --split-debug-info=debug-info/windows-${{ matrix.arch }} \
-              --suppress-analytics \
-              --no-tree-shake-icons
-          else
-            flutter build windows --release \
-              --obfuscate \
-              --split-debug-info=debug-info/windows-${{ matrix.arch }} \
-              --suppress-analytics \
-              --no-tree-shake-icons
-          fi
+          flutter build windows --release \
+            --obfuscate \
+            --split-debug-info=debug-info/windows-amd64 \
+            --suppress-analytics \
+            --no-tree-shake-icons
 
           echo "Verifying build output:"
           ls -lh build/windows
-          ls -lh build/windows/*/runner/Release/
+          ls -lh build/windows/x64/runner/Release/
 
-          # Verify the built architecture matches expected
-          if [ -d "build/windows/arm64" ] && [ "${{ matrix.arch }}" = "arm64" ]; then
-            echo "✓ ARM64 build verified"
-          elif [ -d "build/windows/x64" ] && [ "${{ matrix.arch }}" = "amd64" ]; then
-            echo "✓ x64 build verified"
-          else
-            echo "⚠ Warning: Build architecture may not match expected ${{ matrix.arch }}"
-            echo "Available build directories:"
-            ls -la build/windows/ || true
-          fi
-
-      - name: Upload debug symbols
-        uses: actions/upload-artifact@v4
-        with:
-          name: debug-symbols-windows-${{ matrix.arch }}
-          path: debug-info/windows-${{ matrix.arch }}
-          retention-days: 90
 
       - name: Compress Windows app
         shell: bash
         run: |
-          cd build/windows/*/runner/Release
-          powershell -Command "Compress-Archive -Path * -DestinationPath ../../../../../${{ inputs.name }}-windows-${{ matrix.arch }}-${{ inputs.version }}.zip"
+          cd build/windows/x64/runner/Release
+          powershell -Command "Compress-Archive -Path * -DestinationPath ../../../../../${{ inputs.name }}-windows-amd64-${{ inputs.version }}.zip"
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
@@ -247,13 +116,13 @@ jobs:
           prerelease: false
           overwrite_files: true
           files: |
-            ${{ inputs.name }}-windows-${{ matrix.arch }}-${{ inputs.version }}.zip
+            ${{ inputs.name }}-windows-amd64-${{ inputs.version }}.zip
           body: |
             ## Windows Application for ${{ inputs.version }}
 
             ### Build Configuration
             - **Platform**: Windows
-            - **Architecture**: ${{ matrix.arch }}
+            - **Architecture**: amd64
             - **Build Type**: Release (Obfuscated)
             - **Code Obfuscation**: Enabled
             - **Debug Symbols**: Available as workflow artifact

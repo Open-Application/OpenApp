@@ -48,15 +48,15 @@ class FlutterBridge: NSObject {
             }
         }
 
-        loadVPNManager()
+        loadServiceManager()
     }
 
-    private func loadVPNManager() {
+    private func loadServiceManager() {
         NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
             guard let self = self else { return }
 
             if let error = error {
-                NSLog("Error loading Rcc manager: \(error.localizedDescription)")
+                NSLog("Error loading service manager: \(error.localizedDescription)")
                 return
             }
 
@@ -65,7 +65,7 @@ class FlutterBridge: NSObject {
                 self.observeVPNStatus()
                 self.validateAndClearStaleStatus()
             } else {
-                self.createVPNManager()
+                self.createServiceManager()
             }
         }
     }
@@ -84,7 +84,7 @@ class FlutterBridge: NSObject {
         }
     }
 
-    private func createVPNManager() {
+    private func createServiceManager() {
         let manager = NETunnelProviderManager()
         manager.localizedDescription = "Root Corporation Core"
 

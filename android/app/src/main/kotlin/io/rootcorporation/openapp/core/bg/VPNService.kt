@@ -33,10 +33,10 @@ class VPNService : VpnService(), PlatformInterfaceWrapper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "VPN Service",
+                "Network Service",
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "VPN service running"
+                description = "Network service running"
                 setShowBadge(false)
             }
 
@@ -97,7 +97,7 @@ class VPNService : VpnService(), PlatformInterfaceWrapper {
     var systemProxyEnabled = false
 
     override fun openTun(options: TunOptions): Int {
-        if (prepare(this) != null) error("android: missing vpn permission")
+        if (prepare(this) != null) error("android: missing service permission")
 
         val builder = Builder()
             .setSession("RootCorporation")

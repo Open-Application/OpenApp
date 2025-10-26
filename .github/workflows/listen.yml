@@ -45,13 +45,13 @@ jobs:
       version: ${{ needs.check-for-version.outputs.version }}
     secrets: inherit
 
-  build-android:
-    needs: check-for-version
-    uses: ./.github/workflows/build-android.yml
-    with:
-      name: ${{ needs.check-for-version.outputs.name }}
-      version: ${{ needs.check-for-version.outputs.version }}
-    secrets: inherit
+  # build-android:
+  #   needs: check-for-version
+  #   uses: ./.github/workflows/build-android.yml
+  #   with:
+  #     name: ${{ needs.check-for-version.outputs.name }}
+  #     version: ${{ needs.check-for-version.outputs.version }}
+  #   secrets: inherit
 
   # build-apple:
   #   needs: check-for-version

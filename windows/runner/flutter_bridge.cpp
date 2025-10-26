@@ -141,31 +141,28 @@ void FlutterBridge::StartRcc(
     const std::string& config,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (!vpn_service_) {
-    result->Error("NO_SERVICE", "VPN service not initialized");
+    result->Error("NO_SERVICE", "Service not initialized");
     return;
   }
 
   std::string current = vpn_service_->GetStatus();
   if (current != "STOPPED") {
-    result->Error("ALREADY_RUNNING", "VPN is already running");
+    result->Error("ALREADY_RUNNING", "Service is already running");
     return;
   }
 
-  std::cout << "Starting Windows VPN with config (length: " << config.length() << ")" << std::endl;
-  std::thread([this, config, res = std::move(result)]() mutable {
-    bool success = vpn_service_->Start(config);
-    if (success) {
-      res->Success(flutter::EncodableValue(true));
-    } else {
-      res->Error("START_FAILED", "Failed to start VPN service");
-    }
-  }).detach();
+  std::cout << "Starting Windows service with config (length: " << config.length() << ")" << std::endl;  bool success = vpn_service_->Start(config);
+  if (success) {
+    result->Success(flutter::EncodableValue(true));
+  } else {
+    result->Error("START_FAILED", "Failed to start service");
+  }
 }
 
 void FlutterBridge::StopRcc(
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (!vpn_service_) {
-    result->Error("NO_SERVICE", "VPN service not initialized");
+    result->Error("NO_SERVICE", "Service not initialized");
     return;
   }
 
@@ -175,12 +172,12 @@ void FlutterBridge::StopRcc(
     return;
   }
 
-  std::cout << "Stopping Windows VPN" << std::endl;
+  std::cout << "Stopping Windows service" << std::endl;
   bool success = vpn_service_->Stop();
   if (success) {
     result->Success(flutter::EncodableValue(true));
   } else {
-    result->Error("STOP_FAILED", "Failed to stop VPN service");
+    result->Error("STOP_FAILED", "Failed to stop service");
   }
 }
 

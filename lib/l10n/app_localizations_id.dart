@@ -39,10 +39,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get unprotected => 'Tidak Dilindungi';
 
   @override
-  String get vpnPermissionRequired => 'Izin Rcc diperlukan';
+  String get servicePermissionRequired => 'Izin layanan diperlukan';
 
   @override
-  String get failedToStartVpn => 'Gagal memulai layanan Rcc';
+  String get failedToStartService => 'Gagal memulai layanan';
 
   @override
   String get noNetworkConnection =>
@@ -302,4 +302,33 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
+
+  @override
+  String serviceDataPrivacy(String appName) {
+    return '$appName Privasi Data Koneksi Jaringan';
+  }
+
+  @override
+  String get serviceDataCollectionTitle =>
+      'Informasi pengguna apa yang dikumpulkan aplikasi menggunakan layanan?';
+
+  @override
+  String get serviceDataCollectionAnswer =>
+      'Aplikasi ini TIDAK mengumpulkan informasi pengguna melalui layanan. Semua pemrosesan lalu lintas jaringan dilakukan secara lokal di perangkat Anda. Riwayat penelusuran, data pribadi, atau informasi yang dapat diidentifikasi tidak dikumpulkan, dicatat, atau dikirimkan.';
+
+  @override
+  String get serviceDataPurposeTitle =>
+      'Untuk tujuan apa informasi ini dikumpulkan?';
+
+  @override
+  String get serviceDataPurposeAnswer =>
+      'Karena tidak ada data pengguna yang dikumpulkan, tidak ada tujuan untuk pengumpulan data. Fungsionalitas layanan digunakan semata-mata untuk merutekan lalu lintas jaringan sesuai dengan konfigurasi Anda untuk tujuan pendidikan dan perlindungan privasi. Semua operasi dilakukan secara lokal di perangkat Anda.';
+
+  @override
+  String get serviceDataSharingTitle =>
+      'Apakah data akan dibagikan dengan pihak ketiga?';
+
+  @override
+  String get serviceDataSharingAnswer =>
+      'Tidak ada data yang dibagikan dengan pihak ketiga karena tidak ada data yang dikumpulkan. Aplikasi ini beroperasi sepenuhnya secara lokal di perangkat Anda dan tidak mengirimkan informasi pengguna ke server eksternal. Privasi Anda sepenuhnya dilindungi.';
 }

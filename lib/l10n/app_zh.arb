@@ -11,8 +11,8 @@
   "disconnected": "已断开",
   "encrypted": "已加密",
   "unprotected": "未保护",
-  "vpnPermissionRequired": "需要Rcc权限",
-  "failedToStartVpn": "Rcc服务启动失败",
+  "servicePermissionRequired": "需要服务权限",
+  "failedToStartService": "服务启动失败",
   "noNetworkConnection": "无网络连接。请检查您的Wi-Fi或移动数据。",
   "settings": "设置",
   "darkMode": "深色模式",
@@ -93,5 +93,12 @@
   "malay": "Melayu",
   "persian": "فارسی",
   "hindi": "हिन्दी",
-  "indonesian": "Bahasa Indonesia"
+  "indonesian": "Bahasa Indonesia",
+  "serviceDataPrivacy": "{appName} 网络连接数据隐私",
+  "serviceDataCollectionTitle": "应用程序通过服务收集哪些用户信息？",
+  "serviceDataCollectionAnswer": "本应用程序不会通过服务收集任何用户信息。所有网络流量处理都在您的设备上本地执行。不会收集、记录或传输浏览历史、个人数据或可识别信息。",
+  "serviceDataPurposeTitle": "收集这些信息的目的是什么？",
+  "serviceDataPurposeAnswer": "由于不收集用户数据，因此没有数据收集目的。该服务功能仅用于根据您的配置路由网络流量，用于教育和隐私保护目的。所有操作都在您的设备上本地执行。",
+  "serviceDataSharingTitle": "数据会与第三方共享吗？",
+  "serviceDataSharingAnswer": "不会与任何第三方共享数据，因为不收集数据。本应用程序完全在您的设备上本地运行，不会将任何用户信息传输到外部服务器。您的隐私得到完全保护。"
 }

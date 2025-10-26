@@ -10,6 +10,8 @@
 std::string VPNService::log_file_path_;
 std::mutex VPNService::log_mutex_;
 bool VPNService::log_initialized_ = false;
+bool VPNService::setup_initialized_ = false;
+std::mutex VPNService::setup_mutex_;
 
 extern "C" void VPNServiceLogCallback(const char* message) {
   VPNService::WriteLog(message);
@@ -25,6 +27,54 @@ VPNService::~VPNService() {
   }
 }
 
+void VPNService::EnsureSetup() {
+  std::lock_guard<std::mutex> lock(setup_mutex_);
+  if (setup_initialized_) {
+    return;
+  }
+
+  wchar_t* roaming_path_wstr = nullptr;
+  std::string base_path;
+  if (SUCCEEDED(::SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, nullptr, &roaming_path_wstr))) {
+    int size_needed = ::WideCharToMultiByte(CP_UTF8, 0, roaming_path_wstr, -1, nullptr, 0, nullptr, nullptr);
+    base_path = std::string(size_needed - 1, 0);
+    ::WideCharToMultiByte(CP_UTF8, 0, roaming_path_wstr, -1, &base_path[0], size_needed, nullptr, nullptr);
+    ::CoTaskMemFree(roaming_path_wstr);
+    base_path += "\\io.root-corporation\\openapp";
+  }
+
+  wchar_t temp_path_wstr[MAX_PATH];
+  std::string temp_path;
+  if (::GetTempPathW(MAX_PATH, temp_path_wstr) > 0) {
+    int size_needed = ::WideCharToMultiByte(CP_UTF8, 0, temp_path_wstr, -1, nullptr, 0, nullptr, nullptr);
+    temp_path = std::string(size_needed - 1, 0);
+    ::WideCharToMultiByte(CP_UTF8, 0, temp_path_wstr, -1, &temp_path[0], size_needed, nullptr, nullptr);
+    if (!temp_path.empty() && temp_path.back() == '\\') {
+      temp_path.pop_back();
+    }
+  }
+
+  ::CreateDirectoryA(base_path.c_str(), nullptr);
+
+  char* base_path_cstr = _strdup(base_path.c_str());
+  char* working_path_cstr = _strdup(base_path.c_str());
+  char* temp_path_cstr = _strdup(temp_path.c_str());
+
+  char* setup_error = Setup(base_path_cstr, working_path_cstr, temp_path_cstr, 0, 0);
+
+  free(base_path_cstr);
+  free(working_path_cstr);
+  free(temp_path_cstr);
+
+  if (setup_error != nullptr) {
+    std::string error_msg(setup_error);
+    FreeString(setup_error);
+    WriteLog(("Setup failed: " + error_msg).c_str());
+  }
+
+  setup_initialized_ = true;
+}
+
 bool VPNService::Start(const std::string& config) {
   std::lock_guard<std::mutex> lock(status_mutex_);
 
@@ -32,6 +82,9 @@ bool VPNService::Start(const std::string& config) {
     LogMessage("Service already running");
     return false;
   }
+
+  EnsureSetup();
+  InitLogger();
 
   UpdateStatus("STARTING");
 
@@ -47,7 +100,7 @@ bool VPNService::Start(const std::string& config) {
     std::string error_msg = error ? error : "Unknown error";
     FreeString(error);
 
-    LogMessage("Failed to create VPN service: " + error_msg);
+    LogMessage("Failed to create service: " + error_msg);
     UpdateStatus("STOPPED");
     return false;
   }
@@ -58,14 +111,14 @@ bool VPNService::Start(const std::string& config) {
     std::string error_msg(start_error);
     FreeString(start_error);
 
-    LogMessage("Failed to start VPN service: " + error_msg);
+    LogMessage("Failed to start service: " + error_msg);
     ServiceClose(service_id);
     service_handle_ = nullptr;
     UpdateStatus("STOPPED");
     return false;
   }
 
-  LogMessage("VPN service started successfully");
+  LogMessage("Service started successfully");
   UpdateStatus("STARTED");
   return true;
 }
@@ -86,12 +139,12 @@ bool VPNService::Stop() {
   if (error != nullptr) {
     std::string error_msg(error);
     FreeString(error);
-    LogMessage("Error stopping VPN service: " + error_msg);
+    LogMessage("Error stopping service: " + error_msg);
     UpdateStatus("STOPPED");
     return false;
   }
 
-  LogMessage("VPN service stopped");
+  LogMessage("Service stopped");
   UpdateStatus("STOPPED");
   return true;
 }
@@ -154,7 +207,7 @@ std::string VPNService::GetLogFilePath() {
     std::string path(size_needed - 1, 0);
     ::WideCharToMultiByte(CP_UTF8, 0, path_wstr, -1, &path[0], size_needed, nullptr, nullptr);
     ::CoTaskMemFree(path_wstr);
-    return path + "\\io.rootcorporation.openapp\\debug.log";
+    return path + "\\io.root-corporation\\openapp\\debug.log";
   }
   return "";
 }
@@ -192,6 +245,10 @@ void VPNService::InitLogger() {
       log_file.close();
     }
   }
+
+#ifdef FLUTTER_VERSION
+  WriteLog(("App version: " FLUTTER_VERSION).c_str());
+#endif
 }
 
 void VPNService::WriteLog(const char* message) {

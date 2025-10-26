@@ -19,8 +19,7 @@ object FileLogger {
             val file = File(context.filesDir, LOG_FILE)
 
             if (!file.exists()) {
-                logFile = null
-                return
+                file.createNewFile()
             }
 
             if (file.length() > MAX_LOG_SIZE) {
@@ -28,6 +27,20 @@ object FileLogger {
             }
 
             logFile = file
+
+            try {
+                val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+                val versionName = packageInfo.versionName
+                val versionCode = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                    packageInfo.longVersionCode
+                } else {
+                    @Suppress("DEPRECATION")
+                    packageInfo.versionCode.toLong()
+                }
+                info("App version: $versionName ($versionCode)")
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to get version info", e)
+            }
         } catch (e: Exception) {
             Log.e(TAG, "Failed to init FileLogger", e)
         }

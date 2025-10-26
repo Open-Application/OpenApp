@@ -39,10 +39,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unprotected => 'Unprotected';
 
   @override
-  String get vpnPermissionRequired => 'Rcc permission required';
+  String get servicePermissionRequired => 'Service permission required';
 
   @override
-  String get failedToStartVpn => 'Failed to start Rcc service';
+  String get failedToStartService => 'Failed to start service';
 
   @override
   String get noNetworkConnection =>
@@ -301,4 +301,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
+
+  @override
+  String serviceDataPrivacy(String appName) {
+    return '$appName Network Connect Data Privacy';
+  }
+
+  @override
+  String get serviceDataCollectionTitle =>
+      'What user information is the app collecting using the service?';
+
+  @override
+  String get serviceDataCollectionAnswer =>
+      'This application does NOT collect any user information through the service. All network traffic processing is performed locally on your device. No browsing history, personal data, or identifiable information is collected, logged, or transmitted.';
+
+  @override
+  String get serviceDataPurposeTitle =>
+      'For what purposes is this information collected?';
+
+  @override
+  String get serviceDataPurposeAnswer =>
+      'Since no user data is collected, there are no purposes for data collection. The service functionality is used solely to route network traffic according to your configuration for educational and privacy protection purposes. All operations are local to your device.';
+
+  @override
+  String get serviceDataSharingTitle =>
+      'Will the data be shared with any third parties?';
+
+  @override
+  String get serviceDataSharingAnswer =>
+      'No data is shared with any third parties because no data is collected. This application operates entirely locally on your device and does not transmit any user information to external servers. Your privacy is completely protected.';
 }

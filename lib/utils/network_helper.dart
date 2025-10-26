@@ -86,7 +86,7 @@ extension NetworkStatusExtension on NetworkStatus {
       case NetworkStatus.bluetooth:
         return 'Bluetooth';
       case NetworkStatus.vpn:
-        return 'VPN';
+        return 'Secure Connection';
       case NetworkStatus.other:
         return 'Connected';
       case NetworkStatus.unknown:

@@ -39,10 +39,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get unprotected => 'Незащищено';
 
   @override
-  String get vpnPermissionRequired => 'Требуется разрешение Rcc';
+  String get servicePermissionRequired => 'Требуется разрешение службы';
 
   @override
-  String get failedToStartVpn => 'Не удалось запустить службу Rcc';
+  String get failedToStartService => 'Не удалось запустить службу';
 
   @override
   String get noNetworkConnection =>
@@ -302,4 +302,33 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
+
+  @override
+  String serviceDataPrivacy(String appName) {
+    return '$appName Конфиденциальность данных сетевого подключения';
+  }
+
+  @override
+  String get serviceDataCollectionTitle =>
+      'Какую информацию о пользователе собирает приложение через службу?';
+
+  @override
+  String get serviceDataCollectionAnswer =>
+      'Это приложение НЕ собирает никакой информации о пользователях через службу. Вся обработка сетевого трафика выполняется локально на вашем устройстве. История просмотров, личные данные или идентифицирующая информация не собираются, не регистрируются и не передаются.';
+
+  @override
+  String get serviceDataPurposeTitle =>
+      'Для каких целей собирается эта информация?';
+
+  @override
+  String get serviceDataPurposeAnswer =>
+      'Поскольку данные пользователей не собираются, нет целей для сбора данных. Функциональность службы используется исключительно для маршрутизации сетевого трафика в соответствии с вашей конфигурацией для образовательных целей и защиты конфиденциальности. Все операции выполняются локально на вашем устройстве.';
+
+  @override
+  String get serviceDataSharingTitle =>
+      'Будут ли данные переданы третьим лицам?';
+
+  @override
+  String get serviceDataSharingAnswer =>
+      'Данные не передаются третьим лицам, поскольку они не собираются. Это приложение работает полностью локально на вашем устройстве и не передает никакую информацию о пользователе на внешние серверы. Ваша конфиденциальность полностью защищена.';
 }

@@ -11,8 +11,8 @@
   "disconnected": "Terputus",
   "encrypted": "Terenkripsi",
   "unprotected": "Tidak Dilindungi",
-  "vpnPermissionRequired": "Izin Rcc diperlukan",
-  "failedToStartVpn": "Gagal memulai layanan Rcc",
+  "servicePermissionRequired": "Izin layanan diperlukan",
+  "failedToStartService": "Gagal memulai layanan",
   "noNetworkConnection": "Tidak ada koneksi jaringan. Silakan periksa Wi-Fi atau data seluler Anda.",
   "settings": "Pengaturan",
   "darkMode": "Mode Gelap",
@@ -93,5 +93,12 @@
   "malay": "Melayu",
   "persian": "فارسی",
   "hindi": "हिन्दी",
-  "indonesian": "Bahasa Indonesia"
+  "indonesian": "Bahasa Indonesia",
+  "serviceDataPrivacy": "{appName} Privasi Data Koneksi Jaringan",
+  "serviceDataCollectionTitle": "Informasi pengguna apa yang dikumpulkan aplikasi menggunakan layanan?",
+  "serviceDataCollectionAnswer": "Aplikasi ini TIDAK mengumpulkan informasi pengguna melalui layanan. Semua pemrosesan lalu lintas jaringan dilakukan secara lokal di perangkat Anda. Riwayat penelusuran, data pribadi, atau informasi yang dapat diidentifikasi tidak dikumpulkan, dicatat, atau dikirimkan.",
+  "serviceDataPurposeTitle": "Untuk tujuan apa informasi ini dikumpulkan?",
+  "serviceDataPurposeAnswer": "Karena tidak ada data pengguna yang dikumpulkan, tidak ada tujuan untuk pengumpulan data. Fungsionalitas layanan digunakan semata-mata untuk merutekan lalu lintas jaringan sesuai dengan konfigurasi Anda untuk tujuan pendidikan dan perlindungan privasi. Semua operasi dilakukan secara lokal di perangkat Anda.",
+  "serviceDataSharingTitle": "Apakah data akan dibagikan dengan pihak ketiga?",
+  "serviceDataSharingAnswer": "Tidak ada data yang dibagikan dengan pihak ketiga karena tidak ada data yang dikumpulkan. Aplikasi ini beroperasi sepenuhnya secara lokal di perangkat Anda dan tidak mengirimkan informasi pengguna ke server eksternal. Privasi Anda sepenuhnya dilindungi."
 }

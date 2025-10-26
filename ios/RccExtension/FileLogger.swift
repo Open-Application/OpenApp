@@ -12,10 +12,14 @@ class FileLogger {
     }()
 
     private static func getLogFilePath() -> URL? {
-        guard let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.rootcorporation.openapp") else {
+            NSLog("[FileLogger] Failed to get App Group container")
             return nil
         }
-        return documentsPath.appendingPathComponent(logFileName)
+
+        try? FileManager.default.createDirectory(at: containerURL, withIntermediateDirectories: true, attributes: nil)
+
+        return containerURL.appendingPathComponent(logFileName)
     }
 
     private static func initialize() {
@@ -29,7 +33,7 @@ class FileLogger {
             FileManager.default.createFile(atPath: logFileURL.path, contents: nil, attributes: nil)
         }
 
-        do {
+        do{
             let attributes = try FileManager.default.attributesOfItem(atPath: logFileURL.path)
             if let fileSize = attributes[.size] as? Int, fileSize > maxLogSize {
                 try "".write(to: logFileURL, atomically: true, encoding: .utf8)
@@ -40,6 +44,12 @@ class FileLogger {
 
         logFile = logFileURL
         isInitialized = true
+
+        if let infoDictionary = Bundle.main.infoDictionary,
+           let version = infoDictionary["CFBundleShortVersionString"] as? String,
+           let build = infoDictionary["CFBundleVersion"] as? String {
+            info("App version: \(version) (\(build))")
+        }
     }
 
     static func log(level: String, message: String) {

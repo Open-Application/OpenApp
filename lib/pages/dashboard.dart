@@ -702,6 +702,85 @@ class _DashboardState extends State<Dashboard>
     return DateFormat('yyyy-MM-dd HH:mm').format(timestamp);
   }
 
+
+  void _showServiceDataPrivacyDialog(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          l10n.serviceDataPrivacy(Constants.appName),
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                l10n.serviceDataCollectionTitle,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+              SizedBox(height: UI.scaledDimension(8)),
+              Text(
+                l10n.serviceDataCollectionAnswer,
+                style: theme.textTheme.bodyMedium,
+              ),
+              SizedBox(height: UI.scaledDimension(16)),
+              Text(
+                l10n.serviceDataPurposeTitle,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+              SizedBox(height: UI.scaledDimension(8)),
+              Text(
+                l10n.serviceDataPurposeAnswer,
+                style: theme.textTheme.bodyMedium,
+              ),
+              SizedBox(height: UI.scaledDimension(16)),
+              Text(
+                l10n.serviceDataSharingTitle,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+              SizedBox(height: UI.scaledDimension(8)),
+              Text(
+                l10n.serviceDataSharingAnswer,
+                style: theme.textTheme.bodyMedium,
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              HapticUtils.selectionClick();
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              l10n.close,
+              style: TextStyle(
+                fontSize: UI.buttonTextSize,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildConfigurationCard(BuildContext context) {
     final theme = Theme.of(context);
     final preferencesProvider = ProviderHelper.getPreferencesProvider(context);
@@ -734,6 +813,17 @@ class _DashboardState extends State<Dashboard>
               }
             });
           },
+          trailingAction: GestureDetector(
+            onTap: () {
+              HapticUtils.selectionClick();
+              _showServiceDataPrivacyDialog(context);
+            },
+            child: Icon(
+              Constants.iconInfo,
+              size: UI.adaptiveIconSize(15),
+              color: theme.colorScheme.primary.withValues(alpha: 0.7),
+            ),
+          ),
           expandedContent: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

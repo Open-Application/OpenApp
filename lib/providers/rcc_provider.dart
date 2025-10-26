@@ -49,7 +49,7 @@ class RccProvider extends ChangeNotifier {
           if (context != null && context.mounted) {
             RccMessenger.showError(
               context: context,
-              message: AppLocalizations.of(context)!.vpnPermissionRequired,
+              message: AppLocalizations.of(context)!.servicePermissionRequired,
             );
           }
           _isLoading = false;
@@ -86,7 +86,7 @@ class RccProvider extends ChangeNotifier {
       if (!success && context != null && context.mounted) {
         RccMessenger.showError(
           context: context,
-          message: AppLocalizations.of(context)!.failedToStartVpn,
+          message: AppLocalizations.of(context)!.failedToStartService,
         );
         _isLoading = false;
         notifyListeners();

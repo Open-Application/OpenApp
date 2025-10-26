@@ -4,6 +4,7 @@
 *.aar
 *.xcframework
 *.dll
+.claude
 
 # Miscellaneous
 *.class

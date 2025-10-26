@@ -19,7 +19,7 @@ class LogProvider extends ChangeNotifier {
 
   Future<void> _initLogFile() async {
     try {
-      final directory = await getApplicationDocumentsDirectory();
+      final directory = await getApplicationSupportDirectory();
       _logFile = File('${directory.path}/${Constants.debugLogFileName}');
       _startPolling();
     } catch (e) {
@@ -29,7 +29,7 @@ class LogProvider extends ChangeNotifier {
 
   Future<void> createDebugLogFile() async {
     try {
-      final directory = await getApplicationDocumentsDirectory();
+      final directory = await getApplicationSupportDirectory();
       final logFile = File('${directory.path}/${Constants.debugLogFileName}');
 
       if (!await logFile.exists()) {

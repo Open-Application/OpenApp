@@ -28,9 +28,9 @@ class FlutterBridge(
     fun handleVpnPermissionResult(granted: Boolean) {
         if (granted) {
             permissionGrantedTime = System.currentTimeMillis()
-            FileLogger.info("VPN permission granted at $permissionGrantedTime")
+            FileLogger.info("Service permission granted at $permissionGrantedTime")
         } else {
-            FileLogger.warn("VPN permission denied by user")
+            FileLogger.warn("Service permission denied by user")
         }
         pendingPermissionResult?.success(granted)
         pendingPermissionResult = null
@@ -46,7 +46,7 @@ class FlutterBridge(
                 FileLogger.info("Starting service")
                 io.rootcorporation.openapp.bg.BoxService.start(config)
             } catch (e: Exception) {
-                FileLogger.error("Failed to start VPN service: ${e.message}")
+                FileLogger.error("Failed to start service: ${e.message}")
             }
         }
     }
@@ -86,11 +86,11 @@ class FlutterBridge(
                 "requestRccPermission" -> {
                     val intent = VpnService.prepare(activity)
                     if (intent != null) {
-                        FileLogger.info("Requesting VPN permission from user")
+                        FileLogger.info("Requesting service permission from user")
                         pendingPermissionResult = result
                         vpnPermissionLauncher.launch(intent)
                     } else {
-                        FileLogger.info("VPN permission already granted")
+                        FileLogger.info("Service permission already granted")
                         result.success(true)
                     }
                 }

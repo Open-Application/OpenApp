@@ -39,10 +39,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get unprotected => 'Korumasız';
 
   @override
-  String get vpnPermissionRequired => 'Rcc izni gerekli';
+  String get servicePermissionRequired => 'Hizmet izni gerekli';
 
   @override
-  String get failedToStartVpn => 'Rcc hizmeti başlatılamadı';
+  String get failedToStartService => 'Hizmet başlatılamadı';
 
   @override
   String get noNetworkConnection =>
@@ -302,4 +302,33 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get indonesian => 'Bahasa Indonesia';
+
+  @override
+  String serviceDataPrivacy(String appName) {
+    return '$appName Ağ Bağlantısı Veri Gizliliği';
+  }
+
+  @override
+  String get serviceDataCollectionTitle =>
+      'Uygulama hizmet kullanarak hangi kullanıcı bilgilerini topluyor?';
+
+  @override
+  String get serviceDataCollectionAnswer =>
+      'Bu uygulama, hizmet aracılığıyla herhangi bir kullanıcı bilgisi TOPLAMAZ. Tüm ağ trafiği işleme cihazınızda yerel olarak gerçekleştirilir. Tarama geçmişi, kişisel veriler veya tanımlayıcı bilgiler toplanmaz, kaydedilmez veya iletilmez.';
+
+  @override
+  String get serviceDataPurposeTitle =>
+      'Bu bilgiler hangi amaçlarla toplanıyor?';
+
+  @override
+  String get serviceDataPurposeAnswer =>
+      'Kullanıcı verisi toplanmadığı için veri toplama amacı yoktur. Hizmet işlevselliği yalnızca yapılandırmanıza göre ağ trafiğini yönlendirmek için eğitim ve gizlilik koruma amaçları doğrultusunda kullanılır. Tüm işlemler cihazınızda yerel olarak yapılır.';
+
+  @override
+  String get serviceDataSharingTitle =>
+      'Veriler üçüncü taraflarla paylaşılacak mı?';
+
+  @override
+  String get serviceDataSharingAnswer =>
+      'Hiçbir veri toplanmadığı için üçüncü taraflarla hiçbir veri paylaşılmaz. Bu uygulama tamamen cihazınızda yerel olarak çalışır ve harici sunuculara herhangi bir kullanıcı bilgisi iletmez. Gizliliğiniz tamamen korunur.';
 }
