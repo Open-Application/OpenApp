@@ -179,7 +179,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get close => 'Tutup';
 
   @override
-  String get agree => 'Agree';
+  String get agree => 'Bersetuju';
 
   @override
   String get purpose => 'Tujuan';

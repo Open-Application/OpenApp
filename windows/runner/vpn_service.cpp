@@ -60,6 +60,11 @@ void VPNService::EnsureSetup() {
   char* working_path_cstr = _strdup(base_path.c_str());
   char* temp_path_cstr = _strdup(temp_path.c_str());
 
+  std::cout << "[VPNService] Calling Setup with paths:" << std::endl;
+  std::cout << "  Base: " << base_path << std::endl;
+  std::cout << "  Working: " << base_path << std::endl;
+  std::cout << "  Temp: " << temp_path << std::endl;
+
   char* setup_error = Setup(base_path_cstr, working_path_cstr, temp_path_cstr, 0, 0);
 
   free(base_path_cstr);
@@ -91,8 +96,10 @@ bool VPNService::Start(const std::string& config) {
   PlatformInterface platform_interface = {0};
   platform_interface.writeLog = VPNServiceLogCallback;
 
+  std::cout << "[VPNService] Calling NewService with config length: " << config.length() << std::endl;
   char* config_cstr = _strdup(config.c_str());
   int64_t service_id = NewService(config_cstr, &platform_interface);
+  std::cout << "[VPNService] NewService returned: " << service_id << std::endl;
   free(config_cstr);
 
   if (service_id < 0) {
@@ -214,9 +221,6 @@ std::string VPNService::GetLogFilePath() {
 
 void VPNService::InitLogger() {
   std::lock_guard<std::mutex> lock(log_mutex_);
-  if (log_initialized_) {
-    return;
-  }
 
   std::string path = GetLogFilePath();
   if (path.empty()) {
@@ -232,23 +236,24 @@ void VPNService::InitLogger() {
   log_file_path_ = path;
   log_initialized_ = true;
 
-  std::ifstream test_file(path);
-  if (!test_file.good()) {
-    std::ofstream log_file(path, std::ios::out | std::ios::trunc);
-    if (log_file.is_open()) {
-      auto now = std::time(nullptr);
-      std::tm tm;
-      localtime_s(&tm, &now);
-      std::ostringstream oss;
-      oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
-      log_file << "[" << oss.str() << "] Log file initialized\n";
-      log_file.close();
-    }
-  }
+  // Always truncate the log file when starting service (similar to Android)
+  std::ofstream log_file(path, std::ios::out | std::ios::trunc);
+  if (log_file.is_open()) {
+    auto now = std::time(nullptr);
+    std::tm tm;
+    localtime_s(&tm, &now);
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
 
+    // Log app version using FLUTTER_VERSION macro from CMake
 #ifdef FLUTTER_VERSION
-  WriteLog("App version: " FLUTTER_VERSION);
+    log_file << "[" << oss.str() << "] App version: " << FLUTTER_VERSION << "\n";
+#else
+    log_file << "[" << oss.str() << "] App version: unknown\n";
 #endif
+    log_file << "[" << oss.str() << "] Log file initialized\n";
+    log_file.close();
+  }
 }
 
 void VPNService::WriteLog(const char* message) {

@@ -179,7 +179,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get close => 'Закрыть';
 
   @override
-  String get agree => 'Agree';
+  String get agree => 'Согласен';
 
   @override
   String get purpose => 'Назначение';

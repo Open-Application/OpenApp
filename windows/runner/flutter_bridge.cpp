@@ -69,7 +69,12 @@ void FlutterBridge::HandleMethodCall(
   } else if (method_name == "requestRccPermission") {
     RequestRccPermission(std::move(result));
   } else if (method_name == "startRcc") {
-    const auto* arguments = std::get_if<flutter::EncodableMap>(method_call.arguments());
+    const auto* args_ptr = method_call.arguments();
+    if (!args_ptr) {
+      result->Error("NO_ARGS", "No arguments provided");
+      return;
+    }
+    const auto* arguments = std::get_if<flutter::EncodableMap>(args_ptr);
     if (!arguments) {
       result->Error("INVALID_ARGS", "Arguments must be a map");
       return;

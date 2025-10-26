@@ -179,7 +179,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get close => 'بستن';
 
   @override
-  String get agree => 'Agree';
+  String get agree => 'موافقم';
 
   @override
   String get purpose => 'هدف';

@@ -170,7 +170,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get close => '关闭';
 
   @override
-  String get agree => 'Agree';
+  String get agree => '同意';
 
   @override
   String get purpose => '目的';

@@ -179,7 +179,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get close => 'Kapat';
 
   @override
-  String get agree => 'Agree';
+  String get agree => 'Kabul';
 
   @override
   String get purpose => 'Amaç';

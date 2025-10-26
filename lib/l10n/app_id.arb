@@ -100,5 +100,6 @@
   "serviceDataPurposeTitle": "Untuk tujuan apa informasi ini dikumpulkan?",
   "serviceDataPurposeAnswer": "Karena tidak ada data pengguna yang dikumpulkan, tidak ada tujuan untuk pengumpulan data. Fungsionalitas layanan digunakan semata-mata untuk merutekan lalu lintas jaringan sesuai dengan konfigurasi Anda untuk tujuan pendidikan dan perlindungan privasi. Semua operasi dilakukan secara lokal di perangkat Anda.",
   "serviceDataSharingTitle": "Apakah data akan dibagikan dengan pihak ketiga?",
-  "serviceDataSharingAnswer": "Tidak ada data yang dibagikan dengan pihak ketiga karena tidak ada data yang dikumpulkan. Aplikasi ini beroperasi sepenuhnya secara lokal di perangkat Anda dan tidak mengirimkan informasi pengguna ke server eksternal. Privasi Anda sepenuhnya dilindungi."
+  "serviceDataSharingAnswer": "Tidak ada data yang dibagikan dengan pihak ketiga karena tidak ada data yang dikumpulkan. Aplikasi ini beroperasi sepenuhnya secara lokal di perangkat Anda dan tidak mengirimkan informasi pengguna ke server eksternal. Privasi Anda sepenuhnya dilindungi.",
+  "agree": "Setuju"
 }

@@ -100,5 +100,6 @@
   "serviceDataPurposeTitle": "Bu bilgiler hangi amaçlarla toplanıyor?",
   "serviceDataPurposeAnswer": "Kullanıcı verisi toplanmadığı için veri toplama amacı yoktur. Hizmet işlevselliği yalnızca yapılandırmanıza göre ağ trafiğini yönlendirmek için eğitim ve gizlilik koruma amaçları doğrultusunda kullanılır. Tüm işlemler cihazınızda yerel olarak yapılır.",
   "serviceDataSharingTitle": "Veriler üçüncü taraflarla paylaşılacak mı?",
-  "serviceDataSharingAnswer": "Hiçbir veri toplanmadığı için üçüncü taraflarla hiçbir veri paylaşılmaz. Bu uygulama tamamen cihazınızda yerel olarak çalışır ve harici sunuculara herhangi bir kullanıcı bilgisi iletmez. Gizliliğiniz tamamen korunur."
+  "serviceDataSharingAnswer": "Hiçbir veri toplanmadığı için üçüncü taraflarla hiçbir veri paylaşılmaz. Bu uygulama tamamen cihazınızda yerel olarak çalışır ve harici sunuculara herhangi bir kullanıcı bilgisi iletmez. Gizliliğiniz tamamen korunur.",
+  "agree": "Kabul"
 }

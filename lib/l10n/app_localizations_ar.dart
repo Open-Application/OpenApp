@@ -179,7 +179,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get close => 'إغلاق';
 
   @override
-  String get agree => 'Agree';
+  String get agree => 'موافق';
 
   @override
   String get purpose => 'الغرض';
