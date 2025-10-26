@@ -2,161 +2,68 @@
 
 set -e
 
+APP_NAME=$(grep "^name:" pubspec.yaml | sed 's/name: //')
 VERSION=$(grep "^version:" pubspec.yaml | sed 's/version: //')
 
-DEBUG_MODE=false
-TEST_MODE=false
-RELEASE_MODE=false
+echo "Building $APP_NAME v$VERSION (Release Mode)"
 
-if [ "$1" = "-d" ]; then
-    DEBUG_MODE=true
-elif [ "$1" = "-t" ]; then
-    TEST_MODE=true
-elif [ "$1" = "-r" ]; then
-    RELEASE_MODE=true
-elif [ -n "$1" ]; then
-    echo "Invalid option: $1" >&2
-    echo "Usage: $0 [-d] [-t] [-r]"
-    echo "  -d  Debug mode (skip clean and build)"
-    echo "  -t  Test mode (skip landing and auth)"
-    echo "  -r  Release mode (create MSIX package)"
-    exit 1
-fi
+# Clean Flutter cache and build directories
+cd ~/OpenApp
+rm -rf .dart_tool build/
+flutter clean
 
-if [ "$TEST_MODE" = true ]; then
-    echo "Test mode: Modifying files for debug..."
+# Clean OpenCore build artifacts
+cd ~/OpenCore/export
+rm -f liboc.dll liboc.h liboc.def
+cd ~/OpenCore
+go clean -cache 2>/dev/null || true
 
-    cp lib/router.dart lib/router.dart.backup
-    cp lib/pages/dashboard.dart lib/pages/dashboard.dart.backup
+# Build liboc.dll
+echo "Building liboc.dll..."
+cd ~/OpenCore/export
 
-    sed -i '' "s|initialLocation: '/',|initialLocation: '/dashboard',|g" lib/router.dart
-    sed -i '' "s|final bool isAuthenticated = user.isAuthenticated ?? false;|final bool isAuthenticated = true;|g" lib/pages/dashboard.dart
-fi
+# Set environment variables
+export CC="x86_64-w64-mingw32-gcc"
+export CXX="x86_64-w64-mingw32-g++"
+export PATH="/c/Program Files/Go/bin:/c/Program Files/llvm-mingw-20240619-ucrt-x86_64/bin:$PATH"
 
-if [ "$DEBUG_MODE" = false ]; then
-    echo "Building OpenApp v$VERSION for Windows"
-    rm -rf .dart_tool windows/.gradle
-    flutter gen-l10n
-    flutter pub run flutter_launcher_icons
-    flutter build windows --release \
-        --obfuscate \
-        --split-debug-info=debug-info/windows \
-        --suppress-analytics \
-        --no-tree-shake-icons
-fi
+# Build configuration
+TAGS="with_gvisor,with_quic,with_wireguard,with_utls,with_low_memory,with_conntrack,with_clash_api"
+BUILD_VERSION="v0.0.3-embedded-wintun"
+LDFLAGS="-X github.com/sagernet/sing-box/constant.Version=$BUILD_VERSION -s -w -buildid= -checklinkname=0"
 
-if [ "$TEST_MODE" = true ]; then
-    echo "Test mode: Restoring original files..."
-    mv lib/router.dart.backup lib/router.dart
-    mv lib/pages/dashboard.dart.backup lib/pages/dashboard.dart
-    echo "Files restored"
-fi
+# Build the DLL
+CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v \
+    -buildmode=c-shared \
+    -tags="$TAGS,netcgo" \
+    -trimpath \
+    -ldflags="$LDFLAGS" \
+    -o liboc.dll \
+    ./ffi.go
 
-if [ "$RELEASE_MODE" = true ]; then
-    echo "========================================="
-    echo "Windows Release Build"
-    echo "========================================="
-    echo ""
-    echo "Version: ${VERSION}"
-    echo ""
+# Copy files to OpenApp and generate import library
+cp liboc.dll ~/OpenApp/windows/
+cp liboc.h ~/OpenApp/windows/
 
-    if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
-        echo "Step 1: Creating MSIX package..."
+# Generate import library
+cd ~/OpenApp/windows
+gendef liboc.dll
+dlltool -d liboc.def -D liboc.dll -l liboc.lib
 
-        flutter pub run msix:create --version "$VERSION" --build-windows false
+# Clear debug log
+rm -f ~/AppData/Roaming/io.root-corporation/openapp/debug.log
+mkdir -p ~/AppData/Roaming/io.root-corporation/openapp
+touch ~/AppData/Roaming/io.root-corporation/openapp/debug.log
 
-        if [ -f "build/windows/runner/Release/openapp.msix" ]; then
-            echo ""
-            echo "Step 2: Renaming MSIX for release..."
-            mv "build/windows/runner/Release/openapp.msix" "build/windows/runner/Release/OpenApp-$VERSION.msix"
-            echo "Release MSIX created: OpenApp-$VERSION.msix"
+# Build Windows application
+cd ~/OpenApp
+echo "Building Windows MSIX..."
+flutter build windows --release \
+    --obfuscate \
+    --split-debug-info=debug-info/windows \
+    --suppress-analytics \
+    --no-tree-shake-icons
 
-            MSIX_SIZE=$(du -h "build/windows/runner/Release/OpenApp-$VERSION.msix" | cut -f1)
-            echo "  Size: ${MSIX_SIZE}"
-            echo ""
-            echo "========================================="
-            echo "Build Complete!"
-            echo "========================================="
-            echo ""
-            echo "Build Artifacts:"
-            echo "  MSIX Package: build/windows/runner/Release/OpenApp-$VERSION.msix"
-            echo ""
-            echo "Next steps:"
-            echo "1. Test the MSIX package on Windows"
-            echo "2. Sign the package for distribution"
-            echo "3. Distribute via Microsoft Store or sideloading"
-        else
-            echo ""
-            echo "⚠️  MSIX package not found at expected location"
-            echo "Checking for alternative locations..."
-            find build/windows -name "*.msix" -type f 2>/dev/null || echo "No MSIX files found"
-
-            echo ""
-            echo "Creating portable build instead..."
-            mkdir -p "build/windows/release/OpenApp-$VERSION"
-            cp -r build/windows/runner/Release/* "build/windows/release/OpenApp-$VERSION/"
-
-            echo ""
-            echo "Portable build created: build/windows/release/OpenApp-$VERSION/"
-            echo ""
-            echo "To create an installer, consider using:"
-            echo "  - Inno Setup (https://jrsoftware.org/isinfo.php)"
-            echo "  - WiX Toolset (https://wixtoolset.org/)"
-            echo "  - Advanced Installer (https://www.advancedinstaller.com/)"
-        fi
-    else
-        echo "⚠️  Not running on Windows. Creating portable build..."
-        echo ""
-        echo "Note: MSIX packages can only be created on Windows"
-        echo "Creating a portable Windows build instead..."
-        echo ""
-
-        mkdir -p "build/windows/release/OpenApp-$VERSION"
-        if [ -d "build/windows/runner/Release" ]; then
-            cp -r build/windows/runner/Release/* "build/windows/release/OpenApp-$VERSION/"
-
-            echo "Portable build created: build/windows/release/OpenApp-$VERSION/"
-            echo ""
-            echo "Contents:"
-            ls -lh "build/windows/release/OpenApp-$VERSION/"
-            echo ""
-            echo "To create an MSIX package:"
-            echo "1. Run this script on a Windows machine"
-            echo "2. Or manually create MSIX using: flutter pub run msix:create"
-        else
-            echo "❌ Windows build directory not found!"
-            echo "Make sure you have run the Windows build first."
-            exit 1
-        fi
-    fi
-else
-    echo ""
-    echo "Build complete!"
-    echo ""
-
-    if [ -d "build/windows/runner/Release" ]; then
-        echo "Windows build: build/windows/runner/Release/"
-        echo ""
-
-        if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
-            echo "To run the app:"
-            echo "  ./build/windows/runner/Release/openapp.exe"
-            echo ""
-            echo "Or run directly from Explorer:"
-            echo "  start build/windows/runner/Release/openapp.exe"
-        else
-            echo "Transfer the build/windows/runner/Release/ directory to a Windows machine to run."
-        fi
-
-        echo ""
-        echo "To create a release build with MSIX package:"
-        echo "  ./build-windows.sh -r"
-    else
-        echo "❌ Windows build directory not found!"
-        echo "Make sure the build completed successfully."
-
-        echo ""
-        echo "Checking for build artifacts..."
-        find build/windows -name "*.exe" -type f 2>/dev/null || echo "No executables found"
-    fi
-fi
+echo "Renaming MSIX for release..."
+mv build/windows/x64/runner/Release "$APP_NAME-$VERSION-windows"
+echo "Release Windows build created: $APP_NAME-$VERSION-windows"

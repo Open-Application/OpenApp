@@ -30,6 +30,7 @@ class VPNService {
   void UpdateStatus(const std::string& status);
   void LogMessage(const std::string& message);
   static std::string GetLogFilePath();
+  static void EnsureSetup();
 
   void* service_handle_;
   mutable std::mutex status_mutex_;
@@ -39,6 +40,8 @@ class VPNService {
   static std::string log_file_path_;
   static std::mutex log_mutex_;
   static bool log_initialized_;
+  static bool setup_initialized_;
+  static std::mutex setup_mutex_;
 };
 
 #endif

@@ -10,6 +10,8 @@
 std::string VPNService::log_file_path_;
 std::mutex VPNService::log_mutex_;
 bool VPNService::log_initialized_ = false;
+bool VPNService::setup_initialized_ = false;
+std::mutex VPNService::setup_mutex_;
 
 extern "C" void VPNServiceLogCallback(const char* message) {
   VPNService::WriteLog(message);
@@ -25,6 +27,60 @@ VPNService::~VPNService() {
   }
 }
 
+void VPNService::EnsureSetup() {
+  std::lock_guard<std::mutex> lock(setup_mutex_);
+  if (setup_initialized_) {
+    return;
+  }
+
+  // Get base path (AppData\Roaming\io.root-corporation\openapp)
+  wchar_t* roaming_path_wstr = nullptr;
+  std::string base_path;
+  if (SUCCEEDED(::SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, nullptr, &roaming_path_wstr))) {
+    int size_needed = ::WideCharToMultiByte(CP_UTF8, 0, roaming_path_wstr, -1, nullptr, 0, nullptr, nullptr);
+    base_path = std::string(size_needed - 1, 0);
+    ::WideCharToMultiByte(CP_UTF8, 0, roaming_path_wstr, -1, &base_path[0], size_needed, nullptr, nullptr);
+    ::CoTaskMemFree(roaming_path_wstr);
+    base_path += "\\io.root-corporation\\openapp";
+  }
+
+  // Get temp path
+  wchar_t temp_path_wstr[MAX_PATH];
+  std::string temp_path;
+  if (::GetTempPathW(MAX_PATH, temp_path_wstr) > 0) {
+    int size_needed = ::WideCharToMultiByte(CP_UTF8, 0, temp_path_wstr, -1, nullptr, 0, nullptr, nullptr);
+    temp_path = std::string(size_needed - 1, 0);
+    ::WideCharToMultiByte(CP_UTF8, 0, temp_path_wstr, -1, &temp_path[0], size_needed, nullptr, nullptr);
+    // Remove trailing backslash if present
+    if (!temp_path.empty() && temp_path.back() == '\\') {
+      temp_path.pop_back();
+    }
+  }
+
+  // Create directories if they don't exist
+  ::CreateDirectoryA(base_path.c_str(), nullptr);
+
+  // Call Setup
+  char* base_path_cstr = _strdup(base_path.c_str());
+  char* working_path_cstr = _strdup(base_path.c_str());  // Same as base path on Windows
+  char* temp_path_cstr = _strdup(temp_path.c_str());
+
+  char* setup_error = Setup(base_path_cstr, working_path_cstr, temp_path_cstr, 0, 0);
+
+  free(base_path_cstr);
+  free(working_path_cstr);
+  free(temp_path_cstr);
+
+  if (setup_error != nullptr) {
+    std::string error_msg(setup_error);
+    FreeString(setup_error);
+    WriteLog(("Setup failed: " + error_msg).c_str());
+    // Continue anyway - setup failure shouldn't prevent logger initialization
+  }
+
+  setup_initialized_ = true;
+}
+
 bool VPNService::Start(const std::string& config) {
   std::lock_guard<std::mutex> lock(status_mutex_);
 
@@ -32,6 +88,12 @@ bool VPNService::Start(const std::string& config) {
     LogMessage("Service already running");
     return false;
   }
+
+  // Ensure Setup is called before creating service
+  EnsureSetup();
+
+  // Initialize logger after setup
+  InitLogger();
 
   UpdateStatus("STARTING");
 
@@ -154,7 +216,7 @@ std::string VPNService::GetLogFilePath() {
     std::string path(size_needed - 1, 0);
     ::WideCharToMultiByte(CP_UTF8, 0, path_wstr, -1, &path[0], size_needed, nullptr, nullptr);
     ::CoTaskMemFree(path_wstr);
-    return path + "\\io.rootcorporation.openapp\\debug.log";
+    return path + "\\io.root-corporation\\openapp\\debug.log";
   }
   return "";
 }

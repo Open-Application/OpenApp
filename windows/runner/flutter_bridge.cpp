@@ -152,14 +152,14 @@ void FlutterBridge::StartRcc(
   }
 
   std::cout << "Starting Windows VPN with config (length: " << config.length() << ")" << std::endl;
-  std::thread([this, config, res = std::move(result)]() mutable {
-    bool success = vpn_service_->Start(config);
-    if (success) {
-      res->Success(flutter::EncodableValue(true));
-    } else {
-      res->Error("START_FAILED", "Failed to start VPN service");
-    }
-  }).detach();
+  // Start VPN synchronously to avoid thread lifetime issues
+  // The VPN service itself handles background operations internally
+  bool success = vpn_service_->Start(config);
+  if (success) {
+    result->Success(flutter::EncodableValue(true));
+  } else {
+    result->Error("START_FAILED", "Failed to start VPN service");
+  }
 }
 
 void FlutterBridge::StopRcc(
