@@ -271,6 +271,11 @@
     "description": "Close button text"
   },
 
+  "agree": "Agree",
+  "@agree": {
+    "description": "Agree button text"
+  },
+
   "purpose": "Purpose",
   "@purpose": {
     "description": "Purpose label"

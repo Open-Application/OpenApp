@@ -9,6 +9,7 @@ class PreferencesProvider extends ChangeNotifier {
   static const String _languageKey = 'app_language';
   static const String _userConfigKey = 'user_encoded_config';
   static const String _userConfigTimestampKey = 'user_config_timestamp';
+  static const String _privacyAcceptedKey = 'privacy_accepted';
 
   ThemeMode _themeMode = ThemeMode.system;
   bool _hasUserThemePreference = false;
@@ -25,6 +26,7 @@ class PreferencesProvider extends ChangeNotifier {
   Map<String, dynamic>? _deviceInfo;
   String? _userEncodedConfig;
   DateTime? _userConfigTimestamp;
+  bool _privacyAccepted = false;
 
   ThemeMode get themeMode => _themeMode;
   bool get hasUserThemePreference => _hasUserThemePreference;
@@ -43,6 +45,7 @@ class PreferencesProvider extends ChangeNotifier {
   String? get userEncodedConfig => _userEncodedConfig;
   bool get hasUserConfig => _userEncodedConfig != null && _userEncodedConfig!.isNotEmpty;
   DateTime? get userConfigTimestamp => _userConfigTimestamp;
+  bool get privacyAccepted => _privacyAccepted;
 
   bool get isHuaweiDevice => DeviceHelper().isHuaweiDevice;
   bool get needsRenderingOptimization =>
@@ -67,6 +70,7 @@ class PreferencesProvider extends ChangeNotifier {
       _loadSavedLanguage(),
       _loadDeviceInfo(),
       _loadUserConfig(),
+      _loadPrivacyAcceptance(),
     ]);
   }
 
@@ -191,6 +195,22 @@ class PreferencesProvider extends ChangeNotifier {
       }
       notifyListeners();
     } catch (_) {}
+  }
+
+  Future<void> _loadPrivacyAcceptance() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _privacyAccepted = prefs.getBool(_privacyAcceptedKey) ?? false;
+      notifyListeners();
+    } catch (_) {}
+  }
+
+  Future<void> setPrivacyAccepted(bool accepted) async {
+    _privacyAccepted = accepted;
+    notifyListeners();
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_privacyAcceptedKey, accepted);
   }
 
   Future<void> setUserConfig(String config) async {

@@ -179,6 +179,9 @@ class AppLocalizationsMs extends AppLocalizations {
   String get close => 'Tutup';
 
   @override
+  String get agree => 'Agree';
+
+  @override
   String get purpose => 'Tujuan';
 
   @override

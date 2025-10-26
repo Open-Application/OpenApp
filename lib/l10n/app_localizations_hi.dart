@@ -180,6 +180,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get close => 'बंद करें';
 
   @override
+  String get agree => 'Agree';
+
+  @override
   String get purpose => 'उद्देश्य';
 
   @override

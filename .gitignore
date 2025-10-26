@@ -2,7 +2,7 @@
 .test
 .vscode
 *.aar
-*.xcframework
+*.xcframework*
 *.dll
 .claude
 

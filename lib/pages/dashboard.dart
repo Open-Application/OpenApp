@@ -423,6 +423,29 @@ class _DashboardState extends State<Dashboard>
           final logProvider = ProviderHelper.getLogProvider(context);
           logProvider?.clearLogs();
 
+          // Check if user is trying to connect (not disconnect)
+          if (!isConnected) {
+            final prefsProvider = ProviderHelper.getPreferencesProvider(context);
+            if (prefsProvider != null) {
+              final prefs = prefsProvider as dynamic;
+              // Check if user has accepted privacy policy
+              if (!prefs.privacyAccepted) {
+                // Show privacy dialog and wait for user response
+                final accepted = await _showServiceDataPrivacyDialog(context, requireAcceptance: true);
+
+                if (!context.mounted) return;
+
+                // If user didn't agree, don't proceed with connection
+                if (accepted != true) {
+                  return;
+                }
+
+                // User agreed, save the preference
+                await prefs.setPrivacyAccepted(true);
+              }
+            }
+          }
+
           final hasNetwork = await NetworkHelper.hasConnection();
 
           if (!context.mounted) return;
@@ -703,12 +726,13 @@ class _DashboardState extends State<Dashboard>
   }
 
 
-  void _showServiceDataPrivacyDialog(BuildContext context) {
+  Future<bool?> _showServiceDataPrivacyDialog(BuildContext context, {bool requireAcceptance = false}) async {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
 
-    showDialog(
+    return showDialog<bool>(
       context: context,
+      barrierDismissible: !requireAcceptance,
       builder: (context) => AlertDialog(
         title: Text(
           l10n.serviceDataPrivacy(Constants.appName),
@@ -763,19 +787,53 @@ class _DashboardState extends State<Dashboard>
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () {
-              HapticUtils.selectionClick();
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              l10n.close,
-              style: TextStyle(
-                fontSize: UI.buttonTextSize,
-                fontWeight: FontWeight.w600,
+          if (requireAcceptance) ...[
+            TextButton(
+              onPressed: () {
+                HapticUtils.selectionClick();
+                Navigator.of(context).pop(false);
+              },
+              child: Text(
+                l10n.close,
+                style: TextStyle(
+                  fontSize: UI.buttonTextSize,
+                  fontWeight: FontWeight.w600,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
               ),
             ),
-          ),
+            ElevatedButton(
+              onPressed: () {
+                HapticUtils.primaryAction();
+                Navigator.of(context).pop(true);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.primary,
+                foregroundColor: Colors.white,
+              ),
+              child: Text(
+                l10n.agree,
+                style: TextStyle(
+                  fontSize: UI.buttonTextSize,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ] else ...[
+            TextButton(
+              onPressed: () {
+                HapticUtils.selectionClick();
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                l10n.close,
+                style: TextStyle(
+                  fontSize: UI.buttonTextSize,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );

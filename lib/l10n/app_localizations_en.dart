@@ -179,6 +179,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get close => 'Close';
 
   @override
+  String get agree => 'Agree';
+
+  @override
   String get purpose => 'Purpose';
 
   @override

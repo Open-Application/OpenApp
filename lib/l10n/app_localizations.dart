@@ -430,6 +430,12 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get close;
 
+  /// Agree button text
+  ///
+  /// In en, this message translates to:
+  /// **'Agree'**
+  String get agree;
+
   /// Purpose label
   ///
   /// In en, this message translates to:

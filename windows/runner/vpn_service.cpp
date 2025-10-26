@@ -247,7 +247,7 @@ void VPNService::InitLogger() {
   }
 
 #ifdef FLUTTER_VERSION
-  WriteLog(("App version: " FLUTTER_VERSION).c_str());
+  WriteLog("App version: " FLUTTER_VERSION);
 #endif
 }
 

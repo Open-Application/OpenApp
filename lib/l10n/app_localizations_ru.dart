@@ -179,6 +179,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get close => 'Закрыть';
 
   @override
+  String get agree => 'Agree';
+
+  @override
   String get purpose => 'Назначение';
 
   @override

@@ -179,6 +179,9 @@ class AppLocalizationsFa extends AppLocalizations {
   String get close => 'بستن';
 
   @override
+  String get agree => 'Agree';
+
+  @override
   String get purpose => 'هدف';
 
   @override

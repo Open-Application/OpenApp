@@ -179,6 +179,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get close => 'إغلاق';
 
   @override
+  String get agree => 'Agree';
+
+  @override
   String get purpose => 'الغرض';
 
   @override
