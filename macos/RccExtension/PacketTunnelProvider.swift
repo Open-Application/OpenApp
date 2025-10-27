@@ -12,8 +12,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         let setupOptions = LibocSetupOptions()
 
         guard let containerPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.rootcorporation.openapp") else {
-            writeFatalError("Failed to get App Group container")
-            return
+            throw NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to get App Group container"])
         }
 
         setupOptions.basePath = containerPath.path
@@ -26,15 +25,14 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         LibocSetup(setupOptions, &error)
 
         if let error = error {
-            writeFatalError("Setup error: \(error.localizedDescription)")
-            return
+            writeLog("Setup error: \(error.localizedDescription)")
+            throw error
         }
 
         let stderrPath = containerPath.appendingPathComponent("stderr.log").path
         LibocRedirectStderr(stderrPath, &error)
         if let error = error {
-            writeFatalError("Failed to redirect stderr: \(error.localizedDescription)")
-            return
+            writeLog("Failed to redirect stderr: \(error.localizedDescription)")
         }
 
         LibocSetMemoryLimit(true)
@@ -43,13 +41,14 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             platformInterface = RccPlatformInterface(provider: self)
         }
 
-        await startService()
+        try await startService()
     }
 
-    private func startService() async {
+    private func startService() async throws {
         guard let configContent = UserDefaults(suiteName: "group.io.rootcorporation.openapp")?.string(forKey: "io.rootcorporation.openapp.config") else {
-            writeFatalError("No configuration found")
-            return
+            let error = NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "No configuration found"])
+            writeLog("Error: \(error.localizedDescription)")
+            throw error
         }
 
         let maxRetries = 10
@@ -59,26 +58,15 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             let delayMs = attempt * 500
             if delayMs > 0 {
                 writeLog("Waiting \(delayMs)ms before attempt \(attempt + 1)/\(maxRetries)")
-                do {
-                    try await Task.sleep(nanoseconds: UInt64(delayMs) * 1_000_000)
-                } catch {
-                    writeLog("Sleep interrupted: \(error.localizedDescription)")
-                }
-            }
-
-            var error: NSError?
-            guard let service = LibocNewService(configContent, platformInterface, &error) else {
-                lastError = error ?? NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create service"])
-                if attempt < maxRetries - 1 {
-                    writeLog("Attempt \(attempt + 1)/\(maxRetries) failed: \(lastError!.localizedDescription), retrying...")
-                    continue
-                } else {
-                    writeFatalError("All \(maxRetries) attempts failed: \(lastError!.localizedDescription)")
-                    return
-                }
+                try await Task.sleep(nanoseconds: UInt64(delayMs) * 1_000_000)
             }
 
             do {
+                var error: NSError?
+                guard let service = LibocNewService(configContent, platformInterface, &error) else {
+                    throw error ?? NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create service"])
+                }
+
                 try service.start()
                 boxService = service
                 writeLog("Service started successfully after \(attempt + 1) attempt(s)")
@@ -89,16 +77,17 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
                 UserDefaults(suiteName: "group.io.rootcorporation.openapp")?.set("STARTED", forKey: "io.rootcorporation.openapp.status")
                 return
-            } catch {
+            } catch let error {
                 lastError = error
                 if attempt < maxRetries - 1 {
-                    writeLog("Attempt \(attempt + 1)/\(maxRetries) failed to start: \(error.localizedDescription), retrying...")
+                    writeLog("Attempt \(attempt + 1)/\(maxRetries) failed: \(error.localizedDescription), retrying...")
                 } else {
-                    writeFatalError("All \(maxRetries) attempts failed to start: \(error.localizedDescription)")
-                    return
+                    writeLog("All \(maxRetries) attempts failed")
                 }
             }
         }
+
+        throw lastError ?? NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Service start failed after \(maxRetries) attempts"])
     }
 
     override func stopTunnel(with reason: NEProviderStopReason) async {
@@ -131,12 +120,5 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
     func writeLog(_ message: String) {
         FileLogger.info(message)
-    }
-
-    func writeFatalError(_ message: String) {
-        NSLog("[Rcc] FATAL: \(message)")
-        var error: NSError?
-        LibocWriteServiceError(message, &error)
-        cancelTunnelWithError(nil)
     }
 }

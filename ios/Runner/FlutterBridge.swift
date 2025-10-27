@@ -40,9 +40,6 @@ class FlutterBridge: NSObject {
             case "getRccStatus":
                 self.getStatus(result: result)
 
-            case "clearRccStatus":
-                self.clearStatus(result: result)
-
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -219,14 +216,6 @@ class FlutterBridge: NSObject {
             let status = defaults?.string(forKey: "io.rootcorporation.openapp.status") ?? "STOPPED"
             result(status)
         }
-    }
-
-    private func clearStatus(result: @escaping FlutterResult) {
-        let defaults = UserDefaults(suiteName: "group.io.rootcorporation.openapp")
-        defaults?.removeObject(forKey: "io.rootcorporation.openapp.status")
-        defaults?.synchronize()
-        NSLog("[FlutterBridge] Status cleared manually")
-        result(true)
     }
 
     deinit {

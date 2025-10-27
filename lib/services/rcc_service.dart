@@ -77,16 +77,6 @@ class RccService implements RccInterface {
     }
   }
 
-  @override
-  Future<bool> clearRccStatus() async {
-    try {
-      final result = await _channel.invokeMethod<bool>('clearRccStatus');
-      return result ?? false;
-    } catch (_) {
-      return false;
-    }
-  }
-
   void _initEventChannel() {
     _eventChannel.receiveBroadcastStream().listen((event) {
       final data = event as Map;

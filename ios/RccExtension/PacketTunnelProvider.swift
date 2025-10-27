@@ -6,6 +6,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     private var platformInterface: RccPlatformInterface?
 
     override func startTunnel(options: [String : NSObject]?) async throws {
+        LibocClearServiceError()
+
         let setupOptions = LibocSetupOptions()
 
         guard let containerPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.rootcorporation.openapp") else {
