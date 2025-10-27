@@ -52,34 +52,53 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             return
         }
 
-        var error: NSError?
-        let service = LibocNewService(configContent, platformInterface, &error)
+        let maxRetries = 10
+        var lastError: Error?
 
-        if let error {
-            writeFatalError("Failed to create service: \(error.localizedDescription)")
-            return
+        for attempt in 0..<maxRetries {
+            let delayMs = attempt * 500
+            if delayMs > 0 {
+                writeLog("Waiting \(delayMs)ms before attempt \(attempt + 1)/\(maxRetries)")
+                do {
+                    try await Task.sleep(nanoseconds: UInt64(delayMs) * 1_000_000)
+                } catch {
+                    writeLog("Sleep interrupted: \(error.localizedDescription)")
+                }
+            }
+
+            var error: NSError?
+            guard let service = LibocNewService(configContent, platformInterface, &error) else {
+                lastError = error ?? NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create service"])
+                if attempt < maxRetries - 1 {
+                    writeLog("Attempt \(attempt + 1)/\(maxRetries) failed: \(lastError!.localizedDescription), retrying...")
+                    continue
+                } else {
+                    writeFatalError("All \(maxRetries) attempts failed: \(lastError!.localizedDescription)")
+                    return
+                }
+            }
+
+            do {
+                try service.start()
+                boxService = service
+                writeLog("Service started successfully after \(attempt + 1) attempt(s)")
+
+                if service.needWIFIState() {
+                    writeLog("WiFi state requested but not available (location permission not granted)")
+                }
+
+                UserDefaults(suiteName: "group.io.rootcorporation.openapp")?.set("STARTED", forKey: "io.rootcorporation.openapp.status")
+                return
+            } catch {
+                lastError = error
+                if attempt < maxRetries - 1 {
+                    writeLog("Attempt \(attempt + 1)/\(maxRetries) failed to start: \(error.localizedDescription), retrying...")
+                } else {
+                    writeFatalError("All \(maxRetries) attempts failed to start: \(error.localizedDescription)")
+                    return
+                }
+            }
         }
-
-        guard let service else {
-            writeFatalError("Failed to create service: unknown error")
-            return
-        }
-
-        do {
-            try service.start()
-        } catch {
-            writeFatalError("Failed to start service: \(error.localizedDescription)")
-            return
-        }
-
-        boxService = service
-        writeLog("Service started successfully")
-
-        if service.needWIFIState() {
-            writeLog("WiFi state requested but not available (location permission not granted)")
-        }
-
-        UserDefaults(suiteName: "group.io.rootcorporation.openapp")?.set("STARTED", forKey: "io.rootcorporation.openapp.status")
     }
 
     override func stopTunnel(with reason: NEProviderStopReason) async {
