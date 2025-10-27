@@ -64,6 +64,7 @@ jobs:
 
           # Calculate build number from version (a.b.c -> a*100+b*10+c)
           VERSION="${{ inputs.version }}"
+          VERSION="${VERSION#v}"
           IFS='.' read -r a b c <<< "$VERSION"
           BUILD_NUMBER=$((a * 100 + b * 10 + c))
           echo "Calculated build number: ${BUILD_NUMBER} from version ${VERSION}"
