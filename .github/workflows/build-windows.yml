@@ -115,7 +115,7 @@ jobs:
             -d "OpenApp" \
             -l "assets/logo.png" \
             -u "com.rootcorporation.openapp" \
-            -i "Root-Corporation PTY LTD Australia" \
+            -i "Root-Corporation.com" \
             --version "${MSIX_VERSION}" \
             --publisher "CN=Root-Corporation" \
             --trim-logo false \

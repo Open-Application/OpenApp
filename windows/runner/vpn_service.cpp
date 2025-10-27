@@ -236,7 +236,6 @@ void VPNService::InitLogger() {
   log_file_path_ = path;
   log_initialized_ = true;
 
-  // Always truncate the log file when starting service (similar to Android)
   std::ofstream log_file(path, std::ios::out | std::ios::trunc);
   if (log_file.is_open()) {
     auto now = std::time(nullptr);
@@ -245,7 +244,6 @@ void VPNService::InitLogger() {
     std::ostringstream oss;
     oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
 
-    // Log app version using FLUTTER_VERSION macro from CMake
 #ifdef FLUTTER_VERSION
     log_file << "[" << oss.str() << "] App version: " << FLUTTER_VERSION << "\n";
 #else
