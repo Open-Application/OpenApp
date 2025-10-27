@@ -12,14 +12,18 @@ class FileLogger {
     }()
 
     private static func getLogFilePath() -> URL? {
+        NSLog("[FileLogger] getLogFilePath called")
         guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.rootcorporation.openapp") else {
-            NSLog("[FileLogger] Failed to get App Group container")
+            NSLog("[FileLogger] FATAL: Failed to get App Group container")
             return nil
         }
 
+        NSLog("[FileLogger] Got container URL: \(containerURL.path)")
         try? FileManager.default.createDirectory(at: containerURL, withIntermediateDirectories: true, attributes: nil)
 
-        return containerURL.appendingPathComponent(logFileName)
+        let logPath = containerURL.appendingPathComponent(logFileName)
+        NSLog("[FileLogger] Log file path: \(logPath.path)")
+        return logPath
     }
 
     private static func initialize() {

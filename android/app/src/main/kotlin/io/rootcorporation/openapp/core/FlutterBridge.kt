@@ -127,6 +127,12 @@ class FlutterBridge(
                     val status = io.rootcorporation.openapp.bg.BoxService.getCurrentStatus()
                     result.success(status)
                 }
+
+                "getLogFilePath" -> {
+                    val logFile = File(activity.applicationContext.filesDir, "debug.log")
+                    result.success(logFile.absolutePath)
+                }
+
                 else -> result.notImplemented()
             }
         }

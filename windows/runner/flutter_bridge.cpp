@@ -97,6 +97,8 @@ void FlutterBridge::HandleMethodCall(
     StopRcc(std::move(result));
   } else if (method_name == "getRccStatus") {
     GetRccStatus(std::move(result));
+  } else if (method_name == "getLogFilePath") {
+    GetLogFilePath(std::move(result));
   } else {
     result->NotImplemented();
   }
@@ -195,6 +197,19 @@ void FlutterBridge::GetRccStatus(
 
   std::string status = vpn_service_->GetStatus();
   result->Success(flutter::EncodableValue(status));
+}
+
+void FlutterBridge::GetLogFilePath(
+    std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
+  char* appdata = nullptr;
+  size_t len = 0;
+  if (_dupenv_s(&appdata, &len, "LOCALAPPDATA") == 0 && appdata != nullptr) {
+    std::string log_path = std::string(appdata) + "\\io.rootcorporation.openapp\\debug.log";
+    free(appdata);
+    result->Success(flutter::EncodableValue(log_path));
+  } else {
+    result->Success(flutter::EncodableValue("debug.log"));
+  }
 }
 
 void FlutterBridge::OnListen(

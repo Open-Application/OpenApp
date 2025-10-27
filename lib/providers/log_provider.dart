@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import '../constants.dart';
+import '../services/rcc_service.dart';
 
 class LogProvider extends ChangeNotifier {
   static const int maxLogLines = 500;
@@ -19,11 +20,16 @@ class LogProvider extends ChangeNotifier {
 
   Future<void> _initLogFile() async {
     try {
-      final directory = await getApplicationSupportDirectory();
-      _logFile = File('${directory.path}/${Constants.debugLogFileName}');
-      _startPolling();
+      final logPath = await RccService().getLogFilePath();
+      if (logPath != null && logPath.isNotEmpty) {
+        _logFile = File(logPath);
+        debugPrint('[LogProvider] Using native log path: $logPath');
+        _startPolling();
+      } else {
+        debugPrint('[LogProvider] Error: No log path returned from native');
+      }
     } catch (e) {
-      debugPrint('Error initializing log file: $e');
+      debugPrint('[LogProvider] Error initializing log file: $e');
     }
   }
 

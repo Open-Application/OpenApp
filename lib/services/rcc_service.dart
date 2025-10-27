@@ -77,6 +77,16 @@ class RccService implements RccInterface {
     }
   }
 
+  @override
+  Future<String?> getLogFilePath() async {
+    try {
+      final result = await _channel.invokeMethod<String>('getLogFilePath');
+      return result;
+    } catch (_) {
+      return null;
+    }
+  }
+
   void _initEventChannel() {
     _eventChannel.receiveBroadcastStream().listen((event) {
       final data = event as Map;

@@ -10,5 +10,6 @@ abstract class RccInterface {
   Future<bool> startRcc(String base64Config);
   Future<bool> stopRcc();
   Future<String> getRccStatus();
+  Future<String?> getLogFilePath();
   void dispose();
 }

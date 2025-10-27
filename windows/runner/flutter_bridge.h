@@ -30,6 +30,7 @@ class FlutterBridge {
   void StartRcc(const std::string& config, std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
   void StopRcc(std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
   void GetRccStatus(std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
+  void GetLogFilePath(std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
   void OnListen(
       const flutter::EncodableValue* arguments,
       std::unique_ptr<flutter::EventSink<flutter::EncodableValue>>&& events);

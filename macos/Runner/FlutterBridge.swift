@@ -40,6 +40,9 @@ class FlutterBridge: NSObject {
             case "getRccStatus":
                 self.getStatus(result: result)
 
+            case "getLogFilePath":
+                self.getLogFilePath(result: result)
+
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -57,13 +60,21 @@ class FlutterBridge: NSObject {
                 return
             }
 
-            if let manager = managers?.first {
-                self.vpnManager = manager
-                self.observeVPNStatus()
-                self.validateAndClearStaleStatus()
-            } else {
-                self.createServiceManager()
+            // Always remove old configurations to prevent signing mismatches
+            // between debug and release builds
+            if let existingManagers = managers, !existingManagers.isEmpty {
+                NSLog("[FlutterBridge] Found \(existingManagers.count) existing VPN configuration(s), removing to prevent signing conflicts")
+                for existingManager in existingManagers {
+                    existingManager.removeFromPreferences { removeError in
+                        if let removeError = removeError {
+                            NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
+                        }
+                    }
+                }
             }
+
+            // Always create fresh configuration to match current build's code signing
+            self.createServiceManager()
         }
     }
 
@@ -158,22 +169,29 @@ class FlutterBridge: NSObject {
     }
 
     private func startVPN(config: String, result: @escaping FlutterResult) {
+        NSLog("[FlutterBridge] startVPN called")
         guard let manager = vpnManager else {
+            NSLog("[FlutterBridge] ERROR: No manager")
             result(FlutterError(code: "NO_MANAGER", message: "Rcc manager not initialized", details: nil))
             return
         }
+
+        NSLog("[FlutterBridge] Manager exists, checking connection status: \(manager.connection.status.rawValue)")
 
         let defaults = UserDefaults(suiteName: "group.io.rootcorporation.openapp")
         defaults?.set(config, forKey: "io.rootcorporation.openapp.config")
         defaults?.synchronize()
 
         NSLog("[FlutterBridge] Saved config to UserDefaults, length: \(config.count)")
+        NSLog("[FlutterBridge] Attempting to start VPN tunnel...")
 
         do {
             try manager.connection.startVPNTunnel()
+            NSLog("[FlutterBridge] startVPNTunnel() call succeeded")
             result(true)
         } catch {
-            NSLog("Error starting Rcc service: \(error.localizedDescription)")
+            NSLog("[FlutterBridge] ERROR starting Rcc service: \(error.localizedDescription)")
+            NSLog("[FlutterBridge] Error details: \(error)")
             defaults?.set("STOPPED", forKey: "io.rootcorporation.openapp.status")
             defaults?.synchronize()
             result(FlutterError(code: "START_ERROR", message: error.localizedDescription, details: nil))
@@ -215,6 +233,16 @@ class FlutterBridge: NSObject {
             let status = defaults?.string(forKey: "io.rootcorporation.openapp.status") ?? "STOPPED"
             result(status)
         }
+    }
+
+    private func getLogFilePath(result: @escaping FlutterResult) {
+        guard let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.rootcorporation.openapp") else {
+            result(FlutterError(code: "NO_APP_GROUP", message: "Failed to get App Group container", details: nil))
+            return
+        }
+
+        let logFilePath = appGroupURL.appendingPathComponent("debug.log").path
+        result(logFilePath)
     }
 
     deinit {

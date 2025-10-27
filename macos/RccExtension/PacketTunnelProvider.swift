@@ -7,11 +7,16 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     private var platformInterface: RccPlatformInterface?
 
     override func startTunnel(options: [String : NSObject]?) async throws {
+        NSLog("[PacketTunnelProvider] startTunnel called")
         LibocClearServiceError()
+
+        FileLogger.info("Starting tunnel")
+        NSLog("[PacketTunnelProvider] FileLogger initialized")
 
         let setupOptions = LibocSetupOptions()
 
         guard let containerPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.rootcorporation.openapp") else {
+            writeLog("Error: Failed to get App Group container")
             throw NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to get App Group container"])
         }
 
