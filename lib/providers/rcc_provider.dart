@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../interfaces/rcc_interface.dart';
 import '../l10n/app_localizations.dart';
 import '../components/rcc_messenger.dart';
@@ -77,6 +78,12 @@ class RccProvider extends ChangeNotifier {
           RccMessenger.showError(
             context: context,
             message: AppLocalizations.of(context)!.configurationRequired,
+            action: SnackBarAction(
+              label: 'Help',
+              onPressed: () {
+                launchUrl(Uri.parse(Constants.projectUrl));
+              },
+            ),
           );
         }
         return;

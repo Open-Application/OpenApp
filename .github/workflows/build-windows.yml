@@ -17,16 +17,6 @@ on:
         required: true
         type: string
         description: 'Version to build'
-  workflow_dispatch:
-    inputs:
-      name:
-        required: true
-        type: string
-        description: 'App name'
-      version:
-        required: true
-        type: string
-        description: 'Version to build'
 
 jobs:
   build-windows-app:
@@ -46,7 +36,7 @@ jobs:
         run: |
           set -xeuo pipefail
 
-          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
+          LATEST_RELEASE=$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
 
           if [ -z "${LATEST_RELEASE}" ]; then
             echo "Error: Failed to fetch latest release tag"
@@ -58,7 +48,7 @@ jobs:
           DOWNLOAD_URL="https://github.com/Open-Application/OpenCore/releases/download/${LATEST_RELEASE}/liboc-windows-amd64-${LATEST_RELEASE}.zip"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
-          curl -L -o liboc.zip "${DOWNLOAD_URL}"
+          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o liboc.zip "${DOWNLOAD_URL}"
           mkdir -p windows/
           unzip -o liboc.zip -d windows/
 
@@ -106,6 +96,35 @@ jobs:
           ls -lh build/windows
           ls -lh build/windows/x64/runner/Release/
 
+      - name: Build MSIX package
+        shell: bash
+        run: |
+          set -xeuo pipefail
+
+          echo "Building MSIX package for ${{ inputs.name }} ${{ inputs.version }}"
+
+          # Calculate build number from version (a.b.c -> a*100+b*10+c)
+          VERSION="${{ inputs.version }}"
+          IFS='.' read -r a b c <<< "$VERSION"
+          BUILD_NUMBER=$((a * 100 + b * 10 + c))
+          MSIX_VERSION="${a}.${b}.${c}.${BUILD_NUMBER}"
+
+          dart run msix:create \
+            -e "internetClient, privateNetworkClientServer" \
+            -d "OpenApp" \
+            -l "assets/logo.png" \
+            -u "com.rootcorporation.openapp" \
+            -i "Root-Corporation PTY LTD Australia" \
+            --version "${MSIX_VERSION}" \
+            --publisher "CN=Root-Corporation" \
+            --trim-logo false \
+            --sign-msix false
+
+          echo "Verifying MSIX output:"
+          ls -lh build/windows/x64/runner/Release/*.msix
+
+          # Rename MSIX file
+          mv build/windows/x64/runner/Release/*.msix "${{ inputs.name }}-windows-amd64-${{ inputs.version }}.msix"
 
       - name: Compress Windows app
         shell: bash
@@ -123,6 +142,7 @@ jobs:
           overwrite_files: true
           files: |
             ${{ inputs.name }}-windows-amd64-${{ inputs.version }}.zip
+            ${{ inputs.name }}-windows-amd64-${{ inputs.version }}.msix
           body: |
             ## Windows Application for ${{ inputs.version }}
 

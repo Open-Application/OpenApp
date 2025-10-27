@@ -17,16 +17,6 @@ on:
         required: true
         type: string
         description: 'Version to build'
-  workflow_dispatch:
-    inputs:
-      name:
-        required: true
-        type: string
-        description: 'App name'
-      version:
-        required: true
-        type: string
-        description: 'Version to build'
 
 jobs:
   build-android-app:
@@ -40,7 +30,7 @@ jobs:
         run: |
           set -xeuo pipefail
 
-          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
+          LATEST_RELEASE=$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/Open-Application/OpenCore/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
 
           if [ -z "${LATEST_RELEASE}" ]; then
             echo "Error: Failed to fetch latest release tag"
@@ -52,7 +42,7 @@ jobs:
           DOWNLOAD_URL="https://github.com/Open-Application/OpenCore/releases/download/${LATEST_RELEASE}/liboc-android-universal-${LATEST_RELEASE}.tar.gz"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
-          curl -L -o liboc.tar.gz "${DOWNLOAD_URL}"
+          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o liboc.tar.gz "${DOWNLOAD_URL}"
           mkdir -p android/app/libs/
           tar -xzf liboc.tar.gz -C android/app/libs/
 
@@ -71,7 +61,16 @@ jobs:
       - name: Set build environment
         run: |
           set -xeuo pipefail
-          echo "BUILD_VERSION=${{ inputs.version }}" >> "${GITHUB_ENV}"
+
+          # Calculate build number from version (a.b.c -> a*100+b*10+c)
+          VERSION="${{ inputs.version }}"
+          IFS='.' read -r a b c <<< "$VERSION"
+          BUILD_NUMBER=$((a * 100 + b * 10 + c))
+          echo "Calculated build number: ${BUILD_NUMBER} from version ${VERSION}"
+
+          # Update pubspec.yaml with version+build_number
+          sed -i.bak "s/^version: .*/version: ${VERSION}+${BUILD_NUMBER}/" pubspec.yaml
+          echo "Updated pubspec.yaml version to: ${VERSION}+${BUILD_NUMBER}"
 
       - name: Install Flutter dependencies
         run: |

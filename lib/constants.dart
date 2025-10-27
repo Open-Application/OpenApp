@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class Constants {
   static const String appName = 'OpenApp';
   static const String projectName = 'RootCorporation';
+  static const String projectUrl = 'https://github.com/Open-Application/OpenApp';
   static const String projectVersion = '1.0.0';
 
   static const String licenseText = 'MIT';
@@ -32,7 +33,6 @@ SOFTWARE.
 ''';
 
   static const String encodedConfig = '';
-
   // Asset paths
   static const String iconAppIcon = 'assets/logo.png';
   static const String licensePath = 'assets/legals/LICENSE';
