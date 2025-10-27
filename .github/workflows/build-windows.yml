@@ -121,7 +121,6 @@ jobs:
             --trim-logo false \
             --sign-msix false
 
-          echo "Verifying Store MSIX output:"
           ls -lh build/windows/x64/runner/Release/*.msix
           mv build/windows/x64/runner/Release/*.msix "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
 
@@ -132,7 +131,6 @@ jobs:
 
           echo "Building MSIX package for ${{ inputs.name }} ${{ inputs.version }}"
 
-          # Calculate build number from version (a.b.c -> a*100+b*10+c)
           VERSION="${{ inputs.version }}"
           VERSION="${VERSION#v}"
           IFS='.' read -r a b c <<< "$VERSION"
@@ -141,19 +139,16 @@ jobs:
 
           dart run msix:create \
             -e "internetClient, privateNetworkClientServer" \
-            -d "OpenApp" \
+            -d "${{ inputs.name }}" \
             -l "assets/logo.png" \
-            -u "com.rootcorporation.openapp" \
-            -i "Root-Corporation.com" \
+            -u "${{ secrets.PARTNER_COMPANY }}" \
+            -i "${{ secrets.PARTNER_APP }}" \
             --version "${MSIX_VERSION}" \
-            --publisher "CN=Root-Corporation" \
+            --publisher "${{ secrets.AZURE_CN }}" \
             --trim-logo false \
             --sign-msix false
 
-          echo "Verifying MSIX output:"
           ls -lh build/windows/x64/runner/Release/*.msix
-
-          # Rename MSIX file
           mv build/windows/x64/runner/Release/*.msix "${{ inputs.name }}-windows-amd64-${{ inputs.version }}.msix"
 
       - name: Compress Windows app
