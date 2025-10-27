@@ -1,4 +1,4 @@
-name: listen
+name: build
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -7,8 +7,6 @@ permissions:
   contents: write
 
 on:
-  schedule:
-    - cron: '0 */10 * * *'
   push:
     branches:
       - "master"

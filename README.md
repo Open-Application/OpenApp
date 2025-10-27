@@ -1,8 +1,6 @@
 # OpenApp
 
-[![Build Android](https://github.com/Open-Application/OpenApp/workflows/build-android/badge.svg)](https://github.com/Open-Application/OpenApp/actions?query=workflow:build-android)
-[![Build iOS](https://github.com/Open-Application/OpenApp/workflows/build-apple/badge.svg)](https://github.com/Open-Application/OpenApp/actions?query=workflow:build-apple)
-[![Build Windows](https://github.com/Open-Application/OpenApp/workflows/build-windows/badge.svg)](https://github.com/Open-Application/OpenApp/actions?query=workflow:build-windows)
+[![Build](https://github.com/Open-Application/OpenApp/workflows/build/badge.svg)](https://github.com/Open-Application/OpenApp/actions?query=workflow:build)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/github/v/release/Open-Application/OpenApp?label=Version)](https://github.com/Open-Application/OpenApp/releases)
 [![Code Size](https://img.shields.io/github/languages/code-size/Open-Application/OpenApp)](https://github.com/Open-Application/OpenApp)

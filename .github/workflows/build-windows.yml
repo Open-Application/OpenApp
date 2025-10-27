@@ -96,7 +96,36 @@ jobs:
           ls -lh build/windows
           ls -lh build/windows/x64/runner/Release/
 
-      - name: Build MSIX package
+      - name: Build MSIX package(Store)
+        shell: bash
+        run: |
+          set -xeuo pipefail
+
+          echo "Building Store MSIX package for ${{ inputs.name }} ${{ inputs.version }}"
+
+          VERSION="${{ inputs.version }}"
+          VERSION="${VERSION#v}"
+          IFS='.' read -r a b c <<< "$VERSION"
+          BUILD_NUMBER=$((a * 100 + b * 10 + c))
+          MSIX_VERSION="${a}.${b}.${c}.${BUILD_NUMBER}"
+
+          dart run msix:create \
+            -e "internetClient, privateNetworkClientServer" \
+            -d "${{ inputs.name }}" \
+            -l "assets/logo.png" \
+            -u "${{ secrets.PARTNER_COMPANY }}" \
+            -i "${{ secrets.PARTNER_APP }}" \
+            --version "${MSIX_VERSION}" \
+            --publisher "${{ secrets.PARTNER_CN }}" \
+            --store true \
+            --trim-logo false \
+            --sign-msix false
+
+          echo "Verifying Store MSIX output:"
+          ls -lh build/windows/x64/runner/Release/*.msix
+          mv build/windows/x64/runner/Release/*.msix "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+
+      - name: Build MSIX package(Release)
         shell: bash
         run: |
           set -xeuo pipefail
@@ -144,6 +173,7 @@ jobs:
           files: |
             ${{ inputs.name }}-windows-amd64-${{ inputs.version }}.zip
             ${{ inputs.name }}-windows-amd64-${{ inputs.version }}.msix
+            ${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix
           body: |
             ## Windows Application for ${{ inputs.version }}
 
