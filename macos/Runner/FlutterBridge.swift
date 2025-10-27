@@ -100,8 +100,21 @@ class FlutterBridge: NSObject {
                 return
             }
 
-            self?.vpnManager = manager
-            self?.observeVPNStatus()
+            NSLog("[FlutterBridge] Manager saved, reloading from preferences")
+            NETunnelProviderManager.loadAllFromPreferences { managers, error in
+                guard let self = self else { return }
+
+                if let error = error {
+                    NSLog("Error reloading manager: \(error.localizedDescription)")
+                    return
+                }
+
+                if let manager = managers?.first {
+                    self.vpnManager = manager
+                    self.observeVPNStatus()
+                    NSLog("[FlutterBridge] Manager successfully reloaded and ready")
+                }
+            }
         }
     }
 

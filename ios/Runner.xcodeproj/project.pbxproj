@@ -765,7 +765,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
 				PRODUCT_NAME = RccExtension;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp iOS";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp Core iOS";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
