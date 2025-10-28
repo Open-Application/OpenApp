@@ -91,46 +91,64 @@ class FlutterBridge: NSObject {
             if self.vpnManager != nil {
                 NSLog("[FlutterBridge] Configuration was manually deleted, cleaning up cache")
 
-                // Stop any existing VPN connection
-                if self.vpnManager?.connection.status != .disconnected &&
-                   self.vpnManager?.connection.status != .invalid {
-                    NSLog("[FlutterBridge] Stopping existing VPN connection")
-                    self.vpnManager?.connection.stopVPNTunnel()
-                }
+                // ALWAYS stop the connection to ensure complete system-level cleanup
+                // Critical: Even if status is .disconnected, there may be lingering system state
+                // that prevents new configurations from working without restart
+                let currentStatus = self.vpnManager?.connection.status.rawValue ?? -1
+                NSLog("[FlutterBridge] Stopping VPN connection (current status: \(currentStatus))")
+                self.vpnManager?.connection.stopVPNTunnel()
 
-                // Remove observer
+                // Remove observer to prevent stale notifications
                 if let observer = self.statusObserver {
                     NSLog("[FlutterBridge] Removing status observer")
                     NotificationCenter.default.removeObserver(observer)
                     self.statusObserver = nil
                 }
 
+                // Clear the cached manager reference
                 self.vpnManager = nil
-            }
 
-            // Remove any leftover configurations (e.g., from debug/release switch)
-            if let managers = managers, !managers.isEmpty {
-                NSLog("[FlutterBridge] Found \(managers.count) leftover VPN configuration(s), removing them")
-
-                let group = DispatchGroup()
-                for manager in managers {
-                    group.enter()
-                    manager.removeFromPreferences { removeError in
-                        if let removeError = removeError {
-                            NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
-                        }
-                        group.leave()
+                // Give the system time to fully cleanup VPN state before creating new config
+                // This delay is critical to prevent the "stuck connecting" issue
+                NSLog("[FlutterBridge] Waiting for system VPN state cleanup...")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    guard let self = self else {
+                        completion(NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bridge deallocated"]))
+                        return
                     }
+                    self.proceedWithManagerCleanupAndCreation(managers: managers, completion: completion)
                 }
-
-                group.notify(queue: .main) { [weak self] in
-                    NSLog("[FlutterBridge] All old configurations removed, creating fresh one")
-                    self?.createServiceManager(completion: completion)
-                }
-            } else {
-                NSLog("[FlutterBridge] No existing configurations found, creating new one")
-                self.createServiceManager(completion: completion)
+                return
             }
+
+            // No cached manager - proceed with cleanup and creation
+            self.proceedWithManagerCleanupAndCreation(managers: managers, completion: completion)
+        }
+    }
+
+    private func proceedWithManagerCleanupAndCreation(managers: [NETunnelProviderManager]?, completion: @escaping (Error?) -> Void) {
+        // Remove any leftover configurations (e.g., from debug/release switch)
+        if let managers = managers, !managers.isEmpty {
+            NSLog("[FlutterBridge] Found \(managers.count) leftover VPN configuration(s), removing them")
+
+            let group = DispatchGroup()
+            for manager in managers {
+                group.enter()
+                manager.removeFromPreferences { removeError in
+                    if let removeError = removeError {
+                        NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
+                    }
+                    group.leave()
+                }
+            }
+
+            group.notify(queue: .main) { [weak self] in
+                NSLog("[FlutterBridge] All old configurations removed, creating fresh one")
+                self?.createServiceManager(completion: completion)
+            }
+        } else {
+            NSLog("[FlutterBridge] No existing configurations found, creating new one")
+            self.createServiceManager(completion: completion)
         }
     }
 
