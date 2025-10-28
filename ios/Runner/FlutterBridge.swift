@@ -55,8 +55,6 @@ class FlutterBridge: NSObject {
             return
         }
 
-        let expectedBundleID = "io.rootcorporation.openapp.core"
-
         NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
             guard let self = self else {
                 completion(NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bridge deallocated"]))
@@ -71,44 +69,27 @@ class FlutterBridge: NSObject {
 
             if let existingManagers = managers, !existingManagers.isEmpty {
                 NSLog("[FlutterBridge] Found \(existingManagers.count) existing VPN configuration(s)")
+                NSLog("[FlutterBridge] Removing all configurations to ensure clean state (handles debug/release cert changes)")
 
-                var needsRecreate = false
-                var managersToRemove: [NETunnelProviderManager] = []
-
+                let group = DispatchGroup()
                 for existingManager in existingManagers {
-                    if let proto = existingManager.protocolConfiguration as? NETunnelProviderProtocol {
-                        if proto.providerBundleIdentifier != expectedBundleID {
-                            NSLog("[FlutterBridge] Bundle ID mismatch: expected '\(expectedBundleID)', found '\(proto.providerBundleIdentifier ?? "nil")' - marking for removal")
-                            needsRecreate = true
-                            managersToRemove.append(existingManager)
-                        } else {
-                            NSLog("[FlutterBridge] Found matching configuration, reusing it")
-                            self.vpnManager = existingManager
-                            self.observeVPNStatus()
-                            completion(nil)
-                            return
+                    group.enter()
+                    existingManager.removeFromPreferences { removeError in
+                        if let removeError = removeError {
+                            NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
                         }
-                    } else {
-                        NSLog("[FlutterBridge] Invalid protocol configuration - marking for removal")
-                        needsRecreate = true
-                        managersToRemove.append(existingManager)
+                        group.leave()
                     }
                 }
 
-                if !managersToRemove.isEmpty {
-                    NSLog("[FlutterBridge] Removing \(managersToRemove.count) mismatched configuration(s)")
-                    for manager in managersToRemove {
-                        manager.removeFromPreferences { removeError in
-                            if let removeError = removeError {
-                                NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
-                            }
-                        }
-                    }
+                group.notify(queue: .main) { [weak self] in
+                    NSLog("[FlutterBridge] All old configurations removed, creating fresh one")
+                    self?.createServiceManager(completion: completion)
                 }
+            } else {
+                NSLog("[FlutterBridge] No existing configurations found, creating new one")
+                self.createServiceManager(completion: completion)
             }
-
-            NSLog("[FlutterBridge] Creating new VPN configuration")
-            self.createServiceManager(completion: completion)
         }
     }
 
@@ -158,7 +139,6 @@ class FlutterBridge: NSObject {
 
                 if let manager = managers?.first {
                     self.vpnManager = manager
-                    self.observeVPNStatus()
                     NSLog("[FlutterBridge] Manager successfully reloaded and ready")
                     completion(nil)
                 } else {
@@ -225,6 +205,11 @@ class FlutterBridge: NSObject {
             guard let manager = self.vpnManager else {
                 result(FlutterError(code: "NO_MANAGER", message: "Rcc manager not initialized", details: nil))
                 return
+            }
+
+            if self.statusObserver == nil {
+                self.observeVPNStatus()
+                NSLog("[FlutterBridge] Status observer set up")
             }
 
             let defaults = UserDefaults(suiteName: "group.io.rootcorporation.openapp")
