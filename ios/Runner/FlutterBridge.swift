@@ -50,11 +50,6 @@ class FlutterBridge: NSObject {
     }
 
     private func ensureServiceManager(completion: @escaping (Error?) -> Void) {
-        if vpnManager != nil {
-            completion(nil)
-            return
-        }
-
         NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
             guard let self = self else {
                 completion(NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bridge deallocated"]))
@@ -65,6 +60,24 @@ class FlutterBridge: NSObject {
                 NSLog("Error loading service manager: \(error.localizedDescription)")
                 completion(error)
                 return
+            }
+
+            if self.vpnManager != nil {
+                NSLog("[FlutterBridge] Clearing cached manager to ensure clean state")
+
+                if self.vpnManager?.connection.status != .disconnected &&
+                   self.vpnManager?.connection.status != .invalid {
+                    NSLog("[FlutterBridge] Stopping existing VPN connection")
+                    self.vpnManager?.connection.stopVPNTunnel()
+                }
+
+                if let observer = self.statusObserver {
+                    NSLog("[FlutterBridge] Removing status observer")
+                    NotificationCenter.default.removeObserver(observer)
+                    self.statusObserver = nil
+                }
+
+                self.vpnManager = nil
             }
 
             if let existingManagers = managers, !existingManagers.isEmpty {
@@ -262,9 +275,7 @@ class FlutterBridge: NSObject {
             }
             result(statusString)
         } else {
-            let defaults = UserDefaults(suiteName: "group.io.rootcorporation.openapp")
-            let status = defaults?.string(forKey: "io.rootcorporation.openapp.status") ?? "STOPPED"
-            result(status)
+            result("STOPPED")
         }
     }
 
