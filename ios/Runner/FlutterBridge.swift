@@ -62,8 +62,29 @@ class FlutterBridge: NSObject {
                 return
             }
 
+            let ourBundleId = "io.rootcorporation.openapp.core"
+            let existingManager = managers?.first(where: { manager in
+                if let proto = manager.protocolConfiguration as? NETunnelProviderProtocol {
+                    return proto.providerBundleIdentifier == ourBundleId
+                }
+                return false
+            })
+
+            if let existingManager = existingManager {
+                NSLog("[FlutterBridge] Found existing configuration, reusing it")
+                self.vpnManager = existingManager
+
+                if self.statusObserver == nil {
+                    self.observeVPNStatus()
+                    NSLog("[FlutterBridge] Status observer set up")
+                }
+
+                completion(nil)
+                return
+            }
+
             if self.vpnManager != nil {
-                NSLog("[FlutterBridge] Clearing cached manager to ensure clean state")
+                NSLog("[FlutterBridge] Configuration was manually deleted, cleaning up cache")
 
                 if self.vpnManager?.connection.status != .disconnected &&
                    self.vpnManager?.connection.status != .invalid {
@@ -80,14 +101,13 @@ class FlutterBridge: NSObject {
                 self.vpnManager = nil
             }
 
-            if let existingManagers = managers, !existingManagers.isEmpty {
-                NSLog("[FlutterBridge] Found \(existingManagers.count) existing VPN configuration(s)")
-                NSLog("[FlutterBridge] Removing all configurations to ensure clean state (handles debug/release cert changes)")
+            if let managers = managers, !managers.isEmpty {
+                NSLog("[FlutterBridge] Found \(managers.count) leftover VPN configuration(s), removing them")
 
                 let group = DispatchGroup()
-                for existingManager in existingManagers {
+                for manager in managers {
                     group.enter()
-                    existingManager.removeFromPreferences { removeError in
+                    manager.removeFromPreferences { removeError in
                         if let removeError = removeError {
                             NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
                         }

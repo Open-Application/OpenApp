@@ -63,9 +63,33 @@ class FlutterBridge: NSObject {
                 return
             }
 
-            // Clear any cached manager and observer - treat each connect as fresh start
+            // Check if configuration with our bundle ID still exists
+            let ourBundleId = "io.rootcorporation.openapp.core"
+            let existingManager = managers?.first(where: { manager in
+                if let proto = manager.protocolConfiguration as? NETunnelProviderProtocol {
+                    return proto.providerBundleIdentifier == ourBundleId
+                }
+                return false
+            })
+
+            if let existingManager = existingManager {
+                // Configuration exists - reuse it
+                NSLog("[FlutterBridge] Found existing configuration, reusing it")
+                self.vpnManager = existingManager
+
+                // Set up observer if not already observing
+                if self.statusObserver == nil {
+                    self.observeVPNStatus()
+                    NSLog("[FlutterBridge] Status observer set up")
+                }
+
+                completion(nil)
+                return
+            }
+
+            // Configuration doesn't exist - it was either deleted or first time
             if self.vpnManager != nil {
-                NSLog("[FlutterBridge] Clearing cached manager to ensure clean state")
+                NSLog("[FlutterBridge] Configuration was manually deleted, cleaning up cache")
 
                 // Stop any existing VPN connection
                 if self.vpnManager?.connection.status != .disconnected &&
@@ -84,16 +108,14 @@ class FlutterBridge: NSObject {
                 self.vpnManager = nil
             }
 
-            if let existingManagers = managers, !existingManagers.isEmpty {
-                NSLog("[FlutterBridge] Found \(existingManagers.count) existing VPN configuration(s)")
-                NSLog("[FlutterBridge] Removing all configurations to ensure clean state (handles debug/release cert changes)")
+            // Remove any leftover configurations (e.g., from debug/release switch)
+            if let managers = managers, !managers.isEmpty {
+                NSLog("[FlutterBridge] Found \(managers.count) leftover VPN configuration(s), removing them")
 
-                // Always remove ALL existing configurations to handle code signing changes
-                // between debug and release builds (same bundle ID, different signatures)
                 let group = DispatchGroup()
-                for existingManager in existingManagers {
+                for manager in managers {
                     group.enter()
-                    existingManager.removeFromPreferences { removeError in
+                    manager.removeFromPreferences { removeError in
                         if let removeError = removeError {
                             NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
                         }
