@@ -179,18 +179,7 @@ class _ProfileState extends State<Profile>
     if (preferencesProvider != null) {
       try {
         final String code = preferencesProvider.getCurrentLanguageCode();
-        final languageMap = {
-          'ar': localizations.arabic,
-          'en': localizations.english,
-          'fa': localizations.persian,
-          'hi': localizations.hindi,
-          'id': localizations.indonesian,
-          'ms': localizations.malay,
-          'ru': localizations.russian,
-          'tr': localizations.turkish,
-          'zh': localizations.chinese,
-        };
-        currentLanguage = languageMap[code] ?? localizations.systemDefault;
+        currentLanguage = Constants.nativeLanguageNames[code] ?? localizations.systemDefault;
       } catch (_) {}
     }
 
@@ -263,17 +252,9 @@ class _ProfileState extends State<Profile>
       } catch (_) {}
     }
 
-    final languages = [
-      {'code': 'ar', 'name': localizations.arabic},
-      {'code': 'zh', 'name': localizations.chinese},
-      {'code': 'en', 'name': localizations.english},
-      {'code': 'hi', 'name': localizations.hindi},
-      {'code': 'id', 'name': localizations.indonesian},
-      {'code': 'ms', 'name': localizations.malay},
-      {'code': 'fa', 'name': localizations.persian},
-      {'code': 'ru', 'name': localizations.russian},
-      {'code': 'tr', 'name': localizations.turkish},
-    ];
+    final languages = Constants.nativeLanguageNames.entries
+        .map((entry) => {'code': entry.key, 'name': entry.value})
+        .toList();
 
     languages.sort((a, b) => (a['name'] as String).compareTo(b['name'] as String));
 

@@ -33,7 +33,19 @@ SOFTWARE.
 ''';
 
   static const String encodedConfig = '';
-  // Asset paths
+
+  static const Map<String, String> nativeLanguageNames = {
+    'ar': 'العربية',
+    'zh': '中文',
+    'en': 'English',
+    'fa': 'فارسی',
+    'hi': 'हिन्दी',
+    'id': 'Bahasa Indonesia',
+    'ms': 'Bahasa Melayu',
+    'ru': 'Русский',
+    'tr': 'Türkçe',
+  };
+
   static const String iconAppIcon = 'assets/logo.png';
   static const String licensePath = 'assets/legals/LICENSE';
   static const String privacyPolicyPath = 'assets/legals/privacy_policy.txt';

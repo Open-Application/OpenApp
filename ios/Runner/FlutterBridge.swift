@@ -47,34 +47,68 @@ class FlutterBridge: NSObject {
                 result(FlutterMethodNotImplemented)
             }
         }
-
-        loadServiceManager()
     }
 
-    private func loadServiceManager() {
-        NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
-            guard let self = self else { return }
+    private func ensureServiceManager(completion: @escaping (Error?) -> Void) {
+        if vpnManager != nil {
+            completion(nil)
+            return
+        }
 
-            if let error = error {
-                NSLog("Error loading service manager: \(error.localizedDescription)")
+        let expectedBundleID = "io.rootcorporation.openapp.core"
+
+        NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
+            guard let self = self else {
+                completion(NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bridge deallocated"]))
                 return
             }
 
-            // Always remove old configurations to prevent signing mismatches
-            // between debug and release builds
+            if let error = error {
+                NSLog("Error loading service manager: \(error.localizedDescription)")
+                completion(error)
+                return
+            }
+
             if let existingManagers = managers, !existingManagers.isEmpty {
-                NSLog("[FlutterBridge] Found \(existingManagers.count) existing VPN configuration(s), removing to prevent signing conflicts")
+                NSLog("[FlutterBridge] Found \(existingManagers.count) existing VPN configuration(s)")
+
+                var needsRecreate = false
+                var managersToRemove: [NETunnelProviderManager] = []
+
                 for existingManager in existingManagers {
-                    existingManager.removeFromPreferences { removeError in
-                        if let removeError = removeError {
-                            NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
+                    if let proto = existingManager.protocolConfiguration as? NETunnelProviderProtocol {
+                        if proto.providerBundleIdentifier != expectedBundleID {
+                            NSLog("[FlutterBridge] Bundle ID mismatch: expected '\(expectedBundleID)', found '\(proto.providerBundleIdentifier ?? "nil")' - marking for removal")
+                            needsRecreate = true
+                            managersToRemove.append(existingManager)
+                        } else {
+                            NSLog("[FlutterBridge] Found matching configuration, reusing it")
+                            self.vpnManager = existingManager
+                            self.observeVPNStatus()
+                            completion(nil)
+                            return
+                        }
+                    } else {
+                        NSLog("[FlutterBridge] Invalid protocol configuration - marking for removal")
+                        needsRecreate = true
+                        managersToRemove.append(existingManager)
+                    }
+                }
+
+                if !managersToRemove.isEmpty {
+                    NSLog("[FlutterBridge] Removing \(managersToRemove.count) mismatched configuration(s)")
+                    for manager in managersToRemove {
+                        manager.removeFromPreferences { removeError in
+                            if let removeError = removeError {
+                                NSLog("[FlutterBridge] Error removing old configuration: \(removeError.localizedDescription)")
+                            }
                         }
                     }
                 }
             }
 
-            // Always create fresh configuration to match current build's code signing
-            self.createServiceManager()
+            NSLog("[FlutterBridge] Creating new VPN configuration")
+            self.createServiceManager(completion: completion)
         }
     }
 
@@ -92,28 +126,33 @@ class FlutterBridge: NSObject {
         }
     }
 
-    private func createServiceManager() {
+    private func createServiceManager(completion: @escaping (Error?) -> Void) {
         let manager = NETunnelProviderManager()
-        manager.localizedDescription = "Root Corporation Core"
+        manager.localizedDescription = "OpenApp Core"
 
         let proto = NETunnelProviderProtocol()
         proto.providerBundleIdentifier = "io.rootcorporation.openapp.core"
-        proto.serverAddress = "RootCorporation"
+        proto.serverAddress = "OpenApp Core"
         manager.protocolConfiguration = proto
         manager.isEnabled = true
 
         manager.saveToPreferences { [weak self] error in
             if let error = error {
                 NSLog("Error saving Rcc manager: \(error.localizedDescription)")
+                completion(error)
                 return
             }
 
             NSLog("[FlutterBridge] Manager saved, reloading from preferences")
             NETunnelProviderManager.loadAllFromPreferences { managers, error in
-                guard let self = self else { return }
+                guard let self = self else {
+                    completion(NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bridge deallocated"]))
+                    return
+                }
 
                 if let error = error {
                     NSLog("Error reloading manager: \(error.localizedDescription)")
+                    completion(error)
                     return
                 }
 
@@ -121,6 +160,9 @@ class FlutterBridge: NSObject {
                     self.vpnManager = manager
                     self.observeVPNStatus()
                     NSLog("[FlutterBridge] Manager successfully reloaded and ready")
+                    completion(nil)
+                } else {
+                    completion(NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to reload manager"]))
                 }
             }
         }
@@ -169,25 +211,37 @@ class FlutterBridge: NSObject {
     }
 
     private func startVPN(config: String, result: @escaping FlutterResult) {
-        guard let manager = vpnManager else {
-            result(FlutterError(code: "NO_MANAGER", message: "Rcc manager not initialized", details: nil))
-            return
-        }
+        ensureServiceManager { [weak self] error in
+            guard let self = self else {
+                result(FlutterError(code: "NO_BRIDGE", message: "Bridge deallocated", details: nil))
+                return
+            }
 
-        let defaults = UserDefaults(suiteName: "group.io.rootcorporation.openapp")
-        defaults?.set(config, forKey: "io.rootcorporation.openapp.config")
-        defaults?.synchronize()
+            if let error = error {
+                result(FlutterError(code: "MANAGER_INIT_ERROR", message: error.localizedDescription, details: nil))
+                return
+            }
 
-        NSLog("[FlutterBridge] Saved config to UserDefaults, length: \(config.count)")
+            guard let manager = self.vpnManager else {
+                result(FlutterError(code: "NO_MANAGER", message: "Rcc manager not initialized", details: nil))
+                return
+            }
 
-        do {
-            try manager.connection.startVPNTunnel()
-            result(true)
-        } catch {
-            NSLog("Error starting Rcc service: \(error.localizedDescription)")
-            defaults?.set("STOPPED", forKey: "io.rootcorporation.openapp.status")
+            let defaults = UserDefaults(suiteName: "group.io.rootcorporation.openapp")
+            defaults?.set(config, forKey: "io.rootcorporation.openapp.config")
             defaults?.synchronize()
-            result(FlutterError(code: "START_ERROR", message: error.localizedDescription, details: nil))
+
+            NSLog("[FlutterBridge] Saved config to UserDefaults, length: \(config.count)")
+
+            do {
+                try manager.connection.startVPNTunnel()
+                result(true)
+            } catch {
+                NSLog("Error starting Rcc service: \(error.localizedDescription)")
+                defaults?.set("STOPPED", forKey: "io.rootcorporation.openapp.status")
+                defaults?.synchronize()
+                result(FlutterError(code: "START_ERROR", message: error.localizedDescription, details: nil))
+            }
         }
     }
 
