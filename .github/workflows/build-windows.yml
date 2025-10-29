@@ -106,6 +106,9 @@ jobs:
           VERSION="${{ inputs.version }}"
           VERSION="${VERSION#v}"
           IFS='.' read -r a b c <<< "$VERSION"
+          if [ "$a" -eq 0 ]; then
+            a=1
+          fi
           BUILD_NUMBER=$((a * 100 + b * 10 + c))
           MSIX_VERSION="${a}.${b}.${c}.${BUILD_NUMBER}"
 

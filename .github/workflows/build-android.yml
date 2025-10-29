@@ -83,14 +83,13 @@ jobs:
 
       - name: Setup Android signing
         run: |
-          echo "${{ secrets.PKCS12_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+          echo "${{ secrets.PKCS12_BASE64 }}" | base64 --decode > android/app/${{ secrets.PKCS12_NAME }}-keystore.jks
 
-          # Create key.properties file
           cat > android/key.properties << EOF
           storePassword=${{ secrets.PKCS12_PASSWORD }}
           keyPassword=${{ secrets.PKCS12_PASSWORD }}
           keyAlias=${{ secrets.PKCS12_NAME }}
-          storeFile=upload-keystore.jks
+          storeFile=${{ secrets.PKCS12_NAME }}-keystore.jks
           EOF
 
       - name: Build Android APK and App Bundle
