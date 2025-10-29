@@ -111,7 +111,7 @@ jobs:
 
           dart run msix:create \
             -e "internetClient, privateNetworkClientServer" \
-            -d "${{ inputs.name }}" \
+            -d "Open-App" \
             -l "assets/logo.png" \
             -u "${{ secrets.PARTNER_COMPANY }}" \
             -i "${{ secrets.PARTNER_APP }}" \
