@@ -40,7 +40,7 @@ class RccProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    if (_status == 'STOPPED') {
+    if (_status == 'STOPPED' || _status == 'INVALID') {
       bool hasPermission = await _rccService.checkRccPermission();
 
       if (!hasPermission) {
@@ -123,6 +123,8 @@ class RccProvider extends ChangeNotifier {
         return AppLocalizations.of(context)!.connecting;
       case 'STOPPING':
         return AppLocalizations.of(context)!.disconnecting;
+      case 'INVALID':
+      case 'STOPPED':
       default:
         return AppLocalizations.of(context)!.disconnected;
     }
@@ -143,7 +145,7 @@ class RccProvider extends ChangeNotifier {
 
   String getButtonText(BuildContext context) {
     return _isLoading
-        ? (_status == 'STOPPED'
+        ? (_status == 'STOPPED' || _status == 'INVALID'
               ? AppLocalizations.of(context)!.connecting
               : AppLocalizations.of(context)!.disconnecting)
         : (_status == 'STARTED'

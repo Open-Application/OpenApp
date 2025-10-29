@@ -164,7 +164,13 @@ class RccPlatformInterface: NSObject, LibocPlatformInterfaceProtocol {
 
     func writeLog(_ message: String?) {
         guard let message = message else { return }
-        provider?.writeLog(message)
+        let lines = message.components(separatedBy: .newlines)
+        for line in lines {
+            let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmedLine.isEmpty {
+                provider?.writeLog(trimmedLine)
+            }
+        }
     }
 
     func startDefaultInterfaceMonitor(_ listener: LibocInterfaceUpdateListenerProtocol?) throws {

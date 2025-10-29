@@ -267,12 +267,28 @@ void VPNService::WriteLog(const char* message) {
 
   std::ofstream log_file(log_file_path_, std::ios::out | std::ios::app);
   if (log_file.is_open()) {
+    std::string msg(message);
+    std::istringstream stream(msg);
+    std::string line;
+
     auto now = std::time(nullptr);
     std::tm tm;
     localtime_s(&tm, &now);
-    std::ostringstream oss;
-    oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
-    log_file << "[" << oss.str() << "] " << message << "\n";
+    std::ostringstream timestamp;
+    timestamp << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
+
+    while (std::getline(stream, line)) {
+      size_t start = line.find_first_not_of(" \t\r\n");
+      size_t end = line.find_last_not_of(" \t\r\n");
+
+      if (start != std::string::npos) {
+        std::string trimmed = line.substr(start, end - start + 1);
+        if (!trimmed.empty()) {
+          log_file << "[" << timestamp.str() << "] " << trimmed << "\n";
+        }
+      }
+    }
+
     log_file.flush();
     log_file.close();
   }

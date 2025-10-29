@@ -334,7 +334,7 @@ class FlutterBridge: NSObject {
             let statusString: String
             switch manager.connection.status {
             case .invalid:
-                statusString = "STOPPED"
+                statusString = "INVALID"
             case .disconnected:
                 statusString = "STOPPED"
             case .connecting:

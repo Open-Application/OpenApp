@@ -198,7 +198,15 @@ class VPNService : VpnService(), PlatformInterfaceWrapper {
         return pfd.fd
     }
 
-    override fun writeLog(message: String) = service.writeLog(message)
+    override fun writeLog(message: String) {
+        val lines = message.lines()
+        for (line in lines) {
+            val trimmedLine = line.trim()
+            if (trimmedLine.isNotEmpty()) {
+                service.writeLog(trimmedLine)
+            }
+        }
+    }
     override fun sendNotification(notification: io.rootcorporation.liboc.Notification) {}
 
 }
