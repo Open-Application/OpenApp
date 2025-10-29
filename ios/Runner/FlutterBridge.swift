@@ -47,6 +47,40 @@ class FlutterBridge: NSObject {
                 result(FlutterMethodNotImplemented)
             }
         }
+
+        initializeExistingManager()
+    }
+
+    private func initializeExistingManager() {
+        NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                NSLog("[FlutterBridge] Error loading service configurations at startup: \(error.localizedDescription)")
+                return
+            }
+
+            let ourBundleId = "io.rootcorporation.openapp.core"
+            let existingManager = managers?.first(where: { manager in
+                if let proto = manager.protocolConfiguration as? NETunnelProviderProtocol {
+                    return proto.providerBundleIdentifier == ourBundleId
+                }
+                return false
+            })
+
+            if let existingManager = existingManager {
+                NSLog("[FlutterBridge] Found existing service configuration at startup, syncing status")
+                self.vpnManager = existingManager
+
+                if self.statusObserver == nil {
+                    self.observeVPNStatus()
+                }
+
+                self.sendStatusUpdate()
+            } else {
+                NSLog("[FlutterBridge] No existing service configuration found at startup")
+            }
+        }
     }
 
     private func ensureServiceManager(completion: @escaping (Error?) -> Void) {

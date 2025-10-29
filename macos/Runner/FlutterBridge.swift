@@ -47,10 +47,43 @@ class FlutterBridge: NSObject {
                 result(FlutterMethodNotImplemented)
             }
         }
+
+        initializeExistingManager()
+    }
+
+    private func initializeExistingManager() {
+        NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                NSLog("[FlutterBridge] Error loading service configurations at startup: \(error.localizedDescription)")
+                return
+            }
+
+            let ourBundleId = "io.rootcorporation.openapp.core"
+            let existingManager = managers?.first(where: { manager in
+                if let proto = manager.protocolConfiguration as? NETunnelProviderProtocol {
+                    return proto.providerBundleIdentifier == ourBundleId
+                }
+                return false
+            })
+
+            if let existingManager = existingManager {
+                NSLog("[FlutterBridge] Found existing service configuration at startup, syncing status")
+                self.vpnManager = existingManager
+
+                if self.statusObserver == nil {
+                    self.observeVPNStatus()
+                }
+
+                self.sendStatusUpdate()
+            } else {
+                NSLog("[FlutterBridge] No existing service configuration found at startup")
+            }
+        }
     }
 
     private func ensureServiceManager(completion: @escaping (Error?) -> Void) {
-        // Always load from preferences to detect if configuration was manually deleted
         NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
             guard let self = self else {
                 completion(NSError(domain: "io.rootcorporation.openapp", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bridge deallocated"]))
@@ -63,7 +96,6 @@ class FlutterBridge: NSObject {
                 return
             }
 
-            // Check if configuration with our bundle ID still exists
             let ourBundleId = "io.rootcorporation.openapp.core"
             let existingManager = managers?.first(where: { manager in
                 if let proto = manager.protocolConfiguration as? NETunnelProviderProtocol {
@@ -73,11 +105,9 @@ class FlutterBridge: NSObject {
             })
 
             if let existingManager = existingManager {
-                // Configuration exists - reuse it
                 NSLog("[FlutterBridge] Found existing configuration, reusing it")
                 self.vpnManager = existingManager
 
-                // Set up observer if not already observing
                 if self.statusObserver == nil {
                     self.observeVPNStatus()
                     NSLog("[FlutterBridge] Status observer set up")
@@ -87,29 +117,21 @@ class FlutterBridge: NSObject {
                 return
             }
 
-            // Configuration doesn't exist - it was either deleted or first time
             if self.vpnManager != nil {
                 NSLog("[FlutterBridge] Configuration was manually deleted, cleaning up cache")
 
-                // ALWAYS stop the connection to ensure complete system-level cleanup
-                // Critical: Even if status is .disconnected, there may be lingering system state
-                // that prevents new configurations from working without restart
                 let currentStatus = self.vpnManager?.connection.status.rawValue ?? -1
                 NSLog("[FlutterBridge] Stopping VPN connection (current status: \(currentStatus))")
                 self.vpnManager?.connection.stopVPNTunnel()
 
-                // Remove observer to prevent stale notifications
                 if let observer = self.statusObserver {
                     NSLog("[FlutterBridge] Removing status observer")
                     NotificationCenter.default.removeObserver(observer)
                     self.statusObserver = nil
                 }
 
-                // Clear the cached manager reference
                 self.vpnManager = nil
 
-                // Give the system time to fully cleanup VPN state before creating new config
-                // This delay is critical to prevent the "stuck connecting" issue
                 NSLog("[FlutterBridge] Waiting for system VPN state cleanup...")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                     guard let self = self else {
@@ -121,13 +143,11 @@ class FlutterBridge: NSObject {
                 return
             }
 
-            // No cached manager - proceed with cleanup and creation
             self.proceedWithManagerCleanupAndCreation(managers: managers, completion: completion)
         }
     }
 
     private func proceedWithManagerCleanupAndCreation(managers: [NETunnelProviderManager]?, completion: @escaping (Error?) -> Void) {
-        // Remove any leftover configurations (e.g., from debug/release switch)
         if let managers = managers, !managers.isEmpty {
             NSLog("[FlutterBridge] Found \(managers.count) leftover VPN configuration(s), removing them")
 
@@ -330,7 +350,6 @@ class FlutterBridge: NSObject {
             }
             result(statusString)
         } else {
-            // No manager means no active configuration - always return STOPPED
             result("STOPPED")
         }
     }

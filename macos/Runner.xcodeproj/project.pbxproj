@@ -38,6 +38,7 @@
 		F6E7A8B9C0D1E2F3A4B5C6D7 /* RccExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A7B8C9D0E1F2A3B4C5D6E7F8 /* RccExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		I2J3K4L5M6N7O8P9Q0R1S2T3 /* Liboc.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */; };
 		J3K4L5M6N7O8P9Q0R1S2T3U4 /* Liboc.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		Y2Z3A4B5C6D7E8F9G0H1I2J3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = X1Y2Z3A4B5C6D7E8F9G0H1I2 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +141,7 @@
 		F495F718FF068D8D1BBCB4AF /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-RccExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.release.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.release.xcconfig"; sourceTree = "<group>"; };
 		H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Liboc.xcframework; path = Frameworks/Liboc.xcframework; sourceTree = "<group>"; };
+		X1Y2Z3A4B5C6D7E8F9G0H1I2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +289,7 @@
 				04E676970D86B046CD0A4680 /* FileLogger.swift */,
 				B4C5D6E7F8A9B0C1D2E3F4A5 /* RccExtension.entitlements */,
 				C5D6E7F8A9B0C1D2E3F4A5B6 /* Info.plist */,
+				X1Y2Z3A4B5C6D7E8F9G0H1I2 /* Assets.xcassets */,
 			);
 			path = RccExtension;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				Y2Z3A4B5C6D7E8F9G0H1I2J3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,6 +921,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E7A8B9C0D1E2F3A4B5C6D7E8 /* Pods-RccExtension.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -955,6 +960,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-RccExtension.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
@@ -995,6 +1001,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A9B0C1D2E3F4A5B6C7D8E9F0 /* Pods-RccExtension.profile.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
