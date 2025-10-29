@@ -421,29 +421,21 @@ class _DashboardState extends State<Dashboard>
         final isLoading = provider.isLoading as bool;
 
         void handleTap() async {
-          final logProvider = ProviderHelper.getLogProvider(context);
-          logProvider?.clearLogs();
+          provider.clearLogs();
 
-          // Check if user is trying to connect (not disconnect)
           if (!isConnected) {
             final prefsProvider = ProviderHelper.getPreferencesProvider(context);
             if (prefsProvider != null) {
               final prefs = prefsProvider as dynamic;
-
-              // Check if user has accepted both Terms of Use and Privacy Policy
               final needsTerms = !prefs.termsAccepted;
               final needsPrivacy = !prefs.privacyPolicyAccepted;
 
               if (needsTerms || needsPrivacy) {
-                // Show Terms of Use first if not accepted
                 if (needsTerms) {
                   await LegalDialogs.showTermsOfUse(context);
 
                   if (!context.mounted) return;
-
-                  // Check if user accepted after showing
                   if (!prefs.termsAccepted) {
-                    // User didn't accept terms, don't proceed
                     return;
                   }
                 }
@@ -591,9 +583,9 @@ class _DashboardState extends State<Dashboard>
 
   Widget _buildLogsSection(BuildContext context) {
     final theme = Theme.of(context);
-    final logProvider = ProviderHelper.getLogProvider(context);
+    final rccProvider = ProviderHelper.getRccProvider(context);
 
-    if (logProvider == null) {
+    if (rccProvider == null) {
       return Container(
         padding: UI.paddingAll(16),
         decoration: BoxDecoration(
@@ -641,7 +633,7 @@ class _DashboardState extends State<Dashboard>
           color: theme.colorScheme.primary,
         ),
         onPressed: () async {
-          final logs = (logProvider as dynamic).exportLogs();
+          final logs = (rccProvider as dynamic).exportLogs();
           await Clipboard.setData(ClipboardData(text: logs));
           if (context.mounted) {
             RccMessenger.showInfo(
@@ -655,9 +647,9 @@ class _DashboardState extends State<Dashboard>
         padding: UI.paddingAll(0),
       ),
       expandedContent: ListenableBuilder(
-        listenable: logProvider as ChangeNotifier,
+        listenable: rccProvider as ChangeNotifier,
         builder: (context, child) {
-          final dynamic provider = logProvider;
+          final dynamic provider = rccProvider;
           final logs = provider.logs as List;
 
           return Column(

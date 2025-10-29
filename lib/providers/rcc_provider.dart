@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
 import '../interfaces/rcc_interface.dart';
 import '../l10n/app_localizations.dart';
 import '../components/rcc_messenger.dart';
@@ -12,9 +16,15 @@ class RccProvider extends ChangeNotifier {
   String _status = 'STOPPED';
   bool _isLoading = false;
 
+  final List<String> _logs = [];
+  Timer? _pollingTimer;
+  String _lastLogContent = '';
+  File? _logFile;
+
   String get status => _status;
   bool get isLoading => _isLoading;
   bool get isButtonEnabled => !_isLoading;
+  List<String> get logs => List.unmodifiable(_logs);
 
   RccProvider(this._rccService) {
     _initialize();
@@ -28,6 +38,7 @@ class RccProvider extends ChangeNotifier {
     });
 
     _fetchInitialStatus();
+    _initLogFile();
   }
 
   Future<void> _fetchInitialStatus() async {
@@ -161,8 +172,92 @@ class RccProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> _initLogFile() async {
+    try {
+      final logPath = await _rccService.getLogFilePath();
+      if (logPath != null && logPath.isNotEmpty) {
+        _logFile = File(logPath);
+        debugPrint('[RccProvider] Using native log path: $logPath');
+        _startPolling();
+      } else {
+        debugPrint('[RccProvider] Error: No log path returned from native');
+      }
+    } catch (e) {
+      debugPrint('[RccProvider] Error initializing log file: $e');
+    }
+  }
+
+  void _startPolling() {
+    _pollingTimer?.cancel();
+    _pollingTimer = Timer.periodic(Duration(seconds: 1), (_) async {
+      await _readLogsFromFile();
+    });
+    _readLogsFromFile();
+  }
+
+  Future<void> _readLogsFromFile() async {
+    try {
+      if (_logFile == null || !await _logFile!.exists()) {
+        return;
+      }
+
+      final logContent = await _logFile!.readAsString();
+      if (logContent.isNotEmpty && logContent != _lastLogContent) {
+        _updateLogs(logContent);
+        _lastLogContent = logContent;
+      }
+    } catch (e) {
+      debugPrint('Error reading logs: $e');
+    }
+  }
+
+  void _updateLogs(String logContent) {
+    _logs.clear();
+    final lines = logContent.split('\n');
+
+    for (final line in lines) {
+      if (line.trim().isNotEmpty) {
+        _logs.add(line);
+      }
+    }
+
+    while (_logs.length > Constants.maxLogLines) {
+      _logs.removeAt(0);
+    }
+
+    notifyListeners();
+  }
+
+  void clearLogs() async {
+    _logs.clear();
+    _lastLogContent = '';
+    try {
+      if (_logFile != null && await _logFile!.exists()) {
+        await _logFile!.writeAsString('');
+      }
+    } catch (e) {
+      debugPrint('Error clearing logs: $e');
+    }
+    notifyListeners();
+  }
+
+  String exportLogs() {
+    final buffer = StringBuffer();
+    buffer.writeln('=== Service Logs ===');
+    buffer.writeln('Exported at: ${DateTime.now().toIso8601String()}');
+    buffer.writeln('Total entries: ${_logs.length}');
+    buffer.writeln('');
+
+    for (final log in _logs) {
+      buffer.writeln(log);
+    }
+
+    return buffer.toString();
+  }
+
   @override
   void dispose() {
+    _pollingTimer?.cancel();
     _rccService.dispose();
     super.dispose();
   }

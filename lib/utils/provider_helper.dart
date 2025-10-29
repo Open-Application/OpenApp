@@ -13,7 +13,9 @@ class ProviderHelper {
             final status = p.status;
             final statusColor = p.statusColor;
             final toggle = p.toggle;
-            if (status != null && statusColor != null && toggle != null) {
+            final logs = p.logs;
+            final clearLogs = p.clearLogs;
+            if (status != null && statusColor != null && toggle != null && logs != null && clearLogs != null) {
               rccProvider = provider;
               return false;
             }
@@ -50,31 +52,5 @@ class ProviderHelper {
     });
 
     return preferencesProvider;
-  }
-
-  static dynamic getLogProvider(BuildContext context) {
-    dynamic logProvider;
-
-    context.visitAncestorElements((element) {
-      try {
-        final provider = (element as dynamic).value;
-        if (provider != null && provider is ChangeNotifier) {
-          try {
-            final dynamic p = provider;
-            final logs = p.logs;
-            final clearLogs = p.clearLogs;
-            final exportLogs = p.exportLogs;
-            final createDebugLogFile = p.createDebugLogFile;
-            if (logs != null && clearLogs != null && exportLogs != null && createDebugLogFile != null) {
-              logProvider = provider;
-              return false;
-            }
-          } catch (_) {}
-        }
-      } catch (_) {}
-      return true;
-    });
-
-    return logProvider;
   }
 }

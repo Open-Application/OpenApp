@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Constants {
+  
   static const String appName = 'OpenApp';
   static const String projectName = 'RootCorporation';
   static const String projectUrl = 'https://github.com/Open-Application/OpenApp';
   static const String projectVersion = '1.0.0';
+  static const int maxLogLines = 500;
 
   static const String licenseText = 'MIT';
   static const String licenseFullText = '''

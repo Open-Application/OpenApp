@@ -6,7 +6,6 @@ import './services/rcc_service.dart';
 import './components/rcc_scroll.dart';
 import './providers/preferences_provider.dart';
 import './providers/rcc_provider.dart';
-import './providers/log_provider.dart';
 import './l10n/app_localizations.dart';
 import './constants.dart';
 import './router.dart';
@@ -29,7 +28,6 @@ class RootCorporation extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => PreferencesProvider()),
         ChangeNotifierProvider(create: (_) => RccProvider(rccService)),
-        ChangeNotifierProvider(create: (_) => LogProvider()),
       ],
       child: Consumer<PreferencesProvider>(
         builder: (context, preferencesProvider, child) {

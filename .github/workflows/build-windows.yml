@@ -121,8 +121,26 @@ jobs:
             --trim-logo false \
             --sign-msix false
 
+      - name: move unsigned MSIX(Store)
+        shell: bash
+        run: |
           ls -lh build/windows/x64/runner/Release/*.msix
           mv build/windows/x64/runner/Release/*.msix "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+
+      - uses: azure/trusted-signing-action@v0
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: https://eus.codesigning.azure.net/
+          trusted-signing-account-name: ${{ secrets.AZURE_TSA_NAME }}
+          certificate-profile-name: ${{ secrets.AZURE_PROFILE_NAME }}
+          files-folder: build/windows/x64/runner/Release
+          files-folder-filter: exe,dll
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+        name: Sign Inner Flutter Files with Trusted Signing
 
       - name: Build MSIX package(Release)
         shell: bash
@@ -148,6 +166,24 @@ jobs:
             --trim-logo false \
             --sign-msix false
 
+      - uses: azure/trusted-signing-action@v0
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: https://eus.codesigning.azure.net/
+          trusted-signing-account-name: ${{ secrets.AZURE_TSA_NAME }}
+          certificate-profile-name: ${{ secrets.AZURE_PROFILE_NAME }}
+          files-folder: build/windows/x64/runner/Release
+          files-folder-filter: msix
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+        name: Sign MSIX File with Trusted Signing
+
+      - name: move signed MSIX(Release)
+        shell: bash
+        run: |
           ls -lh build/windows/x64/runner/Release/*.msix
           mv build/windows/x64/runner/Release/*.msix "${{ inputs.name }}-windows-amd64-${{ inputs.version }}.msix"
 
