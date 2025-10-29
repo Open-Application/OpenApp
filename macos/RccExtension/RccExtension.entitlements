@@ -3,11 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>com.apple.security.app-sandbox</key>
-	<true/>
+		<true/>
 	<key>com.apple.security.network.client</key>
-	<true/>
-	<key>com.apple.security.network.server</key>
-	<true/>
+		<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.io.rootcorporation.openapp</string>
@@ -17,8 +15,6 @@
 		<string>packet-tunnel-provider</string>
 	</array>
 	<key>com.apple.developer.networking.wifi-info</key>
-	<true/>
-	<key>com.apple.security.personal-information.location</key>
-	<true/>
+		<true/>
 </dict>
 </plist>
