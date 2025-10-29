@@ -106,7 +106,7 @@ jobs:
           VERSION="${{ inputs.version }}"
           VERSION="${VERSION#v}"
           IFS='.' read -r a b c <<< "$VERSION"
-          BUILD_NUMBER=$((a * 100 + b * 10 + c))
+          BUILD_NUMBER=0
           MSIX_VERSION="${a}.${b}.${c}.${BUILD_NUMBER}"
 
           dart run msix:create \
@@ -152,7 +152,7 @@ jobs:
           VERSION="${{ inputs.version }}"
           VERSION="${VERSION#v}"
           IFS='.' read -r a b c <<< "$VERSION"
-          BUILD_NUMBER=$((a * 100 + b * 10 + c))
+          BUILD_NUMBER=0
           MSIX_VERSION="${a}.${b}.${c}.${BUILD_NUMBER}"
 
           dart run msix:create \
