@@ -33,12 +33,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get disconnected => '已断开';
 
   @override
-  String get encrypted => '已加密';
-
-  @override
-  String get unprotected => '未保护';
-
-  @override
   String get servicePermissionRequired => '需要服务权限';
 
   @override
@@ -65,9 +59,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get openSourceLicense => '开源许可证';
 
   @override
-  String get coreLibrary => '核心库';
-
-  @override
   String get termsOfUse => '使用条款';
 
   @override
@@ -86,25 +77,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get connectionStatus => '状态';
 
   @override
-  String get yourInternetIsSecure => '您的网络连接受到保护';
-
-  @override
-  String get yourInternetIsExposed => '您的网络连接存在风险';
-
-  @override
-  String get establishingSecureConnection => '正在建立安全连接';
-
-  @override
-  String get closingSecureConnection => '正在关闭安全连接';
-
-  @override
   String get language => '语言';
-
-  @override
-  String get english => '英语';
-
-  @override
-  String get chinese => '中文';
 
   @override
   String get systemDefault => '系统默认';
@@ -119,70 +92,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get about => '关于';
 
   @override
-  String get dataCollection => '数据收集';
-
-  @override
-  String get dataCollectionText => '我们不收集或存储任何个人信息。所有网络配置都本地存储在您的设备上。';
-
-  @override
-  String get networkTraffic => '网络流量';
-
-  @override
-  String get networkTrafficText => '此教育工具在本地处理网络流量用于学习目的。不会将数据传输到外部服务器进行跟踪或分析。';
-
-  @override
-  String get thirdPartyServices => '第三方服务';
-
-  @override
-  String get thirdPartyServicesText => '我们不与第三方共享任何信息。所有操作都在您的设备上本地执行。';
-
-  @override
-  String get dataSecurity => '数据安全';
-
-  @override
-  String get dataSecurityText => '所有配置和设置都使用行业标准加密方法加密并安全地存储在您的设备上。';
-
-  @override
-  String get educationalUseOnly => '仅限教育用途';
-
-  @override
-  String get educationalUseOnlyText => '本软件仅供教育和研究目的提供。用户必须遵守所有适用的法律法规。';
-
-  @override
-  String get noWarranty => '免责声明';
-
-  @override
-  String get noWarrantyText => '该软件按「现状」提供，不提供任何形式的保证。我们对因使用该软件而产生的任何损害不承担责任。';
-
-  @override
-  String get userResponsibility => '用户责任';
-
-  @override
-  String get userResponsibilityText => '用户有责任确保使用此工具符合当地法规和机构政策。';
-
-  @override
-  String get academicIntegrity => '学术诚信';
-
-  @override
-  String get academicIntegrityText => '此工具应按照学术诚信准则和道德研究实践使用。';
-
-  @override
   String get close => '关闭';
 
   @override
   String get agree => '同意';
-
-  @override
-  String get purpose => '目的';
-
-  @override
-  String get educational => '教育';
-
-  @override
-  String get technology => '技术';
-
-  @override
-  String get networkResearch => '网络研究';
 
   @override
   String get stopped => '已停止';
@@ -233,7 +146,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String aboutProjectText(String projectName) {
-    return '$projectName是一款教育性网络安全工具，旨在帮助用户了解隐私保护和安全网络通信。本应用程序仅供教育和研究目的使用，使用户能够学习网络协议、加密和隐私技术。所有操作均在您的设备上本地执行，符合适用的法律法规。';
+    return '$projectName 是开源网络研究平台，专注于隐私和安全';
   }
 
   @override
@@ -265,25 +178,4 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noCustomConfig => '无已保存配置';
-
-  @override
-  String get arabic => 'العربية';
-
-  @override
-  String get russian => 'Русский';
-
-  @override
-  String get turkish => 'Türkçe';
-
-  @override
-  String get malay => 'Melayu';
-
-  @override
-  String get persian => 'فارسی';
-
-  @override
-  String get hindi => 'हिन्दी';
-
-  @override
-  String get indonesian => 'Bahasa Indonesia';
 }

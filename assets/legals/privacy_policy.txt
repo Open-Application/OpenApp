@@ -1,6 +1,6 @@
 PRIVACY POLICY
 
-Last Updated: October 26, 2024
+Last Updated: October 30, 2024
 
 This Privacy Policy is provided by Root-Corporation PTY LTD Australia ("we," "our," or "us"), the developer and operator of OpenApp. We are committed to protecting your privacy. This Privacy Policy explains how our educational network security application handles information when you use our services.
 
@@ -114,6 +114,36 @@ This application complies with:
 - Children's Online Privacy Protection Act (COPPA)
 - Apple App Store Review Guidelines
 - Google Play Store Developer Policies
+
+
+11.1 GEOGRAPHIC RESTRICTIONS
+
+This application is NOT intended for use in countries or regions where such software is prohibited or restricted by law, including but not limited to:
+- The People's Republic of China and its territories
+- Russia (Russian Federation)
+- Belarus
+- Iran (Islamic Republic of Iran)
+- Iraq
+- North Korea (Democratic People's Republic of Korea)
+- Turkmenistan
+- United Arab Emirates (UAE)
+- Oman
+- Turkey (Republic of Türkiye)
+- Myanmar
+- Pakistan
+- Saudi Arabia
+- Any country subject to international sanctions or embargoes
+- Any jurisdiction where network privacy tools are illegal or restricted
+
+Users are strictly prohibited from using this application in countries where:
+- Local laws prohibit the use of network privacy or security tools
+- Government regulations restrict or ban similar applications
+- The use of such software may result in legal consequences
+
+By using this application, you represent and warrant that:
+- You are not located in, under the control of, or a national or resident of any restricted country
+- You will not use the application in violation of any applicable geographic restrictions
+- You understand that use of this application in restricted countries may result in serious legal consequences
 
 
 12. DATA RETENTION

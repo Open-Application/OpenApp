@@ -33,12 +33,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get disconnected => 'Отключено';
 
   @override
-  String get encrypted => 'Зашифровано';
-
-  @override
-  String get unprotected => 'Незащищено';
-
-  @override
   String get servicePermissionRequired => 'Требуется разрешение службы';
 
   @override
@@ -66,9 +60,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get openSourceLicense => 'Лицензия';
 
   @override
-  String get coreLibrary => 'Основная библиотека';
-
-  @override
   String get termsOfUse => 'Условия использования';
 
   @override
@@ -87,25 +78,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get connectionStatus => 'Статус';
 
   @override
-  String get yourInternetIsSecure => 'Ваше сетевое соединение защищено';
-
-  @override
-  String get yourInternetIsExposed => 'Ваше сетевое соединение уязвимо';
-
-  @override
-  String get establishingSecureConnection => 'Установка безопасного соединения';
-
-  @override
-  String get closingSecureConnection => 'Закрытие безопасного соединения';
-
-  @override
   String get language => 'Язык';
-
-  @override
-  String get english => 'English';
-
-  @override
-  String get chinese => '中文';
 
   @override
   String get systemDefault => 'Системный';
@@ -120,78 +93,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get about => 'О программе';
 
   @override
-  String get dataCollection => 'Сбор данных';
-
-  @override
-  String get dataCollectionText =>
-      'Мы не собираем и не храним личную информацию. Все сетевые конфигурации хранятся локально на вашем устройстве.';
-
-  @override
-  String get networkTraffic => 'Сетевой трафик';
-
-  @override
-  String get networkTrafficText =>
-      'Этот образовательный инструмент обрабатывает сетевой трафик локально в учебных целях. Данные не передаются на внешние серверы для отслеживания или аналитики.';
-
-  @override
-  String get thirdPartyServices => 'Сторонние сервисы';
-
-  @override
-  String get thirdPartyServicesText =>
-      'Мы не передаем информацию третьим лицам. Все операции выполняются локально на вашем устройстве.';
-
-  @override
-  String get dataSecurity => 'Безопасность данных';
-
-  @override
-  String get dataSecurityText =>
-      'Все конфигурации и настройки зашифрованы и надежно хранятся на вашем устройстве с использованием стандартных методов шифрования.';
-
-  @override
-  String get educationalUseOnly => 'Только для образовательных целей';
-
-  @override
-  String get educationalUseOnlyText =>
-      'Это программное обеспечение предоставляется только для образовательных и исследовательских целей. Пользователи должны соблюдать все применимые законы и правила.';
-
-  @override
-  String get noWarranty => 'Без гарантий';
-
-  @override
-  String get noWarrantyText =>
-      'Программное обеспечение предоставляется «как есть» без каких-либо гарантий. Мы не несем ответственности за любой ущерб, возникший в результате его использования.';
-
-  @override
-  String get userResponsibility => 'Ответственность пользователя';
-
-  @override
-  String get userResponsibilityText =>
-      'Пользователи несут ответственность за соблюдение местных норм и организационных политик при использовании этого инструмента.';
-
-  @override
-  String get academicIntegrity => 'Академическая честность';
-
-  @override
-  String get academicIntegrityText =>
-      'Этот инструмент следует использовать в соответствии с рекомендациями по академической честности и этическими исследовательскими практиками.';
-
-  @override
   String get close => 'Закрыть';
 
   @override
   String get agree => 'Согласен';
-
-  @override
-  String get purpose => 'Назначение';
-
-  @override
-  String get educational => 'Образовательный';
-
-  @override
-  String get technology => 'Технология';
-
-  @override
-  String get networkResearch => 'Исследование сетей';
 
   @override
   String get stopped => 'ОСТАНОВЛЕНО';
@@ -242,7 +147,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String aboutProjectText(String projectName) {
-    return '$projectName — это образовательный инструмент сетевой безопасности, разработанный для помощи пользователям в понимании защиты конфиденциальности и безопасных сетевых коммуникаций. Это приложение предназначено для образовательных и исследовательских целей, позволяя пользователям изучать сетевые протоколы, шифрование и технологии конфиденциальности. Все операции выполняются локально на вашем устройстве в соответствии с применимыми законами и правилами.';
+    return '$projectName — это открытая платформа для исследования сетей, конфиденциальности и безопасности';
   }
 
   @override
@@ -275,25 +180,4 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noCustomConfig => 'Нет сохранённой конфигурации';
-
-  @override
-  String get arabic => 'العربية';
-
-  @override
-  String get russian => 'Русский';
-
-  @override
-  String get turkish => 'Türkçe';
-
-  @override
-  String get malay => 'Melayu';
-
-  @override
-  String get persian => 'فارسی';
-
-  @override
-  String get hindi => 'हिन्दी';
-
-  @override
-  String get indonesian => 'Bahasa Indonesia';
 }

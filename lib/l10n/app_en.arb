@@ -41,16 +41,6 @@
     "description": "Rcc disconnected status"
   },
 
-  "encrypted": "Encrypted",
-  "@encrypted": {
-    "description": "Connection encrypted label"
-  },
-
-  "unprotected": "Unprotected",
-  "@unprotected": {
-    "description": "Connection unprotected warning"
-  },
-
   "servicePermissionRequired": "Service permission required",
   "@servicePermissionRequired": {
     "description": "Service permission message"
@@ -96,11 +86,6 @@
     "description": "Open source license label"
   },
 
-  "coreLibrary": "Core Library",
-  "@coreLibrary": {
-    "description": "Core library label"
-  },
-
   "termsOfUse": "Terms of Use",
   "@termsOfUse": {
     "description": "Terms of use label"
@@ -131,39 +116,9 @@
     "description": "Connection status label"
   },
 
-  "yourInternetIsSecure": "Your network connection is protected",
-  "@yourInternetIsSecure": {
-    "description": "Secure connection message"
-  },
-
-  "yourInternetIsExposed": "Your network connection is vulnerable",
-  "@yourInternetIsExposed": {
-    "description": "Exposed connection message"
-  },
-
-  "establishingSecureConnection": "Establishing secure connection",
-  "@establishingSecureConnection": {
-    "description": "Connecting status message"
-  },
-
-  "closingSecureConnection": "Closing secure connection",
-  "@closingSecureConnection": {
-    "description": "Disconnecting status message"
-  },
-
   "language": "Language",
   "@language": {
     "description": "Language setting label"
-  },
-
-  "english": "English",
-  "@english": {
-    "description": "English language option"
-  },
-
-  "chinese": "Chinese",
-  "@chinese": {
-    "description": "Chinese language option"
   },
 
   "systemDefault": "System Default",
@@ -186,86 +141,6 @@
     "description": "About section title"
   },
 
-  "dataCollection": "Data Collection",
-  "@dataCollection": {
-    "description": "Data collection section title"
-  },
-
-  "dataCollectionText": "We do not collect or store any personal information. All network configurations are stored locally on your device.",
-  "@dataCollectionText": {
-    "description": "Data collection description"
-  },
-
-  "networkTraffic": "Network Traffic",
-  "@networkTraffic": {
-    "description": "Network traffic section title"
-  },
-
-  "networkTrafficText": "This educational tool processes network traffic locally for learning purposes. No data is transmitted to external servers for tracking or analytics.",
-  "@networkTrafficText": {
-    "description": "Network traffic description"
-  },
-
-  "thirdPartyServices": "Third-Party Services",
-  "@thirdPartyServices": {
-    "description": "Third-party services section title"
-  },
-
-  "thirdPartyServicesText": "We do not share any information with third parties. All operations are performed locally on your device.",
-  "@thirdPartyServicesText": {
-    "description": "Third-party services description"
-  },
-
-  "dataSecurity": "Data Security",
-  "@dataSecurity": {
-    "description": "Data security section title"
-  },
-
-  "dataSecurityText": "All configurations and settings are encrypted and stored securely on your device using industry-standard encryption methods.",
-  "@dataSecurityText": {
-    "description": "Data security description"
-  },
-
-  "educationalUseOnly": "Educational Use Only",
-  "@educationalUseOnly": {
-    "description": "Educational use only section title"
-  },
-
-  "educationalUseOnlyText": "This software is provided for educational and research purposes only. Users must comply with all applicable laws and regulations.",
-  "@educationalUseOnlyText": {
-    "description": "Educational use only description"
-  },
-
-  "noWarranty": "No Warranty",
-  "@noWarranty": {
-    "description": "No warranty section title"
-  },
-
-  "noWarrantyText": "The software is provided \"as is\" without warranty of any kind. We are not responsible for any damages arising from its use.",
-  "@noWarrantyText": {
-    "description": "No warranty description"
-  },
-
-  "userResponsibility": "User Responsibility",
-  "@userResponsibility": {
-    "description": "User responsibility section title"
-  },
-
-  "userResponsibilityText": "Users are responsible for ensuring their use of this tool complies with local regulations and institutional policies.",
-  "@userResponsibilityText": {
-    "description": "User responsibility description"
-  },
-
-  "academicIntegrity": "Academic Integrity",
-  "@academicIntegrity": {
-    "description": "Academic integrity section title"
-  },
-
-  "academicIntegrityText": "This tool should be used in accordance with academic integrity guidelines and ethical research practices.",
-  "@academicIntegrityText": {
-    "description": "Academic integrity description"
-  },
-
   "close": "Close",
   "@close": {
     "description": "Close button text"
@@ -274,26 +149,6 @@
   "agree": "Agree",
   "@agree": {
     "description": "Agree button text"
-  },
-
-  "purpose": "Purpose",
-  "@purpose": {
-    "description": "Purpose label"
-  },
-
-  "educational": "Educational",
-  "@educational": {
-    "description": "Educational label"
-  },
-
-  "technology": "Technology",
-  "@technology": {
-    "description": "Technology label"
-  },
-
-  "networkResearch": "Network Research",
-  "@networkResearch": {
-    "description": "Network research label"
   },
 
   "stopped": "STOPPED",
@@ -376,7 +231,7 @@
     "description": "Account management center description"
   },
 
-  "aboutProjectText": "{projectName} is an educational network security tool designed to help users understand privacy protection and secure network communications. This application is intended for educational and research purposes, enabling users to learn about network protocols, encryption, and privacy technologies. All operations are performed locally on your device in compliance with applicable laws and regulations.",
+  "aboutProjectText": "{projectName} is open-source network research platform for privacy and security",
   "@aboutProjectText": {
     "description": "About project description",
     "placeholders": {
@@ -434,40 +289,5 @@
   "noCustomConfig": "No saved config",
   "@noCustomConfig": {
     "description": "No custom config status label"
-  },
-
-  "arabic": "العربية",
-  "@arabic": {
-    "description": "Arabic language option"
-  },
-
-  "russian": "Русский",
-  "@russian": {
-    "description": "Russian language option"
-  },
-
-  "turkish": "Türkçe",
-  "@turkish": {
-    "description": "Turkish language option"
-  },
-
-  "malay": "Melayu",
-  "@malay": {
-    "description": "Malay language option"
-  },
-
-  "persian": "فارسی",
-  "@persian": {
-    "description": "Persian language option"
-  },
-
-  "hindi": "हिन्दी",
-  "@hindi": {
-    "description": "Hindi language option"
-  },
-
-  "indonesian": "Bahasa Indonesia",
-  "@indonesian": {
-    "description": "Indonesian language option"
   }
 }

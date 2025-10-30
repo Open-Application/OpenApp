@@ -6,67 +6,74 @@
 [![Code Size](https://img.shields.io/github/languages/code-size/Open-Application/OpenApp)](https://github.com/Open-Application/OpenApp)
 [![Open Issues](https://img.shields.io/github/issues/Open-Application/OpenApp)](https://github.com/Open-Application/OpenApp/issues)
 
-> Open-Source Professional network privacy research platform for educational purposes
+> Open-Source network research platform for privacy and security
 
-Developed by Root-Corporation PTY LTD Australia | Available exclusively in Australia 🇦🇺
+Developed by Root Corporation PTY LTD Australia 🇦🇺
 
 ---
 
 ## Overview
 
-OpenApp is an enterprise-grade, open-source network privacy research platform designed for educational institutions, security researchers, and privacy advocates. Built with modern Flutter architecture and powered by the industry-standard `Liboc` core, OpenApp delivers military-grade security while maintaining complete transparency through its MIT-licensed codebase.
+OpenApp is an enterprise-grade, open-source network research platform designed for educational institutions, security researchers, and privacy advocates. Developed and published by Root Corporation PTY LTD Australia.
 
-**Multi-Platform Support:** iOS • macOS • Android • Windows
+**Multiple Support**
+- iOS • macOS • Android • Windows
+- ShadowTLS • VLESS • Trojan • Hysteria/Hysteria2 • TUIC • WireGuard • Naive • AnyTLS • Tailscale
+- English • 中文 • हिन्दी • Bahasa Indonesia • Bahasa Melayu • Русский • Türkçe • العربية • فارسی
+
+**Responsible Use**
+- Users are responsible for ensuring their use complies with local laws and regulations
+- Not designed for illegal activities or bypassing lawful restrictions
+
+**IMPORTANT LEGAL NOTICE**
+
+This software is provided **exclusively for educational and research purposes**.
 
 ---
 
 ## Key Features
 
-### 🔒 **Enterprise Security**
-- **Military-grade encryption** with industry-standard protocols
-- **End-to-end encrypted connections** for complete data protection
-- **Zero-knowledge architecture** - no data collection or tracking
+### 📱 **Supported Platforms**
 
-### 🎯 **Professional Performance**
-- **One-tap activation** with intelligent auto-reconnection
-- **Low resource consumption** optimized for mobile and desktop
-- **Advanced network diagnostics** and connection analytics
-- **Background operation** with minimal battery impact
+- iOS
+- macOS
+- Android
+- Windows
 
-### 🌏 **Global Language Support**
-Nine languages displayed in native scripts:
-- English • العربية (Arabic) • 中文 (Chinese)
-- فارسی (Persian) • हिन्दी (Hindi)
-- Bahasa Indonesia • Bahasa Melayu
-- Русский (Russian) • Türkçe (Turkish)
+### 🔌 **Supported Protocols**
 
-### 🎨 **Premium User Experience**
-- **Modern Material 3 Design** with adaptive theming
-- **Gorgeous light and dark modes** with smooth transitions
-- **Responsive UI** optimized for all screen sizes
-- **Accessibility-ready** with haptic feedback support
+- ShadowTLS
+- VLESS
+- Trojan
+- Hysteria/Hysteria2
+- TUIC
+- WireGuard
+- Naive
+- AnyTLS
+- Tailscale
 
-### 🔧 **Advanced Configuration**
-- **Base64-encoded configuration** support
-- **Custom protocol flexibility** for research scenarios
-- **Real-time service logs** for debugging and analysis
-- **Export capabilities** for technical documentation
+### 🌏 **Supported Languages**
 
-### 📖 **Open Source Transparency**
-- **MIT Licensed** - fully open and auditable codebase
-- **Community-driven development** on GitHub
-- **No hidden code** - complete source transparency
-- **Educational purpose** - learn by studying the code
+- English
+- 中文 (Chinese)
+- हिन्दी (Hindi)
+- Bahasa Indonesia
+- Bahasa Melayu
+- Русский (Russian)
+- Türkçe (Turkish)
+- العربية (Arabic)
+- فارسی (Persian/Farsi)
+
 
 ---
 
 ## Configuration
 
-OpenApp supports industry-standard sing-box configuration format with secure base64 encoding for enhanced portability and security.
+OpenApp supports industry-standard configuration format with secure base64 encoding for enhanced portability and security.
 
 ### Quick Start
 
-1. **Prepare Configuration** - Create your sing-box configuration in JSON format ([see documentation](https://sing-box.sagernet.org/configuration/))
+1. **Prepare Configuration** - Create your OpenApp(`sing-box` compatible) configuration in JSON format ([see documentation](https://sing-box.sagernet.org/configuration/))
 2. **Encode to Base64** - Convert your JSON configuration to base64 format
 3. **Import to OpenApp** - Provide the encoded string through the app interface
 
@@ -202,29 +209,15 @@ And the corresponding base64 encoded string,
 ewogICAgImxvZyI6IHsKICAgICAgICAidGltZXN0YW1wIjogZmFsc2UsCiAgICAgICAgImxldmVsIjogImVycm9yIgogICAgfSwKICAgICJleHBlcmltZW50YWwiOiB7CiAgICAgICAgImNhY2hlX2ZpbGUiOiB7CiAgICAgICAgICAgICJlbmFibGVkIjogdHJ1ZSwKICAgICAgICAgICAgInN0b3JlX3JkcmMiOiB0cnVlCiAgICAgICAgfQogICAgfSwKICAgICJkbnMiOiB7CiAgICAgICAgInNlcnZlcnMiOiBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0YWciOiAibG9jYWwiLAogICAgICAgICAgICAgICAgInR5cGUiOiAidWRwIiwKICAgICAgICAgICAgICAgICJzZXJ2ZXIiOiAiMTE5LjI5LjI5LjI5IgogICAgICAgICAgICB9LAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidGFnIjogInN5c3RlbSIsCiAgICAgICAgICAgICAgICAidHlwZSI6ICJ1ZHAiLAogICAgICAgICAgICAgICAgInNlcnZlciI6ICI4LjguOC44IgogICAgICAgICAgICB9CiAgICAgICAgXSwKICAgICAgICAicnVsZXMiOiBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJhY3Rpb24iOiAicm91dGUtb3B0aW9ucyIsCiAgICAgICAgICAgICAgICAiZG9tYWluIjogWwogICAgICAgICAgICAgICAgICAgICIqIgogICAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgICAgICJyZXdyaXRlX3R0bCI6IDYwLAogICAgICAgICAgICAgICAgInVkcF9jb25uZWN0IjogZmFsc2UsCiAgICAgICAgICAgICAgICAidWRwX2Rpc2FibGVfZG9tYWluX3VubWFwcGluZyI6IGZhbHNlCiAgICAgICAgICAgIH0KICAgICAgICBdLAogICAgICAgICJzdHJhdGVneSI6ICJpcHY0X29ubHkiLAogICAgICAgICJmaW5hbCI6ICJsb2NhbCIsCiAgICAgICAgInJldmVyc2VfbWFwcGluZyI6IHRydWUsCiAgICAgICAgImRpc2FibGVfY2FjaGUiOiBmYWxzZSwKICAgICAgICAiZGlzYWJsZV9leHBpcmUiOiBmYWxzZQogICAgfSwKICAgICJpbmJvdW5kcyI6IFsKICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInR1biIsCiAgICAgICAgICAgICJ0YWciOiAidHVuLWluIiwKICAgICAgICAgICAgImludGVyZmFjZV9uYW1lIjogInR1bjAiLAogICAgICAgICAgICAiYWRkcmVzcyI6IFsKICAgICAgICAgICAgICAgICIxNzIuMTkuMC4wLzMwIiwKICAgICAgICAgICAgICAgICJmZGZlOmRjYmE6OTg3Njo6MC8xMjYiCiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJtdHUiOiAxNTAwLAogICAgICAgICAgICAiYXV0b19yb3V0ZSI6IHRydWUsCiAgICAgICAgICAgICJzdHJpY3Rfcm91dGUiOiB0cnVlLAogICAgICAgICAgICAic3RhY2siOiAiZ3Zpc29yIgogICAgICAgIH0KICAgIF0sCiAgICAib3V0Ym91bmRzIjogWwogICAgICAgIHsKICAgICAgICAgICAgInRhZyI6ICJkaXJlY3Qtb3V0IiwKICAgICAgICAgICAgInR5cGUiOiAiZGlyZWN0IiwKICAgICAgICAgICAgInVkcF9mcmFnbWVudCI6IHRydWUKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgInRhZyI6ICJibG9jay1vdXQiLAogICAgICAgICAgICAidHlwZSI6ICJibG9jayIKICAgICAgICB9CiAgICBdLAogICAgInJvdXRlIjogewogICAgICAgICJmaW5hbCI6ICJkaXJlY3Qtb3V0IiwKICAgICAgICAiYXV0b19kZXRlY3RfaW50ZXJmYWNlIjogdHJ1ZSwKICAgICAgICAiZGVmYXVsdF9kb21haW5fcmVzb2x2ZXIiOiB7CiAgICAgICAgICAgICJzZXJ2ZXIiOiAibG9jYWwiLAogICAgICAgICAgICAicmV3cml0ZV90dGwiOiA2MAogICAgICAgIH0sCiAgICAgICAgInJ1bGVzIjogWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAiaW5ib3VuZCI6ICJ0dW4taW4iLAogICAgICAgICAgICAgICAgImFjdGlvbiI6ICJzbmlmZiIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInByb3RvY29sIjogImRucyIsCiAgICAgICAgICAgICAgICAiYWN0aW9uIjogImhpamFjay1kbnMiCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJwcm90b2NvbCI6IFsicXVpYyIsICJCaXRUb3JyZW50Il0sCiAgICAgICAgICAgICAgICAiYWN0aW9uIjogInJlamVjdCIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgImlwX2lzX3ByaXZhdGUiOiB0cnVlLAogICAgICAgICAgICAgICAgIm91dGJvdW5kIjogImRpcmVjdC1vdXQiCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJpcF9jaWRyIjogWwogICAgICAgICAgICAgICAgICAgICIwLjAuMC4wLzgiLAogICAgICAgICAgICAgICAgICAgICIxMC4wLjAuMC84IiwKICAgICAgICAgICAgICAgICAgICAiMTI3LjAuMC4wLzgiLAogICAgICAgICAgICAgICAgICAgICIxNjkuMjU0LjAuMC8xNiIsCiAgICAgICAgICAgICAgICAgICAgIjE3Mi4xNi4wLjAvMTIiLAogICAgICAgICAgICAgICAgICAgICIxOTIuMTY4LjAuMC8xNiIsCiAgICAgICAgICAgICAgICAgICAgIjIyNC4wLjAuMC80IiwKICAgICAgICAgICAgICAgICAgICAiMjQwLjAuMC4wLzQiCiAgICAgICAgICAgICAgICBdLAogICAgICAgICAgICAgICAgIm91dGJvdW5kIjogImRpcmVjdC1vdXQiCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJkb21haW5fc3VmZml4IjogWyIubG9jYWwiLCAiLmxvY2FsaG9zdCJdLAogICAgICAgICAgICAgICAgIm91dGJvdW5kIjogImRpcmVjdC1vdXQiCiAgICAgICAgICAgIH0KICAgICAgICBdCiAgICB9Cn0KCg==
 ```
 
-**Learn More:** Comprehensive configuration documentation available at [sing-box.sagernet.org](https://sing-box.sagernet.org/)
+**Learn More:** Comprehensive configuration documentation available at [details](https://sing-box.sagernet.org/configuration/)
 
 ---
 
-## Privacy & Security
-
-OpenApp is built on a **zero-knowledge architecture** that prioritizes user privacy:
-
-| Feature | Status |
-|---------|--------|
-| **Data Collection** | ❌ None - Zero personal information collected |
-| **User Tracking** | ❌ None - No analytics or telemetry |
-| **Third-Party Services** | ❌ None - 100% local operations |
-| **Source Code** | ✅ Fully transparent and auditable |
-| **Compliance** | ✅ Australian Privacy Principles |
+## Legals
 
 **Legal Documents:**
 - [Privacy Policy](assets/legals/privacy_policy.txt) - Comprehensive privacy commitments
 - [Terms of Use](assets/legals/user_agreement.txt) - Usage guidelines and legal terms
-
----
-
-## License & Legal
 
 ### Open Source License
 
@@ -237,12 +230,12 @@ MIT license: [LICENSE](LICENSE)
 This software is provided **exclusively for educational and research purposes**.
 
 **User Responsibilities:**
-- ✅ Ensure compliance with all applicable **Australian laws and regulations**
+- ✅ Ensure compliance with all applicable **Local laws and regulations**
 - ✅ Use only for **legitimate educational or research activities**
 - ✅ Respect all local, state, and federal legal requirements
 - ❌ Not intended for any illegal activities or circumventing legal restrictions
 
-**Availability:** OpenApp is **exclusively available in Australia** and published by an Australian registered business entity.
+**Availability:** OpenApp is developed and published by an Australian registered business entity.
 
 **AS-IS Provision:** This software is provided "AS IS" without warranty of any kind, express or implied. The authors and copyright holders shall not be liable for any claims, damages, or other liabilities arising from the use of this software.
 
@@ -260,13 +253,17 @@ This software is provided **exclusively for educational and research purposes**.
 
 ## Credits
 
-- [WireGuard](https://www.wireguard.com/) - Fast and modern VPN protocol
-- [VLESS](https://github.com/XTLS/Xray-core) - Lightweight protocol
-- [Trojan](https://trojan-gfw.github.io/trojan/) - Unidentifiable mechanism
-- [Hysteria2](https://v2.hysteria.network/) - Feature-packed proxy & relay protocol
-- [SagerNet/sing-box](https://github.com/SagerNet/sing-box) - Universal proxy platform
+- [ShadowTLS](https://github.com/ihciah/shadow-tls)
+- [VLESS](https://github.com/XTLS/Xray-core)
+- [Trojan](https://github.com/trojan-gfw/trojan)
+- [Hysteria](https://github.com/apernet/hysteria)
+- [TUIC](https://github.com/tuic-protocol/tuic)
+- [WireGuard](https://github.com/WireGuard)
+- [Naive](https://github.com/klzgrad/naiveproxy)
+- [AnyTLS](https://github.com/anytls/anytls-go)
+- [Tailscale](https://github.com/tailscale/tailscale)
+- [sing-box](https://github.com/SagerNet/sing-box)
 
 ---
-*OpenApp - Professional network privacy research platform for educational purposes*
 
 *Made with ❤️ in Australia 🇦🇺*

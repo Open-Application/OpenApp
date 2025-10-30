@@ -14,8 +14,8 @@
 	<dict>
 		<key>io.rootcorporation.openapp</key>
 		<string>OpenApp macOS</string>
-		<key>io.rootcorporation.openapp.core</key>
-		<string>OpenApp Core macOS</string>
+		<key>io.rootcorporation.openapp.service</key>
+		<string>OpenApp Service macOS</string>
 	</dict>
 	<key>uploadBitcode</key>
 	<false/>

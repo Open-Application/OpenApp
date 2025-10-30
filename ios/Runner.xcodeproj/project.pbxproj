@@ -20,11 +20,11 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		9EB6AB9193E1F4A795329434 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B48E4D4CA0D552E6E08FB6 /* Pods_Runner.framework */; };
-		D2D87DD4BBFE5EF1789078AC /* Pods_RccExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A74EB7B3535031003322E7C /* Pods_RccExtension.framework */; };
+		D2D87DD4BBFE5EF1789078AC /* Pods_ServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A74EB7B3535031003322E7C /* Pods_ServiceExtension.framework */; };
 		D67B923EC85C46C8ABF530CF /* Liboc.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66556D6E5F3D286293995BD9 /* Liboc.xcframework */; };
 		DF1477E00FB94042730BC830 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A3A8CD0731C04D6A088340 /* FileLogger.swift */; };
-		F2E4CC73438A2A81A351EEFB /* RccExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E0B549865BBDD99155F6A473 /* RccExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F52B9709089205D26D49D943 /* RccPlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA3DC3EAED5165D8159A83 /* RccPlatformInterface.swift */; };
+		F2E4CC73438A2A81A351EEFB /* ServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E0B549865BBDD99155F6A473 /* ServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F52B9709089205D26D49D943 /* ServicePlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA3DC3EAED5165D8159A83 /* ServicePlatformInterface.swift */; };
 		F92F95C8B7ECC6CC527460FB /* FlutterBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1D376A75B5B61873F1604 /* FlutterBridge.swift */; };
 		LIBOC1234567890ABCDEF1234 /* Liboc.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 66556D6E5F3D286293995BD9 /* Liboc.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -42,7 +42,7 @@
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A7DAE7E1F1773365604E1E03;
-			remoteInfo = RccExtension;
+			remoteInfo = ServiceExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -53,7 +53,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F2E4CC73438A2A81A351EEFB /* RccExtension.appex in Embed Foundation Extensions */,
+				F2E4CC73438A2A81A351EEFB /* ServiceExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,20 +86,20 @@
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		1BBAA04F2E9A6165004E5416 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
-		1C07064C5BDD19E3E66C3F12 /* RccExtension.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = RccExtension.entitlements; sourceTree = "<group>"; };
+		1C07064C5BDD19E3E66C3F12 /* ServiceExtension.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = ServiceExtension.entitlements; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		3F9CBA235D5F6DC35D63F85A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		48B48E4D4CA0D552E6E08FB6 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E1F5386DBBA0FDE1ABC8B10 /* Pods-RccExtension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.profile.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.profile.xcconfig"; sourceTree = "<group>"; };
+		4E1F5386DBBA0FDE1ABC8B10 /* Pods-ServiceExtension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.profile.xcconfig"; path = "Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.profile.xcconfig"; sourceTree = "<group>"; };
 		55A3A8CD0731C04D6A088340 /* FileLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogger.swift; sourceTree = "<group>"; };
 		66556D6E5F3D286293995BD9 /* Liboc.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = Liboc.xcframework; path = Frameworks/Liboc.xcframework; sourceTree = "<group>"; };
-		6BDA3DC3EAED5165D8159A83 /* RccPlatformInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RccPlatformInterface.swift; sourceTree = "<group>"; };
+		6BDA3DC3EAED5165D8159A83 /* ServicePlatformInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ServicePlatformInterface.swift; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75FF7A3794D2E3FF167A4562 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A74EB7B3535031003322E7C /* Pods_RccExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RccExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A74EB7B3535031003322E7C /* Pods_ServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -112,11 +112,11 @@
 		9DEFA73D1346D99EBBFE9DCB /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		9F6AA1E850914CAD5ED4926B /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A4D02CE2CBC11CC82AA4E3CE /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
-		AFBC3AFAA0D89BC0D7B46775 /* Pods-RccExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.debug.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		B2774C353A946C58FF2FF911 /* Pods-RccExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.release.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.release.xcconfig"; sourceTree = "<group>"; };
+		AFBC3AFAA0D89BC0D7B46775 /* Pods-ServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		B2774C353A946C58FF2FF911 /* Pods-ServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		C30517D88E7F627ABA79EE0C /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		D91AEDF43AD0CE045811ADAB /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0B549865BBDD99155F6A473 /* RccExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RccExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0B549865BBDD99155F6A473 /* ServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C2831E4E053BCA6179642B /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 		E40019B588B48831E9BFCE11 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		F70775829D8657FE56C7C66C /* libresolv.tbd */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
@@ -147,7 +147,7 @@
 				3658B3E8AFF123D76E870905 /* Foundation.framework in Frameworks */,
 				D67B923EC85C46C8ABF530CF /* Liboc.xcframework in Frameworks */,
 				40B429B937F4CC967FCE4169 /* NetworkExtension.framework in Frameworks */,
-				D2D87DD4BBFE5EF1789078AC /* Pods_RccExtension.framework in Frameworks */,
+				D2D87DD4BBFE5EF1789078AC /* Pods_ServiceExtension.framework in Frameworks */,
 				57935955AFDD1135020822D2 /* libresolv.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,9 +172,9 @@
 				9F6AA1E850914CAD5ED4926B /* Pods-RunnerTests.debug.xcconfig */,
 				E0C2831E4E053BCA6179642B /* Pods-RunnerTests.release.xcconfig */,
 				9938D659C033E71A008D1586 /* Pods-RunnerTests.profile.xcconfig */,
-				B2774C353A946C58FF2FF911 /* Pods-RccExtension.release.xcconfig */,
-				AFBC3AFAA0D89BC0D7B46775 /* Pods-RccExtension.debug.xcconfig */,
-				4E1F5386DBBA0FDE1ABC8B10 /* Pods-RccExtension.profile.xcconfig */,
+				B2774C353A946C58FF2FF911 /* Pods-ServiceExtension.release.xcconfig */,
+				AFBC3AFAA0D89BC0D7B46775 /* Pods-ServiceExtension.debug.xcconfig */,
+				4E1F5386DBBA0FDE1ABC8B10 /* Pods-ServiceExtension.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				3EA8A5AC08231CE4B69DE09E /* Pods */,
 				E80B0DBB36CF9357057A581B /* Frameworks */,
-				DE3EF5C586268DFC988F343E /* RccExtension */,
+				DE3EF5C586268DFC988F343E /* ServiceExtension */,
 			);
 			sourceTree = "<group>";
 		};
@@ -217,7 +217,7 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
-				E0B549865BBDD99155F6A473 /* RccExtension.appex */,
+				E0B549865BBDD99155F6A473 /* ServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,16 +239,16 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
-		DE3EF5C586268DFC988F343E /* RccExtension */ = {
+		DE3EF5C586268DFC988F343E /* ServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
 				A4D02CE2CBC11CC82AA4E3CE /* PacketTunnelProvider.swift */,
-				6BDA3DC3EAED5165D8159A83 /* RccPlatformInterface.swift */,
+				6BDA3DC3EAED5165D8159A83 /* ServicePlatformInterface.swift */,
 				55A3A8CD0731C04D6A088340 /* FileLogger.swift */,
-				1C07064C5BDD19E3E66C3F12 /* RccExtension.entitlements */,
+				1C07064C5BDD19E3E66C3F12 /* ServiceExtension.entitlements */,
 				75FF7A3794D2E3FF167A4562 /* Info.plist */,
 			);
-			path = RccExtension;
+			path = ServiceExtension;
 			sourceTree = "<group>";
 		};
 		E80B0DBB36CF9357057A581B /* Frameworks */ = {
@@ -258,7 +258,7 @@
 				D91AEDF43AD0CE045811ADAB /* Pods_RunnerTests.framework */,
 				8815B5538439A7543055FBDA /* iOS */,
 				66556D6E5F3D286293995BD9 /* Liboc.xcframework */,
-				7A74EB7B3535031003322E7C /* Pods_RccExtension.framework */,
+				7A74EB7B3535031003322E7C /* Pods_ServiceExtension.framework */,
 				F70775829D8657FE56C7C66C /* libresolv.tbd */,
 			);
 			name = Frameworks;
@@ -310,9 +310,9 @@
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A7DAE7E1F1773365604E1E03 /* RccExtension */ = {
+		A7DAE7E1F1773365604E1E03 /* ServiceExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C538CEA6D5572A5B1D8F24F6 /* Build configuration list for PBXNativeTarget "RccExtension" */;
+			buildConfigurationList = C538CEA6D5572A5B1D8F24F6 /* Build configuration list for PBXNativeTarget "ServiceExtension" */;
 			buildPhases = (
 				930841A058F5D8CBFCCD5C3C /* [CP] Check Pods Manifest.lock */,
 				15FA070739BA75E47E3A1624 /* Sources */,
@@ -324,9 +324,9 @@
 			);
 			dependencies = (
 			);
-			name = RccExtension;
-			productName = RccExtension;
-			productReference = E0B549865BBDD99155F6A473 /* RccExtension.appex */;
+			name = ServiceExtension;
+			productName = ServiceExtension;
+			productReference = E0B549865BBDD99155F6A473 /* ServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -364,7 +364,7 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
-				A7DAE7E1F1773365604E1E03 /* RccExtension */,
+				A7DAE7E1F1773365604E1E03 /* ServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -473,7 +473,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RccExtension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ServiceExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -521,7 +521,7 @@
 			files = (
 				51B3E7666A03910A0AA58F7A /* PacketTunnelProvider.swift in Sources */,
 				DF1477E00FB94042730BC830 /* FileLogger.swift in Sources */,
-				F52B9709089205D26D49D943 /* RccPlatformInterface.swift in Sources */,
+				F52B9709089205D26D49D943 /* ServicePlatformInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,8 +553,8 @@
 		};
 		C7CC16DC2429C7BABA8CECBC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = RccExtension;
-			target = A7DAE7E1F1773365604E1E03 /* RccExtension */;
+			name = ServiceExtension;
+			target = A7DAE7E1F1773365604E1E03 /* ServiceExtension */;
 			targetProxy = 9D28FC4C8CCBA5E86C9127D0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -581,11 +581,11 @@
 /* Begin XCBuildConfiguration section */
 		1FD038F550110AE7FB1EB1CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2774C353A946C58FF2FF911 /* Pods-RccExtension.release.xcconfig */;
+			baseConfigurationReference = B2774C353A946C58FF2FF911 /* Pods-ServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
@@ -593,17 +593,17 @@
 				DEVELOPMENT_TEAM = Q32QHMXBB2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q32QHMXBB2;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = RccExtension/Info.plist;
+				INFOPLIST_FILE = ServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
-				PRODUCT_NAME = RccExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.service;
+				PRODUCT_NAME = ServiceExtension;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp Core iOS";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp Service iOS";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -745,27 +745,27 @@
 		};
 		46839B6B4197F2D0124A5E04 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E1F5386DBBA0FDE1ABC8B10 /* Pods-RccExtension.profile.xcconfig */;
+			baseConfigurationReference = 4E1F5386DBBA0FDE1ABC8B10 /* Pods-ServiceExtension.profile.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Q32QHMXBB2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q32QHMXBB2;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = RccExtension/Info.plist;
+				INFOPLIST_FILE = ServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
-				PRODUCT_NAME = RccExtension;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp Core iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.service;
+				PRODUCT_NAME = ServiceExtension;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "OpenApp Service iOS";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -947,25 +947,25 @@
 		};
 		BE10CA34E1FEDEFED748D26C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AFBC3AFAA0D89BC0D7B46775 /* Pods-RccExtension.debug.xcconfig */;
+			baseConfigurationReference = AFBC3AFAA0D89BC0D7B46775 /* Pods-ServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q32QHMXBB2;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = RccExtension/Info.plist;
+				INFOPLIST_FILE = ServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
-				PRODUCT_NAME = RccExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.service;
+				PRODUCT_NAME = ServiceExtension;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1007,7 +1007,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C538CEA6D5572A5B1D8F24F6 /* Build configuration list for PBXNativeTarget "RccExtension" */ = {
+		C538CEA6D5572A5B1D8F24F6 /* Build configuration list for PBXNativeTarget "ServiceExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1FD038F550110AE7FB1EB1CF /* Release */,

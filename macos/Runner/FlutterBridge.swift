@@ -60,7 +60,7 @@ class FlutterBridge: NSObject {
                 return
             }
 
-            let ourBundleId = "io.rootcorporation.openapp.core"
+            let ourBundleId = "io.rootcorporation.openapp.service"
             let existingManager = managers?.first(where: { manager in
                 if let proto = manager.protocolConfiguration as? NETunnelProviderProtocol {
                     return proto.providerBundleIdentifier == ourBundleId
@@ -96,7 +96,7 @@ class FlutterBridge: NSObject {
                 return
             }
 
-            let ourBundleId = "io.rootcorporation.openapp.core"
+            let ourBundleId = "io.rootcorporation.openapp.service"
             let existingManager = managers?.first(where: { manager in
                 if let proto = manager.protocolConfiguration as? NETunnelProviderProtocol {
                     return proto.providerBundleIdentifier == ourBundleId
@@ -188,17 +188,17 @@ class FlutterBridge: NSObject {
 
     private func createServiceManager(completion: @escaping (Error?) -> Void) {
         let manager = NETunnelProviderManager()
-        manager.localizedDescription = "OpenApp Core"
+        manager.localizedDescription = "OpenApp Service"
 
         let proto = NETunnelProviderProtocol()
-        proto.providerBundleIdentifier = "io.rootcorporation.openapp.core"
-        proto.serverAddress = "OpenApp Core"
+        proto.providerBundleIdentifier = "io.rootcorporation.openapp.service"
+        proto.serverAddress = "OpenApp Service"
         manager.protocolConfiguration = proto
         manager.isEnabled = true
 
         manager.saveToPreferences { [weak self] error in
             if let error = error {
-                NSLog("Error saving Rcc manager: \(error.localizedDescription)")
+                NSLog("Error saving Service manager: \(error.localizedDescription)")
                 completion(error)
                 return
             }
@@ -286,7 +286,7 @@ class FlutterBridge: NSObject {
 
             guard let manager = self.vpnManager else {
                 NSLog("[FlutterBridge] ERROR: No manager")
-                result(FlutterError(code: "NO_MANAGER", message: "Rcc manager not initialized", details: nil))
+                result(FlutterError(code: "NO_MANAGER", message: "Service manager not initialized", details: nil))
                 return
             }
 
@@ -310,7 +310,7 @@ class FlutterBridge: NSObject {
                 NSLog("[FlutterBridge] startVPNTunnel() call succeeded")
                 result(true)
             } catch {
-                NSLog("[FlutterBridge] ERROR starting Rcc service: \(error.localizedDescription)")
+                NSLog("[FlutterBridge] ERROR starting Service: \(error.localizedDescription)")
                 NSLog("[FlutterBridge] Error details: \(error)")
                 defaults?.set("STOPPED", forKey: "io.rootcorporation.openapp.status")
                 defaults?.synchronize()

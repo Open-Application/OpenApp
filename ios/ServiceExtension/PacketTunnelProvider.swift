@@ -3,7 +3,7 @@ import Liboc
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
     private var boxService: LibocBoxService?
-    private var platformInterface: RccPlatformInterface?
+    private var platformInterface: ServicePlatformInterface?
 
     override func startTunnel(options: [String : NSObject]?) async throws {
         LibocClearServiceError()
@@ -40,7 +40,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         LibocSetMemoryLimit(true)
 
         if platformInterface == nil {
-            platformInterface = RccPlatformInterface(provider: self)
+            platformInterface = ServicePlatformInterface(provider: self)
         }
 
         try await startService()

@@ -33,12 +33,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get disconnected => 'डिस्कनेक्ट हो गया';
 
   @override
-  String get encrypted => 'एन्क्रिप्टेड';
-
-  @override
-  String get unprotected => 'असुरक्षित';
-
-  @override
   String get servicePermissionRequired => 'सेवा अनुमति आवश्यक है';
 
   @override
@@ -66,9 +60,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get openSourceLicense => 'लाइसेंस';
 
   @override
-  String get coreLibrary => 'कोर लाइब्रेरी';
-
-  @override
   String get termsOfUse => 'उपयोग की शर्तें';
 
   @override
@@ -87,26 +78,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get connectionStatus => 'स्थिति';
 
   @override
-  String get yourInternetIsSecure => 'आपका नेटवर्क कनेक्शन सुरक्षित है';
-
-  @override
-  String get yourInternetIsExposed => 'आपका नेटवर्क कनेक्शन असुरक्षित है';
-
-  @override
-  String get establishingSecureConnection =>
-      'सुरक्षित कनेक्शन स्थापित किया जा रहा है';
-
-  @override
-  String get closingSecureConnection => 'सुरक्षित कनेक्शन बंद किया जा रहा है';
-
-  @override
   String get language => 'भाषा';
-
-  @override
-  String get english => 'English';
-
-  @override
-  String get chinese => '中文';
 
   @override
   String get systemDefault => 'सिस्टम डिफ़ॉल्ट';
@@ -121,78 +93,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get about => 'के बारे में';
 
   @override
-  String get dataCollection => 'डेटा संग्रह';
-
-  @override
-  String get dataCollectionText =>
-      'हम कोई व्यक्तिगत जानकारी एकत्र या संग्रहीत नहीं करते हैं। सभी नेटवर्क कॉन्फ़िगरेशन आपके डिवाइस पर स्थानीय रूप से संग्रहीत किए जाते हैं।';
-
-  @override
-  String get networkTraffic => 'नेटवर्क ट्रैफ़िक';
-
-  @override
-  String get networkTrafficText =>
-      'यह शैक्षिक उपकरण सीखने के उद्देश्यों के लिए स्थानीय रूप से नेटवर्क ट्रैफ़िक को प्रोसेस करता है। ट्रैकिंग या विश्लेषण के लिए बाहरी सर्वर को कोई डेटा नहीं भेजा जाता है।';
-
-  @override
-  String get thirdPartyServices => 'तृतीय-पक्ष सेवाएं';
-
-  @override
-  String get thirdPartyServicesText =>
-      'हम तृतीय पक्षों के साथ कोई जानकारी साझा नहीं करते हैं। सभी संचालन आपके डिवाइस पर स्थानीय रूप से किए जाते हैं।';
-
-  @override
-  String get dataSecurity => 'डेटा सुरक्षा';
-
-  @override
-  String get dataSecurityText =>
-      'सभी कॉन्फ़िगरेशन और सेटिंग्स को उद्योग-मानक एन्क्रिप्शन विधियों का उपयोग करके एन्क्रिप्ट किया जाता है और आपके डिवाइस पर सुरक्षित रूप से संग्रहीत किया जाता है।';
-
-  @override
-  String get educationalUseOnly => 'केवल शैक्षिक उपयोग';
-
-  @override
-  String get educationalUseOnlyText =>
-      'यह सॉफ़्टवेयर केवल शैक्षिक और अनुसंधान उद्देश्यों के लिए प्रदान किया गया है। उपयोगकर्ताओं को सभी लागू कानूनों और विनियमों का पालन करना होगा।';
-
-  @override
-  String get noWarranty => 'कोई वारंटी नहीं';
-
-  @override
-  String get noWarrantyText =>
-      'सॉफ़्टवेयर \"जैसा है\" किसी भी प्रकार की वारंटी के बिना प्रदान किया गया है। हम इसके उपयोग से उत्पन्न किसी भी क्षति के लिए जिम्मेदार नहीं हैं।';
-
-  @override
-  String get userResponsibility => 'उपयोगकर्ता की जिम्मेदारी';
-
-  @override
-  String get userResponsibilityText =>
-      'उपयोगकर्ता यह सुनिश्चित करने के लिए जिम्मेदार हैं कि इस उपकरण का उनका उपयोग स्थानीय नियमों और संस्थागत नीतियों के अनुरूप है।';
-
-  @override
-  String get academicIntegrity => 'शैक्षणिक अखंडता';
-
-  @override
-  String get academicIntegrityText =>
-      'इस उपकरण का उपयोग शैक्षणिक अखंडता दिशानिर्देशों और नैतिक अनुसंधान प्रथाओं के अनुसार किया जाना चाहिए।';
-
-  @override
   String get close => 'बंद करें';
 
   @override
   String get agree => 'सहमत';
-
-  @override
-  String get purpose => 'उद्देश्य';
-
-  @override
-  String get educational => 'शैक्षिक';
-
-  @override
-  String get technology => 'प्रौद्योगिकी';
-
-  @override
-  String get networkResearch => 'नेटवर्क अनुसंधान';
 
   @override
   String get stopped => 'रुका हुआ';
@@ -243,7 +147,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String aboutProjectText(String projectName) {
-    return '$projectName एक शैक्षिक नेटवर्क सुरक्षा उपकरण है जो उपयोगकर्ताओं को गोपनीयता सुरक्षा और सुरक्षित नेटवर्क संचार को समझने में मदद करने के लिए डिज़ाइन किया गया है। यह एप्लिकेशन शैक्षिक और अनुसंधान उद्देश्यों के लिए है, जो उपयोगकर्ताओं को नेटवर्क प्रोटोकॉल, एन्क्रिप्शन और गोपनीयता प्रौद्योगिकियों के बारे में सीखने में सक्षम बनाता है। सभी संचालन लागू कानूनों और विनियमों के अनुपालन में आपके डिवाइस पर स्थानीय रूप से किए जाते हैं।';
+    return '$projectName गोपनीयता और सुरक्षा के लिए ओपन-सोर्स नेटवर्क अनुसंधान प्लेटफ़ॉर्म है';
   }
 
   @override
@@ -277,25 +181,4 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get noCustomConfig => 'कोई सहेजा गया कॉन्फ़िगरेशन नहीं';
-
-  @override
-  String get arabic => 'العربية';
-
-  @override
-  String get russian => 'Русский';
-
-  @override
-  String get turkish => 'Türkçe';
-
-  @override
-  String get malay => 'Melayu';
-
-  @override
-  String get persian => 'فارسی';
-
-  @override
-  String get hindi => 'हिन्दी';
-
-  @override
-  String get indonesian => 'Bahasa Indonesia';
 }

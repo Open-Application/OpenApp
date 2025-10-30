@@ -33,9 +33,9 @@
 		A1B2C3D4E5F6A7B8C9D0E1F2 /* FlutterBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6A7B8C9D0E1F2A3 /* FlutterBridge.swift */; };
 		D4C5E6F7A8B9C0D1E2F3A4B5 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6F7A8B9C0D1E2F3A4B5C6 /* NetworkExtension.framework */; };
 		E1F2A3B4C5D6E7F8A9B0C1D2 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A3B4C5D6E7F8A9B0C1D2E3 /* PacketTunnelProvider.swift */; };
-		E5D6F7A8B9C0D1E2F3A4B5C6 /* Pods_RccExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F7A8B9C0D1E2F3A4B5C6D7 /* Pods_RccExtension.framework */; };
-		F3B4C5D6E7F8A9B0C1D2E3F4 /* RccPlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B4C5D6E7F8A9B0C1D2E3F4 /* RccPlatformInterface.swift */; };
-		F6E7A8B9C0D1E2F3A4B5C6D7 /* RccExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A7B8C9D0E1F2A3B4C5D6E7F8 /* RccExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E5D6F7A8B9C0D1E2F3A4B5C6 /* Pods_ServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F7A8B9C0D1E2F3A4B5C6D7 /* Pods_ServiceExtension.framework */; };
+		F3B4C5D6E7F8A9B0C1D2E3F4 /* ServicePlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B4C5D6E7F8A9B0C1D2E3F4 /* ServicePlatformInterface.swift */; };
+		F6E7A8B9C0D1E2F3A4B5C6D7 /* ServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A7B8C9D0E1F2A3B4C5D6E7F8 /* ServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		I2J3K4L5M6N7O8P9Q0R1S2T3 /* Liboc.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */; };
 		J3K4L5M6N7O8P9Q0R1S2T3U4 /* Liboc.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		Y2Z3A4B5C6D7E8F9G0H1I2J3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = X1Y2Z3A4B5C6D7E8F9G0H1I2 /* Assets.xcassets */; };
@@ -61,7 +61,7 @@
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C8D9E0F1A2B3C4D5E6F7A8B9;
-			remoteInfo = RccExtension;
+			remoteInfo = ServiceExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -82,7 +82,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F6E7A8B9C0D1E2F3A4B5C6D7 /* RccExtension.appex in Embed App Extensions */,
+				F6E7A8B9C0D1E2F3A4B5C6D7 /* ServiceExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,20 +126,20 @@
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8BFB3D9F2E46471D0094093F /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		A3B4C5D6E7F8A9B0C1D2E3F4 /* RccPlatformInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RccPlatformInterface.swift; sourceTree = "<group>"; };
-		A7B8C9D0E1F2A3B4C5D6E7F8 /* RccExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RccExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9B0C1D2E3F4A5B6C7D8E9F0 /* Pods-RccExtension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.profile.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.profile.xcconfig"; sourceTree = "<group>"; };
+		A3B4C5D6E7F8A9B0C1D2E3F4 /* ServicePlatformInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePlatformInterface.swift; sourceTree = "<group>"; };
+		A7B8C9D0E1F2A3B4C5D6E7F8 /* ServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9B0C1D2E3F4A5B6C7D8E9F0 /* Pods-ServiceExtension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.profile.xcconfig"; path = "Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.profile.xcconfig"; sourceTree = "<group>"; };
 		B2C3D4E5F6A7B8C9D0E1F2A3 /* FlutterBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterBridge.swift; sourceTree = "<group>"; };
-		B4C5D6E7F8A9B0C1D2E3F4A5 /* RccExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RccExtension.entitlements; sourceTree = "<group>"; };
+		B4C5D6E7F8A9B0C1D2E3F4A5 /* ServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceExtension.entitlements; sourceTree = "<group>"; };
 		C33E523D8316FC9B26E081AD /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		C5D6E7F8A9B0C1D2E3F4A5B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5E6F7A8B9C0D1E2F3A4B5C6 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
-		D6F7A8B9C0D1E2F3A4B5C6D7 /* Pods_RccExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RccExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6F7A8B9C0D1E2F3A4B5C6D7 /* Pods_ServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB35BA8116002ECE4CC9169E /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
-		E7A8B9C0D1E2F3A4B5C6D7E8 /* Pods-RccExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.debug.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		E7A8B9C0D1E2F3A4B5C6D7E8 /* Pods-ServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		F2A3B4C5D6E7F8A9B0C1D2E3 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		F495F718FF068D8D1BBCB4AF /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
-		F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-RccExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RccExtension.release.xcconfig"; path = "Target Support Files/Pods-RccExtension/Pods-RccExtension.release.xcconfig"; sourceTree = "<group>"; };
+		F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-ServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Liboc.xcframework; path = Frameworks/Liboc.xcframework; sourceTree = "<group>"; };
 		X1Y2Z3A4B5C6D7E8F9G0H1I2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,7 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4C5E6F7A8B9C0D1E2F3A4B5 /* NetworkExtension.framework in Frameworks */,
-				E5D6F7A8B9C0D1E2F3A4B5C6 /* Pods_RccExtension.framework in Frameworks */,
+				E5D6F7A8B9C0D1E2F3A4B5C6 /* Pods_ServiceExtension.framework in Frameworks */,
 				I2J3K4L5M6N7O8P9Q0R1S2T3 /* Liboc.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,7 +200,7 @@
 				33FAB671232836740065AC1E /* Runner */,
 				33CEB47122A05771004F2AC0 /* Flutter */,
 				331C80D6294CF71000263BE5 /* RunnerTests */,
-				E8F9A0B1C2D3E4F5A6B7C8D9 /* RccExtension */,
+				E8F9A0B1C2D3E4F5A6B7C8D9 /* ServiceExtension */,
 				33CC10EE2044A3C60003C045 /* Products */,
 				D73912EC22F37F3D000D13A0 /* Frameworks */,
 				627A758286788FA640B3A0C1 /* Pods */,
@@ -212,7 +212,7 @@
 			children = (
 				33CC10ED2044A3C60003C045 /* OpenApp.app */,
 				331C80D5294CF71000263BE5 /* RunnerTests.xctest */,
-				A7B8C9D0E1F2A3B4C5D6E7F8 /* RccExtension.appex */,
+				A7B8C9D0E1F2A3B4C5D6E7F8 /* ServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -262,9 +262,9 @@
 				354DE23D8F59B51D3C3867AD /* Pods-RunnerTests.debug.xcconfig */,
 				DB35BA8116002ECE4CC9169E /* Pods-RunnerTests.release.xcconfig */,
 				0E3C26518C46AE976E9ED789 /* Pods-RunnerTests.profile.xcconfig */,
-				E7A8B9C0D1E2F3A4B5C6D7E8 /* Pods-RccExtension.debug.xcconfig */,
-				F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-RccExtension.release.xcconfig */,
-				A9B0C1D2E3F4A5B6C7D8E9F0 /* Pods-RccExtension.profile.xcconfig */,
+				E7A8B9C0D1E2F3A4B5C6D7E8 /* Pods-ServiceExtension.debug.xcconfig */,
+				F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-ServiceExtension.release.xcconfig */,
+				A9B0C1D2E3F4A5B6C7D8E9F0 /* Pods-ServiceExtension.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -275,23 +275,23 @@
 				19D341B151D50DE5BC1F4251 /* Pods_Runner.framework */,
 				1F6DCEE977E9A434773ACA3C /* Pods_RunnerTests.framework */,
 				C5E6F7A8B9C0D1E2F3A4B5C6 /* NetworkExtension.framework */,
-				D6F7A8B9C0D1E2F3A4B5C6D7 /* Pods_RccExtension.framework */,
+				D6F7A8B9C0D1E2F3A4B5C6D7 /* Pods_ServiceExtension.framework */,
 				H1I2J3K4L5M6N7O8P9Q0R1S2 /* Liboc.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E8F9A0B1C2D3E4F5A6B7C8D9 /* RccExtension */ = {
+		E8F9A0B1C2D3E4F5A6B7C8D9 /* ServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
 				F2A3B4C5D6E7F8A9B0C1D2E3 /* PacketTunnelProvider.swift */,
-				A3B4C5D6E7F8A9B0C1D2E3F4 /* RccPlatformInterface.swift */,
+				A3B4C5D6E7F8A9B0C1D2E3F4 /* ServicePlatformInterface.swift */,
 				04E676970D86B046CD0A4680 /* FileLogger.swift */,
-				B4C5D6E7F8A9B0C1D2E3F4A5 /* RccExtension.entitlements */,
+				B4C5D6E7F8A9B0C1D2E3F4A5 /* ServiceExtension.entitlements */,
 				C5D6E7F8A9B0C1D2E3F4A5B6 /* Info.plist */,
 				X1Y2Z3A4B5C6D7E8F9G0H1I2 /* Assets.xcassets */,
 			);
-			path = RccExtension;
+			path = ServiceExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,9 +340,9 @@
 			productReference = 33CC10ED2044A3C60003C045 /* OpenApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C8D9E0F1A2B3C4D5E6F7A8B9 /* RccExtension */ = {
+		C8D9E0F1A2B3C4D5E6F7A8B9 /* ServiceExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0E1F2A3B4C5D6E7F8A9B0C1 /* Build configuration list for PBXNativeTarget "RccExtension" */;
+			buildConfigurationList = D0E1F2A3B4C5D6E7F8A9B0C1 /* Build configuration list for PBXNativeTarget "ServiceExtension" */;
 			buildPhases = (
 				E2F3A4B5C6D7E8F9A0B1C2D3 /* [CP] Check Pods Manifest.lock */,
 				F4A5B6C7D8E9F0A1B2C3D4E5 /* Sources */,
@@ -354,9 +354,9 @@
 			);
 			dependencies = (
 			);
-			name = RccExtension;
-			productName = RccExtension;
-			productReference = A7B8C9D0E1F2A3B4C5D6E7F8 /* RccExtension.appex */;
+			name = ServiceExtension;
+			productName = ServiceExtension;
+			productReference = A7B8C9D0E1F2A3B4C5D6E7F8 /* ServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -405,7 +405,7 @@
 				33CC10EC2044A3C60003C045 /* Runner */,
 				331C80D4294CF70F00263BE5 /* RunnerTests */,
 				33CC111A2044C6BA0003C045 /* Flutter Assemble */,
-				C8D9E0F1A2B3C4D5E6F7A8B9 /* RccExtension */,
+				C8D9E0F1A2B3C4D5E6F7A8B9 /* ServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -552,7 +552,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RccExtension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ServiceExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -587,7 +587,7 @@
 			files = (
 				E1F2A3B4C5D6E7F8A9B0C1D2 /* PacketTunnelProvider.swift in Sources */,
 				4E9834750690604FEC089870 /* FileLogger.swift in Sources */,
-				F3B4C5D6E7F8A9B0C1D2E3F4 /* RccPlatformInterface.swift in Sources */,
+				F3B4C5D6E7F8A9B0C1D2E3F4 /* ServicePlatformInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +606,7 @@
 		};
 		B8C9D0E1F2A3B4C5D6E7F8A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C8D9E0F1A2B3C4D5E6F7A8B9 /* RccExtension */;
+			target = C8D9E0F1A2B3C4D5E6F7A8B9 /* ServiceExtension */;
 			targetProxy = B7C8D9E0F1A2B3C4D5E6F7A8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -918,11 +918,11 @@
 		};
 		C0D1E2F3A4B5C6D7E8F9A0B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E7A8B9C0D1E2F3A4B5C6D7E8 /* Pods-RccExtension.debug.xcconfig */;
+			baseConfigurationReference = E7A8B9C0D1E2F3A4B5C6D7E8 /* Pods-ServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q32QHMXBB2;
@@ -931,7 +931,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = RccExtension/Info.plist;
+				INFOPLIST_FILE = ServiceExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -945,8 +945,8 @@
 					Liboc,
 					"-Wl,-w",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
-				PRODUCT_NAME = RccExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.service;
+				PRODUCT_NAME = ServiceExtension;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -957,11 +957,11 @@
 		};
 		D1E2F3A4B5C6D7E8F9A0B1C2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-RccExtension.release.xcconfig */;
+			baseConfigurationReference = F8A9B0C1D2E3F4A5B6C7D8E9 /* Pods-ServiceExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				CODE_SIGN_STYLE = Manual;
@@ -972,7 +972,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = RccExtension/Info.plist;
+				INFOPLIST_FILE = ServiceExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -986,10 +986,10 @@
 					Liboc,
 					"-Wl,-w",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
-				PRODUCT_NAME = RccExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.service;
+				PRODUCT_NAME = ServiceExtension;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "OpenApp Core macOS";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "OpenApp Service macOS";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -998,11 +998,11 @@
 		};
 		F3A4B5C6D7E8F9A0B1C2D3E4 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A9B0C1D2E3F4A5B6C7D8E9F0 /* Pods-RccExtension.profile.xcconfig */;
+			baseConfigurationReference = A9B0C1D2E3F4A5B6C7D8E9F0 /* Pods-ServiceExtension.profile.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = RccExtension/RccExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q32QHMXBB2;
@@ -1011,7 +1011,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = RccExtension/Info.plist;
+				INFOPLIST_FILE = ServiceExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1025,10 +1025,10 @@
 					Liboc,
 					"-Wl,-w",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.core;
-				PRODUCT_NAME = RccExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = io.rootcorporation.openapp.service;
+				PRODUCT_NAME = ServiceExtension;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "OpenApp Core macOS";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "OpenApp Service macOS";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1078,7 +1078,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0E1F2A3B4C5D6E7F8A9B0C1 /* Build configuration list for PBXNativeTarget "RccExtension" */ = {
+		D0E1F2A3B4C5D6E7F8A9B0C1 /* Build configuration list for PBXNativeTarget "ServiceExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0D1E2F3A4B5C6D7E8F9A0B1 /* Debug */,

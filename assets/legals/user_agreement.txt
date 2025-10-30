@@ -1,6 +1,6 @@
 TERMS OF USE / USER AGREEMENT
 
-Last Updated: October 26, 2024
+Last Updated: October 30, 2024
 
 PLEASE READ THESE TERMS OF USE CAREFULLY BEFORE USING THIS APPLICATION.
 
@@ -31,6 +31,31 @@ You may NOT use this Application for:
 - Commercial purposes without proper licensing
 - Distribution or transmission of malware or harmful code
 - Harassment, abuse, or harm to others
+- Use in countries or regions where such software is prohibited or restricted by law
+
+1.4 Geographic Restrictions
+This application is strictly NOT permitted for use in countries where network privacy or security tools are prohibited or restricted, including but not limited to:
+- The People's Republic of China and its territories
+- Russia (Russian Federation)
+- Belarus
+- Iran (Islamic Republic of Iran)
+- Iraq
+- North Korea (Democratic People's Republic of Korea)
+- Turkmenistan
+- United Arab Emirates (UAE)
+- Oman
+- Turkey (Republic of Türkiye)
+- Myanmar
+- Pakistan
+- Saudi Arabia
+- Any country subject to international sanctions or embargoes
+- Any jurisdiction where such software is illegal or restricted
+
+You expressly agree that:
+- You will not use this application in any restricted country or region
+- You are solely responsible for ensuring compliance with local laws regarding the use of such software
+- Use of this application in prohibited jurisdictions may result in serious legal consequences, including criminal prosecution
+- The developers and publishers bear no responsibility for any legal consequences arising from use in restricted jurisdictions
 
 
 2. NO WARRANTY
@@ -176,13 +201,39 @@ Any disputes arising from these Terms or use of the Application shall be resolve
 - Arbitration or legal proceedings as a last resort
 
 
-11. EXPORT COMPLIANCE
+11. EXPORT COMPLIANCE AND GEOGRAPHIC RESTRICTIONS
 
 11.1 Export Controls
 You acknowledge that the Application may be subject to export control laws and agree to:
 - Comply with all applicable export and import laws
 - Not export or re-export the Application in violation of such laws
 - Not use the Application in any country subject to embargo
+
+11.2 Prohibited Jurisdictions
+You expressly acknowledge and agree that this Application is NOT permitted for use in:
+- The People's Republic of China and its territories
+- Russia (Russian Federation)
+- Belarus
+- Iran (Islamic Republic of Iran)
+- Iraq
+- North Korea (Democratic People's Republic of Korea)
+- Turkmenistan
+- United Arab Emirates (UAE)
+- Oman
+- Turkey (Republic of Türkiye)
+- Myanmar
+- Pakistan
+- Saudi Arabia
+- Any country where network privacy or security tools are prohibited by law
+- Any jurisdiction subject to international sanctions or embargoes
+- Any region where the use of such software is restricted or illegal
+
+11.3 User Representation
+By using this Application, you represent, warrant, and covenant that:
+- You are not located in, ordinarily resident in, or operating from a prohibited jurisdiction
+- You will not access or use the Application from any prohibited jurisdiction
+- You will not make the Application available to any person in a prohibited jurisdiction
+- You understand that violation of these restrictions may result in serious legal consequences
 
 
 12. AGE RESTRICTIONS

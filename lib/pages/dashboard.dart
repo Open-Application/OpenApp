@@ -183,7 +183,6 @@ class _DashboardState extends State<Dashboard>
   Widget _buildQuickActions(BuildContext context) {
     final theme = Theme.of(context);
     final rccProvider = ProviderHelper.getRccProvider(context);
-    final preferencesProvider = ProviderHelper.getPreferencesProvider(context);
 
     if (rccProvider == null) {
       return const SizedBox.shrink();
@@ -260,56 +259,6 @@ class _DashboardState extends State<Dashboard>
                   color: statusColor,
                 ),
               ),
-              SizedBox(height: UI.scaledDimension(4)),
-              Text(
-                _getStatusMessage(context, provider.status as String),
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                ),
-                textAlign: TextAlign.center,
-              ),
-              if (isConnected) ...[
-                SizedBox(height: UI.scaledDimension(16)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildStatChip(
-                      context,
-                      Constants.iconLock,
-                      AppLocalizations.of(context)!.encrypted,
-                      Colors.purple,
-                    ),
-                    SizedBox(width: UI.scaledDimension(12)),
-                    _buildStatChip(
-                      context,
-                      Constants.iconVersion,
-                      preferencesProvider?.versionWithPrefix ??
-                          'v${Constants.projectVersion}',
-                      Colors.blue,
-                    ),
-                  ],
-                ),
-              ] else ...[
-                SizedBox(height: UI.scaledDimension(16)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Constants.iconWarning,
-                      size: UI.adaptiveIconSize(16),
-                      color: Colors.orange.withValues(alpha: 0.8),
-                    ),
-                    SizedBox(width: UI.scaledDimension(6)),
-                    Text(
-                      AppLocalizations.of(context)!.unprotected,
-                      style: theme.textTheme.labelSmall?.copyWith(
-                        color: Colors.orange.withValues(alpha: 0.8),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
             ],
           ),
         );
@@ -533,51 +482,6 @@ class _DashboardState extends State<Dashboard>
           ),
         );
       },
-    );
-  }
-
-  String _getStatusMessage(BuildContext context, String status) {
-    final l10n = AppLocalizations.of(context)!;
-    switch (status) {
-      case 'STARTED':
-        return l10n.yourInternetIsSecure;
-      case 'STARTING':
-        return l10n.establishingSecureConnection;
-      case 'STOPPING':
-        return l10n.closingSecureConnection;
-      default:
-        return l10n.yourInternetIsExposed;
-    }
-  }
-
-  Widget _buildStatChip(
-    BuildContext context,
-    IconData icon,
-    String label,
-    Color color,
-  ) {
-    final theme = Theme.of(context);
-    return Container(
-      padding: UI.paddingSymmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(UI.scaledDimension(20)),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: UI.adaptiveIconSize(14), color: color),
-          SizedBox(width: UI.responsiveSpacing(4)),
-          Text(
-            label,
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: color,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
     );
   }
 

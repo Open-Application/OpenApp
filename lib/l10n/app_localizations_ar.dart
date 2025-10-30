@@ -33,12 +33,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get disconnected => 'غير متصل';
 
   @override
-  String get encrypted => 'مشفر';
-
-  @override
-  String get unprotected => 'غير محمي';
-
-  @override
   String get servicePermissionRequired => 'مطلوب إذن الخدمة';
 
   @override
@@ -66,9 +60,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get openSourceLicense => 'الترخيص';
 
   @override
-  String get coreLibrary => 'المكتبة الأساسية';
-
-  @override
   String get termsOfUse => 'شروط الاستخدام';
 
   @override
@@ -87,25 +78,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get connectionStatus => 'الحالة';
 
   @override
-  String get yourInternetIsSecure => 'اتصال شبكتك محمي';
-
-  @override
-  String get yourInternetIsExposed => 'اتصال شبكتك معرض للخطر';
-
-  @override
-  String get establishingSecureConnection => 'جارٍ إنشاء اتصال آمن';
-
-  @override
-  String get closingSecureConnection => 'جارٍ إغلاق الاتصال الآمن';
-
-  @override
   String get language => 'اللغة';
-
-  @override
-  String get english => 'English';
-
-  @override
-  String get chinese => '中文';
 
   @override
   String get systemDefault => 'النظام الافتراضي';
@@ -120,78 +93,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get about => 'حول';
 
   @override
-  String get dataCollection => 'جمع البيانات';
-
-  @override
-  String get dataCollectionText =>
-      'نحن لا نجمع أو نخزن أي معلومات شخصية. يتم تخزين جميع تكوينات الشبكة محليًا على جهازك.';
-
-  @override
-  String get networkTraffic => 'حركة الشبكة';
-
-  @override
-  String get networkTrafficText =>
-      'تقوم هذه الأداة التعليمية بمعالجة حركة الشبكة محليًا لأغراض التعلم. لا يتم إرسال أي بيانات إلى خوادم خارجية للتتبع أو التحليلات.';
-
-  @override
-  String get thirdPartyServices => 'خدمات الطرف الثالث';
-
-  @override
-  String get thirdPartyServicesText =>
-      'نحن لا نشارك أي معلومات مع أطراف ثالثة. يتم تنفيذ جميع العمليات محليًا على جهازك.';
-
-  @override
-  String get dataSecurity => 'أمان البيانات';
-
-  @override
-  String get dataSecurityText =>
-      'يتم تشفير جميع التكوينات والإعدادات وتخزينها بشكل آمن على جهازك باستخدام طرق التشفير القياسية في الصناعة.';
-
-  @override
-  String get educationalUseOnly => 'للاستخدام التعليمي فقط';
-
-  @override
-  String get educationalUseOnlyText =>
-      'يتم توفير هذا البرنامج للأغراض التعليمية والبحثية فقط. يجب على المستخدمين الامتثال لجميع القوانين واللوائح المعمول بها.';
-
-  @override
-  String get noWarranty => 'بدون ضمان';
-
-  @override
-  String get noWarrantyText =>
-      'يتم توفير البرنامج \"كما هو\" دون ضمان من أي نوع. نحن لسنا مسؤولين عن أي أضرار ناتجة عن استخدامه.';
-
-  @override
-  String get userResponsibility => 'مسؤولية المستخدم';
-
-  @override
-  String get userResponsibilityText =>
-      'المستخدمون مسؤولون عن ضمان امتثال استخدامهم لهذه الأداة للوائح المحلية وسياسات المؤسسة.';
-
-  @override
-  String get academicIntegrity => 'النزاهة الأكاديمية';
-
-  @override
-  String get academicIntegrityText =>
-      'يجب استخدام هذه الأداة وفقًا لإرشادات النزاهة الأكاديمية وممارسات البحث الأخلاقية.';
-
-  @override
   String get close => 'إغلاق';
 
   @override
   String get agree => 'موافق';
-
-  @override
-  String get purpose => 'الغرض';
-
-  @override
-  String get educational => 'تعليمي';
-
-  @override
-  String get technology => 'التكنولوجيا';
-
-  @override
-  String get networkResearch => 'بحث الشبكة';
 
   @override
   String get stopped => 'متوقف';
@@ -242,7 +147,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String aboutProjectText(String projectName) {
-    return '$projectName هي أداة تعليمية لأمن الشبكات مصممة لمساعدة المستخدمين على فهم حماية الخصوصية والاتصالات الآمنة للشبكة. هذا التطبيق مخصص للأغراض التعليمية والبحثية، مما يتيح للمستخدمين التعرف على بروتوكولات الشبكة والتشفير وتقنيات الخصوصية. يتم تنفيذ جميع العمليات محليًا على جهازك بما يتوافق مع القوانين واللوائح المعمول بها.';
+    return '$projectName هي منصة بحث شبكات مفتوحة المصدر للخصوصية والأمان';
   }
 
   @override
@@ -274,25 +179,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noCustomConfig => 'لا يوجد تكوين محفوظ';
-
-  @override
-  String get arabic => 'العربية';
-
-  @override
-  String get russian => 'Русский';
-
-  @override
-  String get turkish => 'Türkçe';
-
-  @override
-  String get malay => 'Melayu';
-
-  @override
-  String get persian => 'فارسی';
-
-  @override
-  String get hindi => 'हिन्दी';
-
-  @override
-  String get indonesian => 'Bahasa Indonesia';
 }

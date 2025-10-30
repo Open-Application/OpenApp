@@ -160,18 +160,6 @@ abstract class AppLocalizations {
   /// **'Disconnected'**
   String get disconnected;
 
-  /// Connection encrypted label
-  ///
-  /// In en, this message translates to:
-  /// **'Encrypted'**
-  String get encrypted;
-
-  /// Connection unprotected warning
-  ///
-  /// In en, this message translates to:
-  /// **'Unprotected'**
-  String get unprotected;
-
   /// Service permission message
   ///
   /// In en, this message translates to:
@@ -220,12 +208,6 @@ abstract class AppLocalizations {
   /// **'License'**
   String get openSourceLicense;
 
-  /// Core library label
-  ///
-  /// In en, this message translates to:
-  /// **'Core Library'**
-  String get coreLibrary;
-
   /// Terms of use label
   ///
   /// In en, this message translates to:
@@ -262,47 +244,11 @@ abstract class AppLocalizations {
   /// **'Status'**
   String get connectionStatus;
 
-  /// Secure connection message
-  ///
-  /// In en, this message translates to:
-  /// **'Your network connection is protected'**
-  String get yourInternetIsSecure;
-
-  /// Exposed connection message
-  ///
-  /// In en, this message translates to:
-  /// **'Your network connection is vulnerable'**
-  String get yourInternetIsExposed;
-
-  /// Connecting status message
-  ///
-  /// In en, this message translates to:
-  /// **'Establishing secure connection'**
-  String get establishingSecureConnection;
-
-  /// Disconnecting status message
-  ///
-  /// In en, this message translates to:
-  /// **'Closing secure connection'**
-  String get closingSecureConnection;
-
   /// Language setting label
   ///
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
-
-  /// English language option
-  ///
-  /// In en, this message translates to:
-  /// **'English'**
-  String get english;
-
-  /// Chinese language option
-  ///
-  /// In en, this message translates to:
-  /// **'Chinese'**
-  String get chinese;
 
   /// System default language option
   ///
@@ -328,102 +274,6 @@ abstract class AppLocalizations {
   /// **'About'**
   String get about;
 
-  /// Data collection section title
-  ///
-  /// In en, this message translates to:
-  /// **'Data Collection'**
-  String get dataCollection;
-
-  /// Data collection description
-  ///
-  /// In en, this message translates to:
-  /// **'We do not collect or store any personal information. All network configurations are stored locally on your device.'**
-  String get dataCollectionText;
-
-  /// Network traffic section title
-  ///
-  /// In en, this message translates to:
-  /// **'Network Traffic'**
-  String get networkTraffic;
-
-  /// Network traffic description
-  ///
-  /// In en, this message translates to:
-  /// **'This educational tool processes network traffic locally for learning purposes. No data is transmitted to external servers for tracking or analytics.'**
-  String get networkTrafficText;
-
-  /// Third-party services section title
-  ///
-  /// In en, this message translates to:
-  /// **'Third-Party Services'**
-  String get thirdPartyServices;
-
-  /// Third-party services description
-  ///
-  /// In en, this message translates to:
-  /// **'We do not share any information with third parties. All operations are performed locally on your device.'**
-  String get thirdPartyServicesText;
-
-  /// Data security section title
-  ///
-  /// In en, this message translates to:
-  /// **'Data Security'**
-  String get dataSecurity;
-
-  /// Data security description
-  ///
-  /// In en, this message translates to:
-  /// **'All configurations and settings are encrypted and stored securely on your device using industry-standard encryption methods.'**
-  String get dataSecurityText;
-
-  /// Educational use only section title
-  ///
-  /// In en, this message translates to:
-  /// **'Educational Use Only'**
-  String get educationalUseOnly;
-
-  /// Educational use only description
-  ///
-  /// In en, this message translates to:
-  /// **'This software is provided for educational and research purposes only. Users must comply with all applicable laws and regulations.'**
-  String get educationalUseOnlyText;
-
-  /// No warranty section title
-  ///
-  /// In en, this message translates to:
-  /// **'No Warranty'**
-  String get noWarranty;
-
-  /// No warranty description
-  ///
-  /// In en, this message translates to:
-  /// **'The software is provided \"as is\" without warranty of any kind. We are not responsible for any damages arising from its use.'**
-  String get noWarrantyText;
-
-  /// User responsibility section title
-  ///
-  /// In en, this message translates to:
-  /// **'User Responsibility'**
-  String get userResponsibility;
-
-  /// User responsibility description
-  ///
-  /// In en, this message translates to:
-  /// **'Users are responsible for ensuring their use of this tool complies with local regulations and institutional policies.'**
-  String get userResponsibilityText;
-
-  /// Academic integrity section title
-  ///
-  /// In en, this message translates to:
-  /// **'Academic Integrity'**
-  String get academicIntegrity;
-
-  /// Academic integrity description
-  ///
-  /// In en, this message translates to:
-  /// **'This tool should be used in accordance with academic integrity guidelines and ethical research practices.'**
-  String get academicIntegrityText;
-
   /// Close button text
   ///
   /// In en, this message translates to:
@@ -435,30 +285,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Agree'**
   String get agree;
-
-  /// Purpose label
-  ///
-  /// In en, this message translates to:
-  /// **'Purpose'**
-  String get purpose;
-
-  /// Educational label
-  ///
-  /// In en, this message translates to:
-  /// **'Educational'**
-  String get educational;
-
-  /// Technology label
-  ///
-  /// In en, this message translates to:
-  /// **'Technology'**
-  String get technology;
-
-  /// Network research label
-  ///
-  /// In en, this message translates to:
-  /// **'Network Research'**
-  String get networkResearch;
 
   /// Rcc stopped status
   ///
@@ -553,7 +379,7 @@ abstract class AppLocalizations {
   /// About project description
   ///
   /// In en, this message translates to:
-  /// **'{projectName} is an educational network security tool designed to help users understand privacy protection and secure network communications. This application is intended for educational and research purposes, enabling users to learn about network protocols, encryption, and privacy technologies. All operations are performed locally on your device in compliance with applicable laws and regulations.'**
+  /// **'{projectName} is open-source network research platform for privacy and security'**
   String aboutProjectText(String projectName);
 
   /// Configuration section title
@@ -615,48 +441,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No saved config'**
   String get noCustomConfig;
-
-  /// Arabic language option
-  ///
-  /// In en, this message translates to:
-  /// **'العربية'**
-  String get arabic;
-
-  /// Russian language option
-  ///
-  /// In en, this message translates to:
-  /// **'Русский'**
-  String get russian;
-
-  /// Turkish language option
-  ///
-  /// In en, this message translates to:
-  /// **'Türkçe'**
-  String get turkish;
-
-  /// Malay language option
-  ///
-  /// In en, this message translates to:
-  /// **'Melayu'**
-  String get malay;
-
-  /// Persian language option
-  ///
-  /// In en, this message translates to:
-  /// **'فارسی'**
-  String get persian;
-
-  /// Hindi language option
-  ///
-  /// In en, this message translates to:
-  /// **'हिन्दी'**
-  String get hindi;
-
-  /// Indonesian language option
-  ///
-  /// In en, this message translates to:
-  /// **'Bahasa Indonesia'**
-  String get indonesian;
 }
 
 class _AppLocalizationsDelegate

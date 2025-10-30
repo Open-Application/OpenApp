@@ -467,36 +467,6 @@ class _ProfileState extends State<Profile>
               height: 1.5,
             ),
           ),
-          SizedBox(height: UI.scaledDimension(16)),
-          Divider(color: theme.colorScheme.outline.withValues(alpha: 0.1)),
-          SizedBox(height: UI.scaledDimension(16)),
-          _buildInfoRow(
-            context,
-            AppLocalizations.of(context)!.coreLibrary,
-            'librcc',
-          ),
-          SizedBox(height: UI.scaledDimension(12)),
-          _buildInfoRow(
-            context,
-            AppLocalizations.of(context)!.purpose,
-            AppLocalizations.of(context)!.educational,
-          ),
-          SizedBox(height: UI.scaledDimension(12)),
-          _buildInfoRow(
-            context,
-            AppLocalizations.of(context)!.technology,
-            AppLocalizations.of(context)!.networkResearch,
-          ),
-          SizedBox(height: UI.scaledDimension(12)),
-          GestureDetector(
-            onTap: () => _showLicenseDialog(context),
-            child: _buildInfoRow(
-              context,
-              AppLocalizations.of(context)!.openSourceLicense,
-              Constants.licenseText,
-              isClickable: true,
-            ),
-          ),
         ],
       ),
     );
@@ -515,63 +485,6 @@ class _ProfileState extends State<Profile>
           icon: Constants.iconPrivacyTip,
           title: AppLocalizations.of(context)!.privacyPolicy,
           onTap: () => LegalDialogs.showPrivacyPolicy(context),
-        ),
-      ],
-    );
-  }
-
-  void _showLicenseDialog(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
-
-    RccModal.showInfo(
-      context: context,
-      title: localizations.openSourceLicense,
-      message: Constants.licenseFullText,
-    );
-  }
-
-  Widget _buildInfoRow(
-    BuildContext context,
-    String label,
-    String value, {
-    bool isClickable = false,
-  }) {
-    final theme = Theme.of(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
-          ),
-        ),
-        Container(
-          padding: UI.paddingSymmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                value,
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: theme.colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              if (isClickable) ...[
-                SizedBox(width: UI.scaledDimension(4)),
-                Icon(
-                  Constants.iconOpenInNew,
-                  size: UI.adaptiveIconSize(12),
-                  color: theme.colorScheme.onPrimaryContainer,
-                ),
-              ],
-            ],
-          ),
         ),
       ],
     );

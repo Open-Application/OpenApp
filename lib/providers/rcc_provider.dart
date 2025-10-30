@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:path_provider/path_provider.dart';
 import '../interfaces/rcc_interface.dart';
 import '../l10n/app_localizations.dart';
 import '../components/rcc_messenger.dart';
@@ -138,19 +136,6 @@ class RccProvider extends ChangeNotifier {
       case 'STOPPED':
       default:
         return AppLocalizations.of(context)!.disconnected;
-    }
-  }
-
-  String getStatusSubtext(BuildContext context) {
-    switch (_status) {
-      case 'STARTED':
-        return 'Your data is protected';
-      case 'STARTING':
-        return AppLocalizations.of(context)!.establishingSecureConnection;
-      case 'STOPPING':
-        return 'Closing connection';
-      default:
-        return 'Tap to connect';
     }
   }
 

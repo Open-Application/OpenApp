@@ -33,12 +33,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get disconnected => 'Terputus';
 
   @override
-  String get encrypted => 'Terenkripsi';
-
-  @override
-  String get unprotected => 'Tidak Dilindungi';
-
-  @override
   String get servicePermissionRequired => 'Izin layanan diperlukan';
 
   @override
@@ -66,9 +60,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get openSourceLicense => 'Lisensi';
 
   @override
-  String get coreLibrary => 'Pustaka Inti';
-
-  @override
   String get termsOfUse => 'Ketentuan Penggunaan';
 
   @override
@@ -87,25 +78,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get connectionStatus => 'Status';
 
   @override
-  String get yourInternetIsSecure => 'Koneksi jaringan Anda terlindungi';
-
-  @override
-  String get yourInternetIsExposed => 'Koneksi jaringan Anda rentan';
-
-  @override
-  String get establishingSecureConnection => 'Membuat koneksi aman';
-
-  @override
-  String get closingSecureConnection => 'Menutup koneksi aman';
-
-  @override
   String get language => 'Bahasa';
-
-  @override
-  String get english => 'English';
-
-  @override
-  String get chinese => '中文';
 
   @override
   String get systemDefault => 'Bawaan Sistem';
@@ -120,78 +93,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get about => 'Tentang';
 
   @override
-  String get dataCollection => 'Pengumpulan Data';
-
-  @override
-  String get dataCollectionText =>
-      'Kami tidak mengumpulkan atau menyimpan informasi pribadi apa pun. Semua konfigurasi jaringan disimpan secara lokal di perangkat Anda.';
-
-  @override
-  String get networkTraffic => 'Lalu Lintas Jaringan';
-
-  @override
-  String get networkTrafficText =>
-      'Alat pendidikan ini memproses lalu lintas jaringan secara lokal untuk tujuan pembelajaran. Tidak ada data yang dikirim ke server eksternal untuk pelacakan atau analitik.';
-
-  @override
-  String get thirdPartyServices => 'Layanan Pihak Ketiga';
-
-  @override
-  String get thirdPartyServicesText =>
-      'Kami tidak membagikan informasi apa pun kepada pihak ketiga. Semua operasi dilakukan secara lokal di perangkat Anda.';
-
-  @override
-  String get dataSecurity => 'Keamanan Data';
-
-  @override
-  String get dataSecurityText =>
-      'Semua konfigurasi dan pengaturan dienkripsi dan disimpan dengan aman di perangkat Anda menggunakan metode enkripsi standar industri.';
-
-  @override
-  String get educationalUseOnly => 'Hanya untuk Penggunaan Pendidikan';
-
-  @override
-  String get educationalUseOnlyText =>
-      'Perangkat lunak ini disediakan hanya untuk tujuan pendidikan dan penelitian. Pengguna harus mematuhi semua hukum dan peraturan yang berlaku.';
-
-  @override
-  String get noWarranty => 'Tanpa Jaminan';
-
-  @override
-  String get noWarrantyText =>
-      'Perangkat lunak disediakan \"apa adanya\" tanpa jaminan apa pun. Kami tidak bertanggung jawab atas kerusakan apa pun yang timbul dari penggunaannya.';
-
-  @override
-  String get userResponsibility => 'Tanggung Jawab Pengguna';
-
-  @override
-  String get userResponsibilityText =>
-      'Pengguna bertanggung jawab untuk memastikan penggunaan alat ini sesuai dengan peraturan lokal dan kebijakan institusional.';
-
-  @override
-  String get academicIntegrity => 'Integritas Akademik';
-
-  @override
-  String get academicIntegrityText =>
-      'Alat ini harus digunakan sesuai dengan pedoman integritas akademik dan praktik penelitian etis.';
-
-  @override
   String get close => 'Tutup';
 
   @override
   String get agree => 'Setuju';
-
-  @override
-  String get purpose => 'Tujuan';
-
-  @override
-  String get educational => 'Pendidikan';
-
-  @override
-  String get technology => 'Teknologi';
-
-  @override
-  String get networkResearch => 'Riset Jaringan';
 
   @override
   String get stopped => 'DIHENTIKAN';
@@ -242,7 +147,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String aboutProjectText(String projectName) {
-    return '$projectName adalah alat keamanan jaringan pendidikan yang dirancang untuk membantu pengguna memahami perlindungan privasi dan komunikasi jaringan yang aman. Aplikasi ini ditujukan untuk tujuan pendidikan dan penelitian, memungkinkan pengguna untuk mempelajari protokol jaringan, enkripsi, dan teknologi privasi. Semua operasi dilakukan secara lokal di perangkat Anda sesuai dengan hukum dan peraturan yang berlaku.';
+    return '$projectName adalah platform penelitian jaringan sumber terbuka untuk privasi dan keamanan';
   }
 
   @override
@@ -275,25 +180,4 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get noCustomConfig => 'Tidak ada konfigurasi tersimpan';
-
-  @override
-  String get arabic => 'العربية';
-
-  @override
-  String get russian => 'Русский';
-
-  @override
-  String get turkish => 'Türkçe';
-
-  @override
-  String get malay => 'Melayu';
-
-  @override
-  String get persian => 'فارسی';
-
-  @override
-  String get hindi => 'हिन्दी';
-
-  @override
-  String get indonesian => 'Bahasa Indonesia';
 }

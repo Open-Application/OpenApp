@@ -33,12 +33,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get disconnected => 'Disconnected';
 
   @override
-  String get encrypted => 'Encrypted';
-
-  @override
-  String get unprotected => 'Unprotected';
-
-  @override
   String get servicePermissionRequired => 'Service permission required';
 
   @override
@@ -66,9 +60,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get openSourceLicense => 'License';
 
   @override
-  String get coreLibrary => 'Core Library';
-
-  @override
   String get termsOfUse => 'Terms of Use';
 
   @override
@@ -87,25 +78,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get connectionStatus => 'Status';
 
   @override
-  String get yourInternetIsSecure => 'Your network connection is protected';
-
-  @override
-  String get yourInternetIsExposed => 'Your network connection is vulnerable';
-
-  @override
-  String get establishingSecureConnection => 'Establishing secure connection';
-
-  @override
-  String get closingSecureConnection => 'Closing secure connection';
-
-  @override
   String get language => 'Language';
-
-  @override
-  String get english => 'English';
-
-  @override
-  String get chinese => 'Chinese';
 
   @override
   String get systemDefault => 'System Default';
@@ -120,78 +93,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get about => 'About';
 
   @override
-  String get dataCollection => 'Data Collection';
-
-  @override
-  String get dataCollectionText =>
-      'We do not collect or store any personal information. All network configurations are stored locally on your device.';
-
-  @override
-  String get networkTraffic => 'Network Traffic';
-
-  @override
-  String get networkTrafficText =>
-      'This educational tool processes network traffic locally for learning purposes. No data is transmitted to external servers for tracking or analytics.';
-
-  @override
-  String get thirdPartyServices => 'Third-Party Services';
-
-  @override
-  String get thirdPartyServicesText =>
-      'We do not share any information with third parties. All operations are performed locally on your device.';
-
-  @override
-  String get dataSecurity => 'Data Security';
-
-  @override
-  String get dataSecurityText =>
-      'All configurations and settings are encrypted and stored securely on your device using industry-standard encryption methods.';
-
-  @override
-  String get educationalUseOnly => 'Educational Use Only';
-
-  @override
-  String get educationalUseOnlyText =>
-      'This software is provided for educational and research purposes only. Users must comply with all applicable laws and regulations.';
-
-  @override
-  String get noWarranty => 'No Warranty';
-
-  @override
-  String get noWarrantyText =>
-      'The software is provided \"as is\" without warranty of any kind. We are not responsible for any damages arising from its use.';
-
-  @override
-  String get userResponsibility => 'User Responsibility';
-
-  @override
-  String get userResponsibilityText =>
-      'Users are responsible for ensuring their use of this tool complies with local regulations and institutional policies.';
-
-  @override
-  String get academicIntegrity => 'Academic Integrity';
-
-  @override
-  String get academicIntegrityText =>
-      'This tool should be used in accordance with academic integrity guidelines and ethical research practices.';
-
-  @override
   String get close => 'Close';
 
   @override
   String get agree => 'Agree';
-
-  @override
-  String get purpose => 'Purpose';
-
-  @override
-  String get educational => 'Educational';
-
-  @override
-  String get technology => 'Technology';
-
-  @override
-  String get networkResearch => 'Network Research';
 
   @override
   String get stopped => 'STOPPED';
@@ -242,7 +147,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String aboutProjectText(String projectName) {
-    return '$projectName is an educational network security tool designed to help users understand privacy protection and secure network communications. This application is intended for educational and research purposes, enabling users to learn about network protocols, encryption, and privacy technologies. All operations are performed locally on your device in compliance with applicable laws and regulations.';
+    return '$projectName is open-source network research platform for privacy and security';
   }
 
   @override
@@ -274,25 +179,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noCustomConfig => 'No saved config';
-
-  @override
-  String get arabic => 'العربية';
-
-  @override
-  String get russian => 'Русский';
-
-  @override
-  String get turkish => 'Türkçe';
-
-  @override
-  String get malay => 'Melayu';
-
-  @override
-  String get persian => 'فارسی';
-
-  @override
-  String get hindi => 'हिन्दी';
-
-  @override
-  String get indonesian => 'Bahasa Indonesia';
 }

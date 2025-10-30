@@ -3,7 +3,7 @@ import NetworkExtension
 import Liboc
 import Network
 
-class RccPlatformInterface: NSObject, LibocPlatformInterfaceProtocol {
+class ServicePlatformInterface: NSObject, LibocPlatformInterfaceProtocol {
     private weak var provider: PacketTunnelProvider?
     private var networkSettings: NEPacketTunnelNetworkSettings?
     private var nwMonitor: NWPathMonitor?
