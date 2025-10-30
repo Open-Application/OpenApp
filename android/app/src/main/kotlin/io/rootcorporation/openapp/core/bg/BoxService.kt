@@ -164,20 +164,23 @@ class BoxService(
             receiverRegistered = false
         }
         GlobalScope.launch(Dispatchers.IO) {
-            val pfd = fileDescriptor
-            if (pfd != null) {
-                pfd.close()
-                fileDescriptor = null
-            }
             boxService?.apply {
                 runCatching {
                     close()
                 }.onFailure {
                     writeLog("service: error when closing: $it")
                 }
-                }
+            }
             boxService = null
+
             DefaultNetworkMonitor.stop()
+
+            val pfd = fileDescriptor
+            if (pfd != null) {
+                pfd.close()
+                fileDescriptor = null
+            }
+
             startedByUser = false
             withContext(Dispatchers.Main) {
                 updateStatus("STOPPED")

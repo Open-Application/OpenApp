@@ -1,6 +1,7 @@
 package io.rootcorporation.openapp.bg
 
 import android.net.Network
+import android.net.NetworkCapabilities
 import android.os.Build
 import io.rootcorporation.liboc.InterfaceUpdateListener
 import io.rootcorporation.openapp.Application
@@ -15,18 +16,34 @@ object DefaultNetworkMonitor {
 
     suspend fun start() {
         DefaultNetworkListener.start(this) {
-            defaultNetwork = it
-            checkDefaultInterfaceUpdate(it)
+            if (it == null || !isVpnNetwork(it)) {
+                defaultNetwork = it
+                checkDefaultInterfaceUpdate(it)
+            }
         }
-        defaultNetwork = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Application.connectivity.activeNetwork
-        } else {
-            DefaultNetworkListener.get()
+        defaultNetwork = findUnderlyingNetwork()
+    }
+
+    private fun findUnderlyingNetwork(): Network? {
+        val allNetworks = Application.connectivity.allNetworks
+        for (network in allNetworks) {
+            if (!isVpnNetwork(network)) {
+                val caps = Application.connectivity.getNetworkCapabilities(network)
+                if (caps?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true) {
+                    return network
+                }
+            }
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val active = Application.connectivity.activeNetwork
+            if (active != null && !isVpnNetwork(active)) {
+                return active
+            }
+        }
+        return null
     }
 
     suspend fun stop() {
-        checkDefaultInterfaceUpdate(null)
         DefaultNetworkListener.stop(this)
         listener = null
         defaultNetwork = null
@@ -61,12 +78,21 @@ object DefaultNetworkMonitor {
                 GlobalScope.launch(Dispatchers.IO) {
                     listener.updateDefaultInterface(interfaceName, interfaceIndex, false, false)
                 }
-                break  // Exit loop after successful update
+                break
             }
         } else {
             GlobalScope.launch(Dispatchers.IO) {
                 listener.updateDefaultInterface("", -1, false, false)
             }
+        }
+    }
+
+    private fun isVpnNetwork(network: Network): Boolean {
+        return try {
+            val capabilities = Application.connectivity.getNetworkCapabilities(network)
+            capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_VPN) == true
+        } catch (e: Exception) {
+            false
         }
     }
 
