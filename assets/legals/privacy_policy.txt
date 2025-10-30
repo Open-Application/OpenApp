@@ -4,49 +4,107 @@ Last Updated: October 30, 2024
 
 This Privacy Policy is provided by Root-Corporation PTY LTD Australia ("we," "our," or "us"), the developer and operator of OpenApp. We are committed to protecting your privacy. This Privacy Policy explains how our educational network security application handles information when you use our services.
 
-1. DATA COLLECTION
+1. APPLICATION PURPOSE AND CORE FUNCTIONALITY
+
+1.1 Primary Purpose
+OpenApp is an open-source network research platform for privacy and security. This application's core functionality is designed to:
+- Provide secure, encrypted network connections for research and educational purposes
+- Protect user privacy and network security through advanced technologies
+- Enable network traffic routing through secure tunnels for privacy protection
+- Help users understand and control their network connections
+- Facilitate research into network security and privacy technologies
+
+1.2 Network Service Integrity
+This open-source platform strictly adheres to ethical network service principles:
+
+TRAFFIC INTEGRITY COMMITMENT:
+- We do NOT redirect or manipulate user traffic from other apps for monetization purposes
+- We do NOT redirect advertising traffic through different countries
+- We do NOT alter, intercept, or monetize your network traffic in any way
+- We do NOT inject advertisements or tracking into your traffic
+- We do NOT sell or monetize user traffic data
+- All network routing is performed strictly according to user configuration and preferences
+
+This network research platform is used solely for its intended purpose: to provide secure, private network connectivity and protect user privacy for educational and research purposes. We do not engage in any traffic manipulation, monetization schemes, or unauthorized data collection.
+
+1.3 Legitimate Use Case
+This application serves as a legitimate open-source network research and privacy platform that:
+- Provides secure device-level connectivity to remote servers (when configured)
+- Gives users full control over their network security configurations
+- Educates users about network security and privacy technologies
+- Does not manipulate traffic for commercial gain
+- Operates transparently as an open-source educational tool
+
+
+2. DATA COLLECTION AND PRIVACY
+
+PROMINENT DISCLOSURE: We do not collect, store, transmit, or process any personal or sensitive user data.
 
 We do not collect or store any personal information. All network configurations are stored locally on your device.
 
 Information We DO NOT Collect:
 - Personal identification information
-- Browsing history
-- Location data
+- Browsing history or websites visited
+- Location data or GPS information
 - Device identifiers for tracking purposes
 - Contact information
 - Payment information
 - Usage analytics or telemetry data
+- Connection logs or timestamps
+- IP addresses or network identifiers
+- Traffic content or metadata
+- Any user behavior or activity data
 
 Local Data Storage:
 - All application settings and configurations are stored locally on your device
 - No data is transmitted to our servers or any third-party servers
 - You have full control over your local data through your device's storage management
+- All data remains on your device and under your control
 
 
-2. NETWORK TRAFFIC
+3. NETWORK TRAFFIC PROCESSING
 
-This educational tool processes network traffic locally for learning purposes. No data is transmitted to external servers for tracking or analytics.
+This open-source network research platform processes network traffic locally on your device. No data is transmitted to external servers for tracking, analytics, or monetization purposes.
 
 How Network Traffic is Processed:
 - All network traffic processing occurs entirely on your local device
 - No browsing history, personal data, or identifiable information is collected, logged, or transmitted
-- The service functionality is used solely to route network traffic according to your configuration
-- No connection logs are stored or transmitted
+- The network service functionality is used solely to route network traffic according to your configuration
+- No connection logs, session data, or traffic metadata are stored or transmitted
+- Traffic is not monitored, analyzed, or used for any commercial purpose
+- No third parties have access to your traffic or connection data
+
+IMPORTANT: We do not redirect or manipulate traffic from other applications for monetization. Your network traffic flows according to your configuration only.
 
 
-3. NETWORK CONNECT SERVICE DATA PRIVACY
+4. NETWORK SERVICE DATA PRIVACY - PROMINENT DISCLOSURE
 
-What user information is the app collecting using the service?
-This application does NOT collect any user information through the service. All network traffic processing is performed locally on your device. No browsing history, personal data, or identifiable information is collected, logged, or transmitted.
+What user information is the app collecting using the network service?
+NONE. This application does NOT collect any user information through the network service. All network traffic processing is performed locally on your device. No browsing history, websites visited, personal data, or identifiable information is collected, logged, or transmitted.
 
-For what purposes is this information collected?
-Since no user data is collected, there are no purposes for data collection. The service functionality is used solely to route network traffic according to your configuration for educational and privacy protection purposes. All operations are local to your device.
+For what purposes is the network service used?
+The network service is used solely to:
+- Route network traffic according to your configuration for privacy protection
+- Provide secure, encrypted network connections for research and educational purposes
+- Protect your privacy and network security
+- Enable you to control your network connectivity
+- Facilitate understanding of network security technologies
 
-Will the data be shared with any third parties?
-No data is shared with any third parties because no data is collected. This application operates entirely locally on your device and does not transmit any user information to external servers. Your privacy is completely protected.
+We do NOT use the network service to:
+- Collect or analyze your data
+- Monitor your browsing or online activities
+- Redirect traffic for monetization purposes
+- Inject advertisements or tracking
+- Share your data with third parties
+
+Will any data be shared with third parties?
+NO. No data is shared with any third parties because no data is collected. This application operates entirely locally on your device and does not transmit any user information to external servers. Your privacy is completely protected.
+
+Is traffic redirected or manipulated for monetization?
+NO. We do not redirect or manipulate user traffic from this app or other apps on your device for monetization purposes. We do not redirect advertising traffic through different countries. All traffic routing is solely based on user configuration for privacy and security purposes.
 
 
-4. THIRD-PARTY SERVICES
+5. THIRD-PARTY SERVICES
 
 We do not share any information with third parties. All operations are performed locally on your device.
 
@@ -55,9 +113,10 @@ Third-Party Integrations:
 - No advertising networks are integrated
 - No social media integrations that transmit data
 - No cloud services that store your data
+- No third parties have access to network traffic or connection data
 
 
-5. DATA SECURITY
+6. DATA SECURITY
 
 All configurations and settings are encrypted and stored securely on your device using industry-standard encryption methods.
 
@@ -68,36 +127,63 @@ Security Measures:
 - Regular security updates through app updates
 
 
-6. CHILDREN'S PRIVACY
+7. CHILDREN'S PRIVACY
 
 This application does not knowingly collect any information from children under the age of 13. Since we do not collect any personal information from any users, children can use this application safely under parental guidance.
 
 
-7. YOUR RIGHTS AND CHOICES
+8. USER CONSENT AND CONTROL
+
+8.1 Explicit Consent
+By installing and using this network research platform application, you explicitly consent to:
+- The use of network service functionality to route your network traffic for privacy and security
+- Local processing of network connections on your device
+- The terms outlined in this Privacy Policy
+
+8.2 Informed Consent
+We ensure you are fully informed that:
+- This is an open-source network research platform for privacy and security
+- The network service creates secure tunnels for your network traffic
+- No personal or sensitive data is collected through the network service
+- You can disconnect or uninstall the application at any time
+
+8.3 User Control
+You have complete control over:
+- When to enable or disable the network connection
+- Which network configurations to use
+- All locally stored settings and data
+- The ability to revoke consent by uninstalling the application
+
+
+9. YOUR RIGHTS AND CHOICES
 
 Since we do not collect any personal data, there is no data to access, modify, or delete from our servers. However, you can:
 - Delete the application to remove all locally stored data
 - Clear application data through your device settings
 - Configure or reset your network settings at any time
+- Disconnect the network service whenever you choose
 
 
-8. CHANGES TO THIS PRIVACY POLICY
+10. CHANGES TO THIS PRIVACY POLICY
 
 We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
 
 You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
 
 
-9. EDUCATIONAL USE
+11. EDUCATIONAL AND LEGITIMATE PURPOSE
 
-This application is designed for educational and research purposes to help users understand:
-- Network security concepts
-- Privacy protection technologies
-- Secure network communications
-- Encryption and privacy technologies
+This open-source network research platform serves legitimate purposes:
+- Providing secure, encrypted network connections for research and educational use
+- Protecting user privacy and network security through advanced technologies
+- Educating users about network security concepts and privacy protection technologies
+- Enabling users to understand and control their network communications
+- Facilitating research into network protocols, security, and privacy technologies
+
+The core functionality is used solely for privacy protection, network security research, and educational purposes.
 
 
-10. CONTACT INFORMATION
+12. CONTACT INFORMATION
 
 If you have any questions about this Privacy Policy, please contact us:
 
@@ -106,7 +192,7 @@ Root-Corporation PTY LTD Australia
 - Email: developer@root-corporation.com
 
 
-11. COMPLIANCE
+13. COMPLIANCE
 
 This application complies with:
 - General Data Protection Regulation (GDPR)
@@ -114,48 +200,71 @@ This application complies with:
 - Children's Online Privacy Protection Act (COPPA)
 - Apple App Store Review Guidelines
 - Google Play Store Developer Policies
+- Industry best practices for privacy and security
 
+13.1 Network Service Policy Compliance
+This application strictly adheres to ethical network service principles:
+- Network security and privacy protection is the core functionality of this application
+- We do NOT redirect or manipulate user traffic for monetization purposes
+- We do NOT collect personal and sensitive user data without prominent disclosure and consent
+- We provide prominent disclosure about our data practices (no data collection)
+- We obtain explicit user consent before providing network services
+- The network service is used solely to create secure device-level connections for privacy and security
 
-11.1 GEOGRAPHIC RESTRICTIONS
+13.2 GEOGRAPHIC RESTRICTIONS
 
-This application is NOT intended for use in countries or regions where such software is prohibited or restricted by law, including but not limited to:
-- The People's Republic of China and its territories
-- Russia (Russian Federation)
-- Belarus
-- Iran (Islamic Republic of Iran)
-- Iraq
-- North Korea (Democratic People's Republic of Korea)
-- Turkmenistan
-- United Arab Emirates (UAE)
-- Oman
-- Turkey (Republic of Türkiye)
-- Myanmar
-- Pakistan
-- Saudi Arabia
-- Any country subject to international sanctions or embargoes
-- Any jurisdiction where network privacy tools are illegal or restricted
+This Application is expressly not intended for use in jurisdictions where applicable laws, regulations, or governmental policies restrict or prohibit the use of network privacy tools, security software, or similar technologies.
 
-Users are strictly prohibited from using this application in countries where:
-- Local laws prohibit the use of network privacy or security tools
-- Government regulations restrict or ban similar applications
-- The use of such software may result in legal consequences
+Prohibited Jurisdictions:
+The Application shall NOT be used in, from, or by any person or entity located in, ordinarily resident in, or subject to the jurisdiction of the following territories:
 
+(a) Specifically Restricted Territories:
+    The People's Republic of China and its special administrative regions and territories; the Russian Federation; the Republic of Belarus; the Islamic Republic of Iran; the Republic of Iraq; the Democratic People's Republic of Korea; Turkmenistan; the United Arab Emirates; the Sultanate of Oman; the Republic of Türkiye; the Republic of the Union of Myanmar; the Islamic Republic of Pakistan; the Kingdom of Saudi Arabia.
+
+(b) Jurisdictions with Legal Restrictions:
+    Any nation, state, territory, or jurisdiction wherein the use, distribution, or operation of network privacy tools, security applications, or encryption technologies is prohibited, restricted, or otherwise unlawful under applicable local, national, or regional laws and regulations.
+
+(c) Sanctioned and Embargoed Territories:
+    Any country, region, or territory subject to comprehensive sanctions, trade embargoes, or export restrictions imposed by the United Nations, the United States of America, the European Union, Australia, or other relevant international or governmental authorities.
+
+(d) Other Restricted Jurisdictions:
+    Any additional jurisdiction where the installation, possession, or use of this Application would violate applicable law or expose the user or the developer to legal liability.
+
+User Representations:
 By using this application, you represent and warrant that:
-- You are not located in, under the control of, or a national or resident of any restricted country
-- You will not use the application in violation of any applicable geographic restrictions
-- You understand that use of this application in restricted countries may result in serious legal consequences
+- You are not located in, under the control of, or a national or resident of any restricted territory as defined above
+- You will not access or use the Application from any prohibited jurisdiction
+- You will not make the Application available to any person in a prohibited jurisdiction
+- You understand that use of this application in restricted territories may result in serious legal consequences under applicable law
 
 
-12. DATA RETENTION
+14. DATA RETENTION
 
 Since we do not collect any data, there is no data retention policy. All data stored locally on your device remains on your device until you choose to delete it.
 
 
-13. INTERNATIONAL DATA TRANSFERS
+15. INTERNATIONAL DATA TRANSFERS
 
 This application does not transfer any data internationally, as all operations are performed locally on your device.
 
 
-14. CONSENT
+16. EXPLICIT CONSENT AND ACKNOWLEDGMENT
 
-By using our application, you hereby consent to our Privacy Policy and agree to its terms. Your continued use of the application following the posting of changes to this policy will be deemed your acceptance of those changes.
+By installing and using this open-source network research platform application, you explicitly consent to and acknowledge:
+
+16.1 Network Service Acknowledgment
+- You understand that this is a network research platform for privacy and security with network security as its core functionality
+- You acknowledge that the network service will route your device's network traffic for privacy protection
+- You consent to the creation of secure device-level connections for your network communications
+- You understand that you can disconnect or uninstall at any time
+
+16.2 Privacy and Data Practices
+- You have been prominently informed that we do NOT collect any personal or sensitive data
+- You understand that all operations are performed locally on your device
+- You acknowledge that no browsing history, traffic data, or personal information is collected
+- You have been informed that we do NOT redirect or manipulate traffic for monetization
+
+16.3 Ongoing Consent
+- Your continued use of the application constitutes ongoing consent to our Privacy Policy
+- Your continued use following updates to this policy constitutes acceptance of changes
+- You may withdraw consent at any time by discontinuing use and uninstalling the application

@@ -9,53 +9,67 @@ These Terms of Use are provided by Root-Corporation PTY LTD Australia ("we," "ou
 By downloading, installing, or using OpenApp ("the Application"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, do not use the Application.
 
 
-1. EDUCATIONAL USE ONLY
+1. OPEN-SOURCE NETWORK RESEARCH PLATFORM - CORE FUNCTIONALITY AND PURPOSE
 
-1.1 Purpose
-This software is provided for educational and research purposes only. The Application is designed to help users understand:
-- Network security concepts
-- Privacy protection technologies
-- Secure network communications
-- Network protocols and encryption
-- Privacy technologies
+1.1 Core Functionality
+OpenApp is an open-source network research platform for privacy and security. Network security and privacy protection is the core and primary purpose of this application. By using this application, you acknowledge and agree that:
+- This is a network research platform that routes network traffic through secure tunnels for privacy and security
+- Network security and privacy protection is the central and essential feature of this application
+- The application creates secure device-level connections to protect your privacy and network security
+- You will use the network service in accordance with all applicable laws and regulations
 
-1.2 Intended Use
-Users must comply with all applicable laws and regulations when using this Application. The Application is intended solely for legitimate educational, research, and personal privacy protection purposes.
+1.2 Legitimate Use Case
+This application provides network security services for legitimate purposes:
+- Protecting user privacy and network security through research and education
+- Providing secure, encrypted network connections for privacy protection
+- Enabling users to control their network routing and security configurations
+- Educating users about network security and privacy technologies
+- Allowing users to understand and manage their network communications
+- Facilitating research into network protocols, security, and privacy technologies
 
-1.3 Prohibited Use
+This open-source platform serves legitimate educational and research purposes and is not used for any unauthorized or prohibited activities.
+
+1.3 Traffic Integrity and Non-Monetization Commitment
+You are hereby informed and we explicitly commit that:
+- We do NOT redirect or manipulate user traffic from this app or other apps for monetization purposes
+- We do NOT redirect advertising traffic through different countries for commercial gain
+- We do NOT alter, intercept, or monetize network traffic in any way
+- We do NOT inject advertisements, tracking, or any content into your traffic
+- We do NOT sell, lease, or monetize user traffic data
+- All network routing is performed strictly according to your configuration for privacy and security purposes only
+
+1.4 Intended Use
+Users must comply with all applicable laws and regulations when using this network research platform. The Application is intended solely for:
+- Legitimate privacy protection and network security research
+- Personal use in accordance with applicable laws
+- Educational purposes to understand network security and privacy technologies
+- Research purposes where legally permitted
+- Protecting your network communications through secure connections
+
+1.5 Prohibited Use
 You may NOT use this Application for:
 - Any illegal activities
 - Unauthorized access to computer systems or networks
 - Circumventing network security measures without proper authorization
 - Any activities that violate local, state, national, or international laws
-- Commercial purposes without proper licensing
+- Redirecting or manipulating traffic for monetization
+- Commercial traffic manipulation or interception
 - Distribution or transmission of malware or harmful code
 - Harassment, abuse, or harm to others
 - Use in countries or regions where such software is prohibited or restricted by law
 
-1.4 Geographic Restrictions
-This application is strictly NOT permitted for use in countries where network privacy or security tools are prohibited or restricted, including but not limited to:
-- The People's Republic of China and its territories
-- Russia (Russian Federation)
-- Belarus
-- Iran (Islamic Republic of Iran)
-- Iraq
-- North Korea (Democratic People's Republic of Korea)
-- Turkmenistan
-- United Arab Emirates (UAE)
-- Oman
-- Turkey (Republic of Türkiye)
-- Myanmar
-- Pakistan
-- Saudi Arabia
-- Any country subject to international sanctions or embargoes
-- Any jurisdiction where such software is illegal or restricted
+1.6 Geographic Restrictions
+This network research platform is expressly prohibited from use in jurisdictions where applicable laws, regulations, or governmental policies restrict or prohibit network privacy tools, security software, or similar technologies.
 
-You expressly agree that:
-- You will not use this application in any restricted country or region
-- You are solely responsible for ensuring compliance with local laws regarding the use of such software
-- Use of this application in prohibited jurisdictions may result in serious legal consequences, including criminal prosecution
-- The developers and publishers bear no responsibility for any legal consequences arising from use in restricted jurisdictions
+Specifically Restricted Territories:
+This Application shall NOT be used in, from, or by any person or entity located in, ordinarily resident in, or subject to the jurisdiction of: The People's Republic of China and its special administrative regions and territories; the Russian Federation; the Republic of Belarus; the Islamic Republic of Iran; the Republic of Iraq; the Democratic People's Republic of Korea; Turkmenistan; the United Arab Emirates; the Sultanate of Oman; the Republic of Türkiye; the Republic of the Union of Myanmar; the Islamic Republic of Pakistan; the Kingdom of Saudi Arabia; any nation, state, territory, or jurisdiction wherein such applications are prohibited or restricted by law; any country, region, or territory subject to comprehensive sanctions or trade embargoes imposed by relevant international or governmental authorities; or any jurisdiction where use would violate applicable law.
+
+User Obligations and Acknowledgments:
+You expressly acknowledge, agree, and warrant that:
+- You will not download, install, access, or use this Application in any restricted territory or jurisdiction
+- You are solely and exclusively responsible for ensuring compliance with all applicable local, national, and international laws regarding the use of network security and privacy technologies
+- Use of this Application in prohibited jurisdictions may result in severe legal consequences, including but not limited to criminal prosecution, civil liability, fines, and imprisonment under applicable law
+- The developers, publishers, and distributors of this Application bear no responsibility or liability whatsoever for any legal, civil, or criminal consequences arising from use in restricted jurisdictions or in violation of applicable law
 
 
 2. NO WARRANTY
@@ -131,20 +145,43 @@ All rights, title, and interest in and to the Application, excluding third-party
 This Application may include third-party open-source software components, each subject to their own license terms.
 
 
-6. PRIVACY AND DATA
+6. NETWORK SERVICE AND DATA PRIVACY
 
-6.1 No Data Collection
+6.1 Network Service Data Collection - Prominent Disclosure
+IMPORTANT DISCLOSURE: This open-source network research platform does NOT collect any personal or sensitive user data.
+
 As outlined in our Privacy Policy:
-- We do not collect or store any personal information
-- All operations are performed locally on your device
-- No data is transmitted to our servers
+- We do not collect, store, log, or transmit any personal information through the network service
+- We do not collect browsing history, websites visited, or traffic content
+- We do not collect connection logs, timestamps, or session data
+- We do not collect IP addresses, device identifiers, or location data
+- All network operations are performed locally on your device
+- No data is transmitted to our servers or any third-party servers
 - You maintain full control over your local data
 
-6.2 User Data
+6.2 Network Traffic Integrity
+By using this network research platform, you are informed and we guarantee that:
+- We do NOT redirect or manipulate your traffic for monetization
+- We do NOT redirect advertising traffic through different countries
+- We do NOT inject content, ads, or tracking into your traffic
+- We do NOT monitor, analyze, or monetize your network traffic
+- Your traffic is routed solely according to your configuration for privacy and security
+
+6.3 Ethical Network Service Principles
+This application strictly adheres to ethical network service principles:
+- Network security and privacy protection is the core functionality of this application
+- We do NOT redirect or manipulate user traffic from other apps for monetization purposes
+- We do NOT collect personal and sensitive user data without prominent disclosure and consent
+- We provide prominent disclosure about our data practices (no data collection)
+- We obtain explicit user consent before providing network services
+- The network service is used solely to create secure device-level connections for privacy and security
+
+6.4 User Responsibilities
 You are responsible for:
 - Protecting your device and local data
-- Understanding how the Application processes network traffic
+- Understanding how the network research platform routes network traffic
 - Configuring the Application appropriately for your needs
+- Using the network service in compliance with applicable laws
 
 
 7. LIMITATION OF LIABILITY
@@ -210,23 +247,21 @@ You acknowledge that the Application may be subject to export control laws and a
 - Not use the Application in any country subject to embargo
 
 11.2 Prohibited Jurisdictions
-You expressly acknowledge and agree that this Application is NOT permitted for use in:
-- The People's Republic of China and its territories
-- Russia (Russian Federation)
-- Belarus
-- Iran (Islamic Republic of Iran)
-- Iraq
-- North Korea (Democratic People's Republic of Korea)
-- Turkmenistan
-- United Arab Emirates (UAE)
-- Oman
-- Turkey (Republic of Türkiye)
-- Myanmar
-- Pakistan
-- Saudi Arabia
-- Any country where network privacy or security tools are prohibited by law
-- Any jurisdiction subject to international sanctions or embargoes
-- Any region where the use of such software is restricted or illegal
+The Application is expressly prohibited from being downloaded, installed, accessed, or used within certain jurisdictions where applicable laws, regulations, or governmental policies restrict or prohibit the use of network privacy tools, security software, or similar technologies.
+
+You expressly acknowledge and agree that this Application shall NOT be used in, from, or by any person or entity located in, ordinarily resident in, or subject to the jurisdiction of the following territories:
+
+(a) Specifically Restricted Territories:
+    The People's Republic of China and its special administrative regions and territories; the Russian Federation; the Republic of Belarus; the Islamic Republic of Iran; the Republic of Iraq; the Democratic People's Republic of Korea; Turkmenistan; the United Arab Emirates; the Sultanate of Oman; the Republic of Türkiye; the Republic of the Union of Myanmar; the Islamic Republic of Pakistan; the Kingdom of Saudi Arabia.
+
+(b) Jurisdictions with Legal Restrictions:
+    Any nation, state, territory, or jurisdiction wherein the use, distribution, or operation of network privacy tools, security applications, or encryption technologies is prohibited, restricted, or otherwise unlawful under applicable local, national, or regional laws and regulations.
+
+(c) Sanctioned and Embargoed Territories:
+    Any country, region, or territory subject to comprehensive sanctions, trade embargoes, or export restrictions imposed by the United Nations, the United States of America, the European Union, Australia, or other relevant international or governmental authorities.
+
+(d) Other Restricted Jurisdictions:
+    Any additional jurisdiction where the installation, possession, or use of this Application would violate applicable law or expose the user or the developer to legal liability.
 
 11.3 User Representation
 By using this Application, you represent, warrant, and covenant that:
@@ -239,10 +274,48 @@ By using this Application, you represent, warrant, and covenant that:
 12. AGE RESTRICTIONS
 
 12.1 Minimum Age
-You must be at least 13 years old to use this Application. Users under 18 should use the Application under parental guidance and supervision.
+You must be at least 13 years old to use this network research platform Application. Users under 18 should use the Application under parental guidance and supervision.
 
 12.2 Parental Consent
 If you are under the age of majority in your jurisdiction, you represent that your parent or legal guardian has reviewed and agreed to these Terms.
+
+
+12A. EXPLICIT USER CONSENT AND ACKNOWLEDGMENT
+
+By installing, accessing, or using this open-source network research platform application, you explicitly consent to and acknowledge the following:
+
+12A.1 Network Service Consent
+- You understand and consent to this being a network research platform for privacy and security with network security as its core functionality
+- You consent to the network service routing your device's network traffic through secure connections for privacy protection
+- You acknowledge that the application creates device-level secure connections
+- You understand that you can disconnect or uninstall the application at any time
+- You consent to the use of network service in accordance with these Terms
+
+12A.2 Data Practices Acknowledgment
+- You have been prominently informed that this application does NOT collect any personal or sensitive data
+- You acknowledge that no browsing history, traffic data, or personal information is collected
+- You understand that all operations are performed locally on your device
+- You have been informed that we do NOT redirect or manipulate traffic for monetization
+- You acknowledge that no data is shared with third parties
+
+12A.3 Legal Compliance Acknowledgment
+- You represent that you are not located in a jurisdiction where network privacy or security tools are prohibited
+- You acknowledge your responsibility to comply with all applicable laws
+- You understand that misuse may result in legal consequences
+- You agree to use the network service only for legitimate, lawful purposes
+
+12A.4 Informed Consent
+You confirm that:
+- You have read and understood this User Agreement and the Privacy Policy
+- You have been provided with prominent disclosure about how the network service operates
+- You have been informed about what data is NOT collected
+- You freely and voluntarily consent to use this network research platform
+- Your consent is informed, explicit, and ongoing
+
+12A.5 Withdrawal of Consent
+- You may withdraw your consent at any time by discontinuing use of the application
+- You may revoke consent by uninstalling the application from your device
+- Withdrawal of consent will not affect the lawfulness of processing before withdrawal
 
 
 13. SEVERABILITY
@@ -274,11 +347,56 @@ Root-Corporation PTY LTD Australia
 By using OpenApp, you acknowledge that:
 - You have read and understood these Terms of Use
 - You agree to be bound by these Terms
-- You understand the educational nature of this Application
-- You will use the Application responsibly and legally
+- You understand that this is an open-source network research platform for privacy and security with network security as its core functionality
+- You have been prominently informed about our data practices (no data collection)
+- You have been informed that we do NOT redirect or manipulate traffic for monetization
+- You consent to the network service routing your network traffic for privacy and security protection
+- You understand the legitimate privacy protection and research purpose of this Application
+- You will use the Application responsibly and legally in accordance with all applicable laws
 - You accept all risks associated with using the Application
+- You understand that you can disconnect or uninstall at any time
 
 
-18. ACCEPTANCE
+18. ACCEPTANCE AND CONSENT
 
-Your use of the Application constitutes your acceptance of these Terms. If you do not accept these Terms, you must immediately cease using the Application and delete all copies from your devices.
+Your use of the Application constitutes:
+- Your acceptance of these Terms
+- Your explicit consent to the use of network service as described
+- Your acknowledgment of prominent disclosures about data practices
+- Your agreement to use the network service only for legitimate purposes
+- Your confirmation that you are not in a prohibited jurisdiction
+
+If you do not accept these Terms or do not consent to the network service, you must immediately cease using the Application and delete all copies from your devices.
+
+
+19. ETHICAL NETWORK SERVICE PRINCIPLES
+
+This open-source network research platform is designed and operated according to strict ethical principles:
+
+19.1 Core Functionality
+- Network security and privacy protection is the core and primary functionality of this application
+- The network service is used solely to create secure device-level connections for privacy and security
+- This is a legitimate open-source platform focused on privacy protection and research
+
+19.2 Prohibited Practices - What We Do NOT Do
+We explicitly DO NOT engage in the following prohibited practices:
+- Redirecting or manipulating user traffic from other apps on the device for monetization purposes
+- Redirecting advertising traffic through countries different than that of the user
+- Collecting personal and sensitive user data without prominent disclosure and consent
+- Any traffic manipulation for commercial gain
+- Any unauthorized data collection or sharing
+
+19.3 Ethical Commitments
+We commit to:
+- Maintaining network security and privacy protection as the core functionality
+- Providing prominent disclosure about data practices
+- Obtaining explicit user consent before providing network services
+- Not engaging in any traffic manipulation or unauthorized data collection
+- Operating transparently and in accordance with all platform policies and industry best practices
+
+19.4 User Acknowledgment
+By using this application, you acknowledge that you have been informed of:
+- The network security core functionality and how it operates
+- Our commitment not to manipulate traffic for monetization
+- Our data practices (no collection of personal or sensitive data)
+- Your rights and ability to withdraw consent at any time
