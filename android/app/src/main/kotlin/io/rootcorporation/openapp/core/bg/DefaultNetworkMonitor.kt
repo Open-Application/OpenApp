@@ -26,7 +26,10 @@ object DefaultNetworkMonitor {
     }
 
     suspend fun stop() {
+        checkDefaultInterfaceUpdate(null)
         DefaultNetworkListener.stop(this)
+        listener = null
+        defaultNetwork = null
     }
 
     suspend fun require(): Network {
@@ -58,6 +61,7 @@ object DefaultNetworkMonitor {
                 GlobalScope.launch(Dispatchers.IO) {
                     listener.updateDefaultInterface(interfaceName, interfaceIndex, false, false)
                 }
+                break  // Exit loop after successful update
             }
         } else {
             GlobalScope.launch(Dispatchers.IO) {
