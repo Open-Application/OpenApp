@@ -192,17 +192,6 @@ class VPNService : VpnService(), PlatformInterfaceWrapper {
             systemProxyEnabled = false
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            try {
-                val underlyingNetwork = DefaultNetworkMonitor.defaultNetwork
-                if (underlyingNetwork != null) {
-                    builder.setUnderlyingNetworks(arrayOf(underlyingNetwork))
-                }
-            } catch (e: Exception) {
-                service.writeLog("Failed to set underlying networks: ${e.message}")
-            }
-        }
-
         val pfd =
             builder.establish() ?: error("android: the application is not prepared or is revoked")
         service.fileDescriptor = pfd

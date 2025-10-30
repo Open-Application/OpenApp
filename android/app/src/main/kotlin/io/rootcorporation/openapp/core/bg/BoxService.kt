@@ -172,9 +172,9 @@ class BoxService(
                 }
             }
             boxService = null
+            kotlinx.coroutines.delay(1000)
 
             DefaultNetworkMonitor.stop()
-
             val pfd = fileDescriptor
             if (pfd != null) {
                 pfd.close()
