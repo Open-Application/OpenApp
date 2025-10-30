@@ -133,7 +133,17 @@ class BoxService(
 
 
             if (newService.needWIFIState()) {
-                FileLogger.info("WiFi state requested but not available (location permission not granted)")
+                val wifiPermission = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                } else {
+                    android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                }
+                if (service.checkSelfPermission(wifiPermission) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    newService.close()
+                    FileLogger.error("Location permission required for WiFi state")
+                    startedByUser = false
+                    return
+                }
             }
 
             boxService = newService
@@ -164,23 +174,20 @@ class BoxService(
             receiverRegistered = false
         }
         GlobalScope.launch(Dispatchers.IO) {
+            val pfd = fileDescriptor
+            if (pfd != null) {
+                pfd.close()
+                fileDescriptor = null
+            }
             boxService?.apply {
                 runCatching {
                     close()
                 }.onFailure {
                     writeLog("service: error when closing: $it")
                 }
-            }
+                }
             boxService = null
-            kotlinx.coroutines.delay(1000)
-
             DefaultNetworkMonitor.stop()
-            val pfd = fileDescriptor
-            if (pfd != null) {
-                pfd.close()
-                fileDescriptor = null
-            }
-
             startedByUser = false
             withContext(Dispatchers.Main) {
                 updateStatus("STOPPED")

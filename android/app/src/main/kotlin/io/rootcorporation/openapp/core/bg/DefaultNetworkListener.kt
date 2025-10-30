@@ -139,8 +139,6 @@ object DefaultNetworkListener {
     private val mainHandler = Handler(Looper.getMainLooper())
 
     private fun register() {
-
-        fallback = false
         when (Build.VERSION.SDK_INT) {
             in 31..Int.MAX_VALUE -> @TargetApi(31) {
                 Application.connectivity.registerBestMatchingNetworkCallback(
@@ -163,6 +161,7 @@ object DefaultNetworkListener {
             }
 
             else -> try {
+                fallback = false
                 Application.connectivity.requestNetwork(request, Callback)
             } catch (e: RuntimeException) {
                 fallback = true
