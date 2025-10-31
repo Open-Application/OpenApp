@@ -269,17 +269,17 @@ This software is provided **exclusively for educational and research purposes**.
 ---
 
 <details>
-    <summary>Made with ❤️</summary>
-    <details>
-        <summary>developed in Australia 🇦🇺</summary>
-            <details>
-                <summary>in US</summary>
-            </details>
-            <details>
-                <summary>in UK</summary>
-            </details>
-            <details>
-                <summary>in SG</summary>
-            </details>
-    </details>
+<summary>Made with ❤️</summary>
+<details>
+<summary>Developed in Australia 🇦🇺</summary>
+<details>
+<summary>Test in US 🇺🇸</summary>
+</details>
+<details>
+<summary>Test in UK 🇬🇧</summary>
+</details>
+<details>
+<summary>Test in SG 🇸🇬</summary>
+</details>
+</details>
 </details>
