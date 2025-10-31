@@ -9,31 +9,6 @@ class Constants {
   static const String projectVersion = '1.0.0';
   static const int maxLogLines = 500;
 
-  static const String licenseText = 'MIT';
-  static const String licenseFullText = '''
-MIT License
-
-Copyright (c) 2025 Root-Corporation PTY LTD Australia
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-''';
-
   static const String encodedConfig = '';
 
   static const Map<String, String> nativeLanguageNames = {
@@ -49,7 +24,6 @@ SOFTWARE.
   };
 
   static const String iconAppIcon = 'assets/logo.png';
-  static const String licensePath = 'assets/legals/LICENSE';
   static const String privacyPolicyPath = 'assets/legals/privacy_policy.txt';
   static const String userAgreementPath = 'assets/legals/user_agreement.txt';
 
@@ -57,8 +31,6 @@ SOFTWARE.
   static const IconData iconDashboardFill = Icons.dashboard;
   static const IconData iconShield = Icons.shield;
   static const IconData iconShieldOff = Icons.shield_outlined;
-  static const IconData iconServer = Icons.dns_outlined;
-  static const IconData iconGlobe = Icons.public;
   static const IconData iconStart = Icons.play_arrow;
   static const IconData iconStop = Icons.stop;
 
@@ -69,25 +41,18 @@ SOFTWARE.
   static const IconData iconArticle = Icons.article_outlined;
   static const IconData iconPrivacyTip = Icons.privacy_tip_outlined;
   static const IconData iconInfo = FontAwesomeIcons.circleInfo;
-  static const IconData iconOpenInNew = Icons.open_in_new;
 
   static const IconData iconCheck = Icons.check;
   static const IconData iconChevronRight = FontAwesomeIcons.chevronRight;
   static const IconData iconChevronDown = FontAwesomeIcons.chevronDown;
   static const IconData iconCopy = FontAwesomeIcons.copy;
-  static const IconData iconRefresh = FontAwesomeIcons.arrowsRotate;
   static const IconData iconSuccess = FontAwesomeIcons.circleCheck;
   static const IconData iconError = FontAwesomeIcons.circleExclamation;
   static const IconData iconWarning = FontAwesomeIcons.triangleExclamation;
   static const IconData iconCheckCircle = FontAwesomeIcons.circleCheck;
   static const IconData iconErrorOutline = FontAwesomeIcons.circleExclamation;
   static const IconData iconInfoOutline = FontAwesomeIcons.circleInfo;
-  static const IconData iconLock = FontAwesomeIcons.lock;
   static const IconData iconVersion = Icons.verified;
-  static const IconData iconSupportAgent = FontAwesomeIcons.headset;
-  static const IconData iconAutoAwesome = Icons.auto_awesome;
-  static const IconData iconExpandLess = Icons.expand_less;
-  static const IconData iconRadioButtonUnchecked = Icons.radio_button_unchecked;
   static const IconData iconTerminal = Icons.terminal;
   static const IconData iconDocumentText = Icons.description;
 
@@ -138,6 +103,4 @@ SOFTWARE.
   static const double modalButtonBorderRadius = 12.0;
 
   static const IconData iconArrowLeft = Icons.arrow_back;
-
-  static const String debugLogFileName = 'debug.log';
 }

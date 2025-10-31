@@ -57,9 +57,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get version => 'الإصدار';
 
   @override
-  String get openSourceLicense => 'الترخيص';
-
-  @override
   String get termsOfUse => 'شروط الاستخدام';
 
   @override

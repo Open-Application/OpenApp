@@ -81,11 +81,6 @@
     "description": "Version label"
   },
 
-  "openSourceLicense": "License",
-  "@openSourceLicense": {
-    "description": "Open source license label"
-  },
-
   "termsOfUse": "Terms of Use",
   "@termsOfUse": {
     "description": "Terms of use label"

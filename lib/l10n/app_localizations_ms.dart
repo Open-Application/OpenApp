@@ -57,9 +57,6 @@ class AppLocalizationsMs extends AppLocalizations {
   String get version => 'Versi';
 
   @override
-  String get openSourceLicense => 'Lesen';
-
-  @override
   String get termsOfUse => 'Terma Penggunaan';
 
   @override

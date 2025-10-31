@@ -57,9 +57,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get version => 'Versi';
 
   @override
-  String get openSourceLicense => 'Lisensi';
-
-  @override
   String get termsOfUse => 'Ketentuan Penggunaan';
 
   @override

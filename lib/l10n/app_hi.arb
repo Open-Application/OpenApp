@@ -16,7 +16,6 @@
   "darkMode": "डार्क मोड",
   "aboutProject": "{projectName} के बारे में",
   "version": "संस्करण",
-  "openSourceLicense": "लाइसेंस",
   "termsOfUse": "उपयोग की शर्तें",
   "privacyPolicy": "गोपनीयता नीति",
   "status": "स्थिति",
@@ -55,12 +54,5 @@
   "configCleared": "कॉन्फ़िगरेशन साफ़ किया गया",
   "configEmpty": "कॉन्फ़िगरेशन खाली नहीं हो सकता",
   "noCustomConfig": "कोई सहेजा गया कॉन्फ़िगरेशन नहीं",
-  "arabic": "العربية",
-  "russian": "Русский",
-  "turkish": "Türkçe",
-  "malay": "Melayu",
-  "persian": "فارسی",
-  "hindi": "हिन्दी",
-  "indonesian": "Bahasa Indonesia",
   "agree": "सहमत"
 }

@@ -57,9 +57,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get version => 'संस्करण';
 
   @override
-  String get openSourceLicense => 'लाइसेंस';
-
-  @override
   String get termsOfUse => 'उपयोग की शर्तें';
 
   @override

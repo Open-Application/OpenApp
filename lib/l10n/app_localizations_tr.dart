@@ -57,9 +57,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get version => 'Sürüm';
 
   @override
-  String get openSourceLicense => 'Lisans';
-
-  @override
   String get termsOfUse => 'Kullanım Koşulları';
 
   @override

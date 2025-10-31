@@ -56,9 +56,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get version => '版本';
 
   @override
-  String get openSourceLicense => '开源许可证';
-
-  @override
   String get termsOfUse => '使用条款';
 
   @override

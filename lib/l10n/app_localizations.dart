@@ -202,12 +202,6 @@ abstract class AppLocalizations {
   /// **'Version'**
   String get version;
 
-  /// Open source license label
-  ///
-  /// In en, this message translates to:
-  /// **'License'**
-  String get openSourceLicense;
-
   /// Terms of use label
   ///
   /// In en, this message translates to:

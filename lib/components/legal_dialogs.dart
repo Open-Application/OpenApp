@@ -8,17 +8,13 @@ import '../utils/legal_helper.dart';
 import '../providers/preferences_provider.dart';
 
 class LegalDialogs {
-  /// Show the full Terms of Use / User Agreement from assets
   static Future<void> showTermsOfUse(BuildContext context) async {
     final localizations = AppLocalizations.of(context)!;
     final prefs = Provider.of<PreferencesProvider>(context, listen: false);
 
-    // Load the terms of use content first (fast, no need for loading dialog)
     final content = await LegalHelper.loadUserAgreement();
 
     if (!context.mounted) return;
-
-    // Show the terms of use with optional agree button
     _showLegalDocument(
       context: context,
       title: localizations.termsOfUse,
@@ -31,17 +27,13 @@ class LegalDialogs {
     );
   }
 
-  /// Show the full Privacy Policy from assets
   static Future<void> showPrivacyPolicy(BuildContext context) async {
     final localizations = AppLocalizations.of(context)!;
     final prefs = Provider.of<PreferencesProvider>(context, listen: false);
 
-    // Load the privacy policy content first (fast, no need for loading dialog)
     final content = await LegalHelper.loadPrivacyPolicy();
 
     if (!context.mounted) return;
-
-    // Show the privacy policy with optional agree button
     _showLegalDocument(
       context: context,
       title: localizations.privacyPolicy,
@@ -54,26 +46,6 @@ class LegalDialogs {
     );
   }
 
-  /// Show the software license from assets
-  static Future<void> showLicense(BuildContext context) async {
-    final localizations = AppLocalizations.of(context)!;
-
-    // Load the license content first (fast, no need for loading dialog)
-    final content = await LegalHelper.loadLicense();
-
-    if (!context.mounted) return;
-
-    // Show the license (no acceptance required, just informational)
-    _showLegalDocument(
-      context: context,
-      title: localizations.openSourceLicense,
-      content: content,
-      icon: Constants.iconDocumentText,
-      requireAcceptance: false,
-    );
-  }
-
-  /// Internal method to show a legal document in a modal
   static void _showLegalDocument({
     required BuildContext context,
     required String title,

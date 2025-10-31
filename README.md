@@ -266,4 +266,9 @@ This software is provided **exclusively for educational and research purposes**.
 
 ---
 
-*Made with ❤️ in Australia 🇦🇺*
+<details>
+<summary>Made with ❤️</summary>
+<details>
+<summary>in Australia 🇦🇺</summary>
+</details>
+</details>

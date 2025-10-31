@@ -57,9 +57,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get version => 'Версия';
 
   @override
-  String get openSourceLicense => 'Лицензия';
-
-  @override
   String get termsOfUse => 'Условия использования';
 
   @override

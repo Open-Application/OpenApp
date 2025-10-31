@@ -57,9 +57,6 @@ class AppLocalizationsFa extends AppLocalizations {
   String get version => 'نسخه';
 
   @override
-  String get openSourceLicense => 'مجوز';
-
-  @override
   String get termsOfUse => 'شرایط استفاده';
 
   @override
