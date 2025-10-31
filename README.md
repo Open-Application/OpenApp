@@ -3,15 +3,16 @@
 [![Build](https://github.com/Open-Application/OpenApp/workflows/build/badge.svg)](https://github.com/Open-Application/OpenApp/actions?query=workflow:build)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/github/v/release/Open-Application/OpenApp?label=Version)](https://github.com/Open-Application/OpenApp/releases)
-[![Code Size](https://img.shields.io/github/languages/code-size/Open-Application/OpenApp)](https://github.com/Open-Application/OpenApp)
 [![Open Issues](https://img.shields.io/github/issues/Open-Application/OpenApp)](https://github.com/Open-Application/OpenApp/issues)
+[![Code Size](https://img.shields.io/github/languages/code-size/Open-Application/OpenApp)](https://github.com/Open-Application/OpenApp)
+[![Releases](https://img.shields.io/badge/Releases-Download-blue)](https://github.com/Open-Application/OpenApp/releases)
+[![TestFlight](https://img.shields.io/badge/TestFlight-Test-blue)](https://testflight.apple.com/join/1mJPzBU6)
 
 > Open-Source network research platform for privacy and security
 
 Developed by Root Corporation PTY LTD Australia 🇦🇺
 
-[![Download on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/us/app/openapp/id6754231586)
-
+[![Access for iOS/macOS](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://bit.ly/OpenAppApple)
 ---
 
 ## Overview
@@ -272,14 +273,5 @@ This software is provided **exclusively for educational and research purposes**.
 <summary>Made with ❤️</summary>
 <details>
 <summary>Developed in Australia 🇦🇺</summary>
-<details>
-<summary>Test in US 🇺🇸</summary>
-</details>
-<details>
-<summary>Test in UK 🇬🇧</summary>
-</details>
-<details>
-<summary>Test in SG 🇸🇬</summary>
-</details>
 </details>
 </details>
