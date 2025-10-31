@@ -10,6 +10,8 @@
 
 Developed by Root Corporation PTY LTD Australia 🇦🇺
 
+[![Download on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/us/app/openapp/id6754231586)
+
 ---
 
 ## Overview
@@ -267,8 +269,17 @@ This software is provided **exclusively for educational and research purposes**.
 ---
 
 <details>
-<summary>Made with ❤️</summary>
-<details>
-<summary>in Australia 🇦🇺</summary>
-</details>
+    <summary>Made with ❤️</summary>
+    <details>
+        <summary>developed in Australia 🇦🇺</summary>
+            <details>
+                <summary>in US</summary>
+            </details>
+            <details>
+                <summary>in UK</summary>
+            </details>
+            <details>
+                <summary>in SG</summary>
+            </details>
+    </details>
 </details>
