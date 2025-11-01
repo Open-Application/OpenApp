@@ -140,6 +140,12 @@ jobs:
             echo "UPLOAD_FILE=$PKG_PATH" >> "$GITHUB_ENV"
           fi
 
+      - name: Clean up keychain and provisioning profile
+        if: ${{ always() }}
+        run: |
+          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+          rm -rf ~/Library/MobileDevice/Provisioning\ Profiles
+
       - name: Upload to release
         uses: softprops/action-gh-release@v2
         with:
