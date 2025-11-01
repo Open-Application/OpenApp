@@ -87,7 +87,7 @@ jobs:
 
       - name: Setup Android signing
         run: |
-          echo "${{ secrets.PKCS12_BASE64 }}" | base64 --decode > android/app/${{ secrets.PKCS12_NAME }}-keystore.jks
+          echo "${{ secrets.PKCS12_BASE64 }}" | base64 -d > android/app/${{ secrets.PKCS12_NAME }}-keystore.jks
 
           cat > android/key.properties << EOF
           storePassword=${{ secrets.PKCS12_PASSWORD }}
@@ -129,7 +129,7 @@ jobs:
 
       - name: Decode Google Play service account
         run: |
-          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_BASE64 }}" | base64 --decode > service-account.json
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_BASE64 }}" | base64 -d > service-account.json
 
       - name: Upload to Google Play Store
         uses: r0adkll/upload-google-play@v1
