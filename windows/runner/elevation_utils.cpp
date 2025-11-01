@@ -2,10 +2,22 @@
 #include <iostream>
 #include <shlobj.h>
 #include <shellapi.h>
+#include <mutex>
 
 #pragma comment(lib, "shell32.lib")
 
+
+static bool g_admin_check_cached = false;
+static bool g_is_admin = false;
+static std::mutex g_admin_check_mutex;
+
 bool ElevationUtils::IsRunningAsAdmin() {
+  std::lock_guard<std::mutex> lock(g_admin_check_mutex);
+
+  if (g_admin_check_cached) {
+    return g_is_admin;
+  }
+
   BOOL is_admin = FALSE;
   PSID admin_group = nullptr;
   SID_IDENTIFIER_AUTHORITY nt_authority = SECURITY_NT_AUTHORITY;
@@ -25,10 +37,24 @@ bool ElevationUtils::IsRunningAsAdmin() {
     FreeSid(admin_group);
   }
 
-  return is_admin == TRUE;
+
+  g_is_admin = (is_admin == TRUE);
+  g_admin_check_cached = true;
+
+  return g_is_admin;
 }
 
+
+static bool g_uac_check_cached = false;
+static bool g_uac_enabled = true;
+static std::mutex g_uac_check_mutex;
+
 bool ElevationUtils::IsUACEnabled() {
+  std::lock_guard<std::mutex> lock(g_uac_check_mutex);
+  if (g_uac_check_cached) {
+    return g_uac_enabled;
+  }
+
   HKEY key;
   LONG result = RegOpenKeyExW(
       HKEY_LOCAL_MACHINE,
@@ -38,6 +64,8 @@ bool ElevationUtils::IsUACEnabled() {
       &key);
 
   if (result != ERROR_SUCCESS) {
+    g_uac_enabled = true;
+    g_uac_check_cached = true;
     return true;
   }
 
@@ -54,10 +82,15 @@ bool ElevationUtils::IsUACEnabled() {
   RegCloseKey(key);
 
   if (result != ERROR_SUCCESS) {
+    g_uac_enabled = true;
+    g_uac_check_cached = true;
     return true;
   }
 
-  return value != 0;
+  g_uac_enabled = (value != 0);
+  g_uac_check_cached = true;
+
+  return g_uac_enabled;
 }
 
 bool ElevationUtils::RequestElevation() {

@@ -106,42 +106,45 @@ void FlutterBridge::HandleMethodCall(
 
 void FlutterBridge::CheckRccPermission(
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
-  bool has_permission = ElevationUtils::IsRunningAsAdmin();
-  std::cout << "Check permission - Running as admin: " << (has_permission ? "Yes" : "No") << std::endl;
-  result->Success(flutter::EncodableValue(has_permission));
+  std::thread([result = std::move(result)]() mutable {
+    bool has_permission = ElevationUtils::IsRunningAsAdmin();
+    std::cout << "Check permission - Running as admin: " << (has_permission ? "Yes" : "No") << std::endl;
+    result->Success(flutter::EncodableValue(has_permission));
+  }).detach();
 }
 
 void FlutterBridge::RequestRccPermission(
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   std::cout << "Request permission called" << std::endl;
+  std::thread([result = std::move(result)]() mutable {
+    if (ElevationUtils::IsRunningAsAdmin()) {
+      std::cout << "Already running as administrator" << std::endl;
+      result->Success(flutter::EncodableValue(true));
+      return;
+    }
 
-  if (ElevationUtils::IsRunningAsAdmin()) {
-    std::cout << "Already running as administrator" << std::endl;
-    result->Success(flutter::EncodableValue(true));
-    return;
-  }
+    if (!ElevationUtils::IsUACEnabled()) {
+      std::cout << "UAC is disabled, assuming permission granted" << std::endl;
+      result->Success(flutter::EncodableValue(true));
+      return;
+    }
 
-  if (!ElevationUtils::IsUACEnabled()) {
-    std::cout << "UAC is disabled, assuming permission granted" << std::endl;
-    result->Success(flutter::EncodableValue(true));
-    return;
-  }
+    std::cout << "Requesting elevation via UAC..." << std::endl;
 
-  std::cout << "Requesting elevation via UAC..." << std::endl;
+    bool elevated = ElevationUtils::RequestElevation();
 
-  bool elevated = ElevationUtils::RequestElevation();
-
-  if (elevated) {
-    std::cout << "Elevated process started, current process will exit" << std::endl;
-    result->Success(flutter::EncodableValue(true));
-    std::thread([]() {
-      std::this_thread::sleep_for(std::chrono::milliseconds(500));
-      exit(0);
-    }).detach();
-  } else {
-    std::cout << "Elevation request failed or was cancelled" << std::endl;
-    result->Success(flutter::EncodableValue(false));
-  }
+    if (elevated) {
+      std::cout << "Elevated process started, current process will exit" << std::endl;
+      result->Success(flutter::EncodableValue(true));
+      std::thread([]() {
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        exit(0);
+      }).detach();
+    } else {
+      std::cout << "Elevation request failed or was cancelled" << std::endl;
+      result->Success(flutter::EncodableValue(false));
+    }
+  }).detach();
 }
 
 void FlutterBridge::StartRcc(
@@ -158,12 +161,15 @@ void FlutterBridge::StartRcc(
     return;
   }
 
-  std::cout << "Starting Windows service with config (length: " << config.length() << ")" << std::endl;  bool success = vpn_service_->Start(config);
-  if (success) {
-    result->Success(flutter::EncodableValue(true));
-  } else {
-    result->Error("START_FAILED", "Failed to start service");
-  }
+  std::cout << "Starting Windows service with config (length: " << config.length() << ")" << std::endl;
+  std::thread([this, config, result = std::move(result)]() mutable {
+    bool success = vpn_service_->Start(config);
+    if (success) {
+      result->Success(flutter::EncodableValue(true));
+    } else {
+      result->Error("START_FAILED", "Failed to start service");
+    }
+  }).detach();
 }
 
 void FlutterBridge::StopRcc(
