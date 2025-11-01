@@ -13,6 +13,10 @@ on:
         required: true
         type: string
         description: 'App name'
+      pkg:
+        required: true
+        type: string
+        description: 'Package name'
       version:
         required: true
         type: string
@@ -122,6 +126,19 @@ jobs:
           echo "Renaming AAB for release..."
           mv build/app/outputs/bundle/release/app-release.aab "${{ inputs.name }}-android-${{ inputs.version }}.aab"
           echo "Release AAB created: ${{ inputs.name }}-android-${{ inputs.version }}.aab"
+
+      - name: Decode Google Play service account
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_BASE64 }}" | base64 --decode > service-account.json
+
+      - name: Upload to Google Play Store
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: service-account.json
+          packageName: ${{ inputs.pkg }}
+          releaseFiles: ${{ inputs.name }}-android-${{ inputs.version }}.aab
+          track: production
+          status: completed
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2

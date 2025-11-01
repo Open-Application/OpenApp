@@ -21,6 +21,7 @@ jobs:
     outputs:
       name: ${{ steps.get-info.outputs.name }}
       version: ${{ steps.get-info.outputs.version }}
+      pkg: ${{ steps.get-info.outputs.pkg }}
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v5
@@ -29,10 +30,13 @@ jobs:
         id: get-info
         run: |
           NAME=$(grep '^name:' pubspec.yaml | sed 's/name: *//' | tr -d ' ')
+          PKG=$(grep 'applicationId' android/app/build.gradle.kts | sed 's/.*applicationId = "\(.*\)".*/\1/')
           VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: *//' | tr -d ' ')
           echo "name=${NAME}" >> $GITHUB_OUTPUT
+          echo "pkg=${PKG}" >> $GITHUB_OUTPUT
           echo "version=v${VERSION}" >> $GITHUB_OUTPUT
           echo "Detected name: ${NAME}"
+          echo "Detected package: ${PKG}"
           echo "Detected version: v${VERSION}"
 
   build-windows:
@@ -40,6 +44,7 @@ jobs:
     uses: ./.github/workflows/build-windows.yml
     with:
       name: ${{ needs.check-for-version.outputs.name }}
+      pkg: ${{ needs.check-for-version.outputs.pkg }}
       version: ${{ needs.check-for-version.outputs.version }}
     secrets: inherit
 
@@ -48,6 +53,7 @@ jobs:
     uses: ./.github/workflows/build-android.yml
     with:
       name: ${{ needs.check-for-version.outputs.name }}
+      pkg: ${{ needs.check-for-version.outputs.pkg }}
       version: ${{ needs.check-for-version.outputs.version }}
     secrets: inherit
 
@@ -56,5 +62,6 @@ jobs:
   #   uses: ./.github/workflows/build-apple.yml
   #   with:
   #     name: ${{ needs.check-for-version.outputs.name }}
+  #     pkg: ${{ needs.check-for-version.outputs.pkg }}
   #     version: ${{ needs.check-for-version.outputs.version }}
   #   secrets: inherit

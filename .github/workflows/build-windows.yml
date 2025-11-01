@@ -13,6 +13,10 @@ on:
         required: true
         type: string
         description: 'App name'
+      pkg:
+        required: true
+        type: string
+        description: 'Package name'
       version:
         required: true
         type: string
