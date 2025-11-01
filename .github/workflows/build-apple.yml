@@ -24,7 +24,7 @@ on:
 
 
 jobs:
-  build-and-upload:
+  build-apple-app:
     runs-on: macos-latest
     strategy:
       matrix:
@@ -47,7 +47,7 @@ jobs:
 
           echo "Latest OpenCore release: ${LATEST_RELEASE}"
 
-          DOWNLOAD_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}/liboc-${{ matrix.platform }}-universal-${LATEST_RELEASE}.tar.gz"
+          DOWNLOAD_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}/liboc-apple-universal-${LATEST_RELEASE}.tar.gz"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
           curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o liboc.tar.gz "${DOWNLOAD_URL}"
