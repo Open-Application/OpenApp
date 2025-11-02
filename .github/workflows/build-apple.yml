@@ -100,7 +100,7 @@ jobs:
 
       - name: Install provisioning profiles
         run: |
-          APPLE_PROVISIONING_PATH=$HOME/Library/MobileDevice/Provisioning Profiles
+          APPLE_PROVISIONING_PATH="$HOME/Library/MobileDevice/Provisioning Profiles"
 
           echo "Installing provisioning profiles..."
           mkdir -p "$APPLE_PROVISIONING_PATH"
@@ -148,7 +148,7 @@ jobs:
         if: ${{ always() }}
         run: |
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
-          rm -rf ~/Library/MobileDevice/Provisioning\ Profiles
+          rm -rf "$HOME/Library/MobileDevice/Provisioning Profiles"
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
@@ -170,21 +170,33 @@ jobs:
             - **Code Obfuscation**: Enabled
             - **Debug Symbols**: Available as workflow artifact
 
-      # - name: Upload to App Store Connect
-      #   run: |
-      #     set -xeuo pipefail
+      - name: Setup App Store Connect API Key
+        run: |
+          mkdir -p ~/private_keys
+          echo -n "${{ secrets.APPLE_API_KEY_BASE64 }}" | base64 -d > ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8
+          chmod 600 ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8
 
-      #     if [ "${{ matrix.platform }}" == "ios" ]; then
-      #       PLATFORM_TYPE="ios"
-      #     else
-      #       PLATFORM_TYPE="macos"
-      #     fi
+      - name: Upload to App Store Connect and TestFlight
+        run: |
+          set -xeuo pipefail
 
-      #     echo "Uploading $UPLOAD_FILE to App Store Connect..."
-      #     xcrun altool --upload-app \
-      #       --type $PLATFORM_TYPE \
-      #       --file "$UPLOAD_FILE" \
-      #       --apiKey "$ASC_KEY_ID" \
-      #       --apiIssuer "$ASC_ISSUER_ID"
+          if [ "${{ matrix.platform }}" == "ios" ]; then
+            PLATFORM_TYPE="ios"
+            echo "Uploading IPA to App Store Connect and TestFlight..."
+          else
+            PLATFORM_TYPE="osx"
+            echo "Uploading PKG to App Store Connect..."
+          fi
 
-      #     echo "Upload completed successfully!"
+          xcrun altool --upload-app \
+            --type $PLATFORM_TYPE \
+            --file "$UPLOAD_FILE" \
+            --apiKey "${{ secrets.APPLE_API_KEY_ID }}" \
+            --apiIssuer "${{ secrets.APPLE_API_ISSUER_ID }}"
+
+          echo "✅ Upload completed! ${{ matrix.platform == 'ios' && 'Build will appear in TestFlight within 5-10 minutes.' || 'Build will appear in App Store Connect.' }}"
+
+      - name: Clean up API key
+        if: ${{ always() }}
+        run: |
+          rm -rf ~/private_keys
