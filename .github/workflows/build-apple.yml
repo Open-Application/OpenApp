@@ -49,12 +49,12 @@ jobs:
           echo "Latest OpenCore release: ${LATEST_RELEASE}"
 
           RELEASE_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}"
-          DOWNLOAD_URL="${RELEASE_URL}/${TARGET_LIB}-${LATEST_RELEASE}.zip"
+          DOWNLOAD_URL="${RELEASE_URL}/${TARGET_LIB}-${LATEST_RELEASE}.tar.gz"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
-          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o liboc.zip "${DOWNLOAD_URL}"
+          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o ${TARGET_LIB}.tar.gz "${DOWNLOAD_URL}"
           mkdir -p ${{ matrix.platform }}/Frameworks
-          unzip -o liboc.zip -d ${{ matrix.platform }}/Frameworks
+          tar -xzf ${TARGET_LIB}.tar.gz -C ${{ matrix.platform }}/Frameworks
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2

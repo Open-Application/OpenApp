@@ -39,14 +39,14 @@ jobs:
           echo "Detected package: ${PKG}"
           echo "Detected version: v${VERSION}"
 
-  # build-windows:
-  #   needs: check-for-version
-  #   uses: ./.github/workflows/build-windows.yml
-  #   with:
-  #     name: ${{ needs.check-for-version.outputs.name }}
-  #     pkg: ${{ needs.check-for-version.outputs.pkg }}
-  #     version: ${{ needs.check-for-version.outputs.version }}
-  #   secrets: inherit
+  build-windows:
+    needs: check-for-version
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      name: ${{ needs.check-for-version.outputs.name }}
+      pkg: ${{ needs.check-for-version.outputs.pkg }}
+      version: ${{ needs.check-for-version.outputs.version }}
+    secrets: inherit
 
   # build-android:
   #   needs: check-for-version

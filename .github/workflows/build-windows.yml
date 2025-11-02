@@ -51,12 +51,12 @@ jobs:
           echo "Latest OpenCore release: ${LATEST_RELEASE}"
 
           RELEASE_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}"
-          DOWNLOAD_URL="${RELEASE_URL}/${TARGET_LIB}-${LATEST_RELEASE}.zip"
+          DOWNLOAD_URL="${RELEASE_URL}/${TARGET_LIB}-${LATEST_RELEASE}.tar.gz"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
-          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o liboc.zip "${DOWNLOAD_URL}"
+          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o ${TARGET_LIB}.tar.gz "${DOWNLOAD_URL}"
           mkdir -p windows/
-          unzip -o liboc.zip -d windows/
+          tar -xzf ${TARGET_LIB}.tar.gz -C windows/
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -197,7 +197,7 @@ jobs:
         shell: bash
         run: |
           cd build/windows/x64/runner/Release
-          powershell -Command "Compress-Archive -Path * -DestinationPath ../../../../../${{ inputs.name }}-windows-amd64-${{ inputs.version }}.zip"
+          tar -czf ../../../../../${{ inputs.name }}-windows-amd64-${{ inputs.version }}.tar.gz *
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
@@ -208,7 +208,7 @@ jobs:
           prerelease: false
           overwrite_files: true
           files: |
-            ${{ inputs.name }}-windows-amd64-${{ inputs.version }}.zip
+            ${{ inputs.name }}-windows-amd64-${{ inputs.version }}.tar.gz
             ${{ inputs.name }}-windows-amd64-${{ inputs.version }}.msix
             ${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix
           body: |
@@ -222,4 +222,4 @@ jobs:
             - **Debug Symbols**: Available as workflow artifact
 
             ### Installation
-            Download and extract the zip file to run the application
+            Download and extract the tar.gz file to run the application
