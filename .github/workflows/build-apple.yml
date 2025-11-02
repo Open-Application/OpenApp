@@ -80,10 +80,8 @@ jobs:
           cd ${{ matrix.platform }}
           pod install
 
-      - name: Setup certificates and provisioning profiles
+      - name: Setup keychain and certificates
         run: |
-          APPLE_PROVISIONING_PATH=$HOME/Library/MobileDevice/Provisioning Profiles
-          APPLE_API_KEY_APTH=$RUNNER_TEMP/AuthKey.p8
           APPLE_PKCS12_PATH=$RUNNER_TEMP/Certificates.p12
           APPLE_KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
           KEYCHAIN_PASSWORD=$(openssl rand -base64 32)
@@ -99,6 +97,10 @@ jobs:
 
           security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $APPLE_KEYCHAIN_PATH
           security list-keychain -d user -s $APPLE_KEYCHAIN_PATH
+
+      - name: Install provisioning profiles
+        run: |
+          APPLE_PROVISIONING_PATH=$HOME/Library/MobileDevice/Provisioning Profiles
 
           echo "Installing provisioning profiles..."
           mkdir -p "$APPLE_PROVISIONING_PATH"
