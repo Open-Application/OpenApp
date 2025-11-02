@@ -150,25 +150,25 @@ jobs:
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
           rm -rf "$HOME/Library/MobileDevice/Provisioning Profiles"
 
-      - name: Upload to release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ inputs.version }}
-          name: Release ${{ inputs.version }}
-          draft: false
-          prerelease: false
-          overwrite_files: true
-          files: |
-            ${{ env.UPLOAD_FILE }}
-          body: |
-            ## ${{ matrix.platform == 'ios' && 'iOS' || 'macOS' }} Application for ${{ inputs.version }}
+      # - name: Upload to release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     tag_name: ${{ inputs.version }}
+      #     name: Release ${{ inputs.version }}
+      #     draft: false
+      #     prerelease: false
+      #     overwrite_files: true
+      #     files: |
+      #       ${{ env.UPLOAD_FILE }}
+      #     body: |
+      #       ## ${{ matrix.platform == 'ios' && 'iOS' || 'macOS' }} Application for ${{ inputs.version }}
 
-            ### Build Configuration
-            - **Platform**: ${{ matrix.platform == 'ios' && 'iOS' || 'macOS' }}
-            - **Format**: ${{ matrix.platform == 'ios' && 'IPA' || 'PKG' }}
-            - **Build Type**: Release (Obfuscated)
-            - **Code Obfuscation**: Enabled
-            - **Debug Symbols**: Available as workflow artifact
+      #       ### Build Configuration
+      #       - **Platform**: ${{ matrix.platform == 'ios' && 'iOS' || 'macOS' }}
+      #       - **Format**: ${{ matrix.platform == 'ios' && 'IPA' || 'PKG' }}
+      #       - **Build Type**: Release (Obfuscated)
+      #       - **Code Obfuscation**: Enabled
+      #       - **Debug Symbols**: Available as workflow artifact
 
       - name: Setup App Store Connect API Key
         run: |
