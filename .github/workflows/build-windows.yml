@@ -40,6 +40,7 @@ jobs:
         run: |
           set -xeuo pipefail
 
+          TARGET_LIB='liboc-windows-amd64'
           LATEST_RELEASE=$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/${{ secrets.UPSTREAM_REPO }}/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
 
           if [ -z "${LATEST_RELEASE}" ]; then
@@ -49,7 +50,8 @@ jobs:
 
           echo "Latest OpenCore release: ${LATEST_RELEASE}"
 
-          DOWNLOAD_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}/liboc-windows-amd64-${LATEST_RELEASE}.zip"
+          RELEASE_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}"
+          DOWNLOAD_URL="${DOWNLOAD_URL}/${TARGET_LIB}-${LATEST_RELEASE}.zip"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
           curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o liboc.zip "${DOWNLOAD_URL}"

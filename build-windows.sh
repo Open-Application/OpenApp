@@ -42,9 +42,9 @@ cd ~/OpenApp/windows
 gendef liboc.dll
 dlltool -d liboc.def -D liboc.dll -l liboc.lib
 
-rm -f ~/AppData/Roaming/io.root-corporation/openapp/debug.log
-mkdir -p ~/AppData/Roaming/io.root-corporation/openapp
-touch ~/AppData/Roaming/io.root-corporation/openapp/debug.log
+rm -f ~/AppData/Roaming/io.rootcorporation.openapp/debug.log
+mkdir -p ~/AppData/Roaming/io.rootcorporation.openapp
+touch ~/AppData/Roaming/io.rootcorporation.openapp/debug.log
 
 cd ~/OpenApp
 echo "Building Windows MSIX..."

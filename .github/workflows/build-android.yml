@@ -34,6 +34,7 @@ jobs:
         run: |
           set -xeuo pipefail
 
+          TARGET_LIB='liboc-android-universal'
           LATEST_RELEASE=$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/${{ secrets.UPSTREAM_REPO }}/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
 
           if [ -z "${LATEST_RELEASE}" ]; then
@@ -43,12 +44,13 @@ jobs:
 
           echo "Latest OpenCore release: ${LATEST_RELEASE}"
 
-          DOWNLOAD_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}/liboc-android-universal-${LATEST_RELEASE}.tar.gz"
+          RELEASE_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}"
+          DOWNLOAD_URL="${RELEASE_URL}/${TARGET_LIB}-${LATEST_RELEASE}.zip"
           echo "Downloading from: ${DOWNLOAD_URL}"
 
-          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o liboc.tar.gz "${DOWNLOAD_URL}"
+          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o liboc.zip "${DOWNLOAD_URL}"
           mkdir -p android/app/libs/
-          tar -xzf liboc.tar.gz -C android/app/libs/
+          unzip -o liboc.zip -d android/app/libs/
 
       - name: Setup Java
         uses: actions/setup-java@v4

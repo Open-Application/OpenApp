@@ -40,7 +40,7 @@ void VPNService::EnsureSetup() {
     base_path = std::string(size_needed - 1, 0);
     ::WideCharToMultiByte(CP_UTF8, 0, roaming_path_wstr, -1, &base_path[0], size_needed, nullptr, nullptr);
     ::CoTaskMemFree(roaming_path_wstr);
-    base_path += "\\io.root-corporation\\openapp";
+    base_path += "\\io.rootcorporation.openapp";
   }
 
   wchar_t temp_path_wstr[MAX_PATH];
@@ -214,7 +214,7 @@ std::string VPNService::GetLogFilePath() {
     std::string path(size_needed - 1, 0);
     ::WideCharToMultiByte(CP_UTF8, 0, path_wstr, -1, &path[0], size_needed, nullptr, nullptr);
     ::CoTaskMemFree(path_wstr);
-    return path + "\\io.root-corporation\\openapp\\debug.log";
+    return path + "\\io.rootcorporation.openapp\\debug.log";
   }
   return "";
 }
