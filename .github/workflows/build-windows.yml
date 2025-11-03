@@ -51,6 +51,11 @@ jobs:
           $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
           Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
 
+          $appId = "${{ secrets.PARTNER_APP }}"
+          $packagePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+
+          New-StoreBrokerConfigFile -Path submission.json -AppId $appId
+
       - name: Clean build artifacts
         shell: bash
         run: |
@@ -158,46 +163,26 @@ jobs:
           Write-Host "Store package ready:"
           Get-Item $msixPath | Select-Object Name, Length
 
-      # - name: Upload to Microsoft Store
-      #   shell: pwsh
-      #   env:
-      #     CLIENT_ID: ${{ secrets.PARTNER_CLIENT }}
-      #     CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
-      #   run: |
-      #     $global:SBDisableTelemetry = $true
-      #     $global:SBSuppressTelemetryReminder = $true
+      - name: Upload to Microsoft Store
+        shell: pwsh
+        env:
+          CLIENT_ID: ${{ secrets.PARTNER_CLIENT }}
+          CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
+        run: |
+          $global:SBDisableTelemetry = $true
+          $global:SBSuppressTelemetryReminder = $true
 
-      #     $user = $Env:CLIENT_ID
-      #     $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
-      #     $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
-      #     Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
+          $user = $Env:CLIENT_ID
+          $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
+          $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
+          Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
 
-      #     $appId = "${{ secrets.PARTNER_APP }}"
-      #     $packagePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
-      #     $app = Get-Application -AppId $appId
-      #     $sub = New-ApplicationSubmission -AppId $appId -Force
+          $appId = "${{ secrets.PARTNER_APP }}"
+          $packagePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
 
-      #     Write-Host "Created submission ID: $($sub.id)"
+          New-StoreBrokerConfigFile -Path submission.json -AppId $appId
 
-      #     foreach ($package in $sub.applicationPackages) {
-      #       $package.fileStatus = "PendingDelete"
-      #     }
-
-      #     $sub.applicationPackages += @{
-      #       fileName = $packagePath
-      #       fileStatus = "PendingUpload"
-      #       minimumDirectXVersion = "None"
-      #       minimumSystemRam = "None"
-      #     }
-
-      #     Set-ApplicationSubmission -AppId $appId -UpdatedSubmission $sub
-      #     Write-Host "Uploading package: $packagePath"
-      #     Set-SubmissionPackage -PackagePath $packagePath -UploadUrl ($sub.fileUploadUrl)
-
-      #     Write-Host "Committing submission..."
-      #     Complete-ApplicationSubmission -AppId $appId -SubmissionId ($sub.id)
-
-      #     Write-Host "Submission completed successfully!"
+          New-SubmissionPackage -ConfigPath .\submission.json -AppxPath .\$packagePath -OutPath out -OutName package
 
       - uses: azure/trusted-signing-action@v0
         with:
