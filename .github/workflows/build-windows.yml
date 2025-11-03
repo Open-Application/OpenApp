@@ -140,7 +140,7 @@ jobs:
           Get-Item $msixPath, $appxuploadPath | Select-Object Name, Length
 
       - name: Publish to Microsoft Store
-        uses: isaacrlevin/windows-store-action@v1
+        uses: isaacrlevin/windows-store-action
         with:
           tenant-id: ${{ secrets.PARTNER_TENANT }}
           client-id: ${{ secrets.PARTNER_CLIENT }}
