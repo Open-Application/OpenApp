@@ -139,14 +139,36 @@ jobs:
           Write-Host "Created store packages:"
           Get-Item $msixPath, $appxuploadPath | Select-Object Name, Length
 
+      - name: Download Microsoft PackageUploader
+        shell: pwsh
+        run: |
+          $version = "v3.1.7"
+          $url = "https://github.com/microsoft/PackageUploader/releases/download/$version/PackageUploader.exe"
+          Invoke-WebRequest -Uri $url -OutFile PackageUploader.exe
+          Write-Host "Downloaded PackageUploader $version"
+
+      - name: Create PackageUploader config
+        shell: pwsh
+        run: |
+          $config = @{
+            operationName = "UploadUwpPackage"
+            productId = "${{ secrets.PARTNER_APP }}"
+            branchFriendlyName = "master"
+            packageFilePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload"
+            aadAuthInfo = @{
+              tenantId = "${{ secrets.PARTNER_TENANT }}"
+              clientId = "${{ secrets.PARTNER_CLIENT }}"
+              clientSecret = "${{ secrets.PARTNER_SECRET }}"
+            }
+          } | ConvertTo-Json -Depth 10
+
+          Set-Content -Path "upload-config.json" -Value $config
+          Write-Host "Created configuration file"
+
       - name: Publish to Microsoft Store
-        uses: isaacrlevin/windows-store-action
-        with:
-          tenant-id: ${{ secrets.PARTNER_TENANT }}
-          client-id: ${{ secrets.PARTNER_CLIENT }}
-          client-secret: ${{ secrets.PARTNER_SECRET }}
-          app-id: ${{ secrets.PARTNER_APP }}
-          package-path: "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload"
+        shell: pwsh
+        run: |
+          ./PackageUploader.exe UploadUwpPackage -c upload-config.json -a ClientSecret
 
       - uses: azure/trusted-signing-action@v0
         with:
