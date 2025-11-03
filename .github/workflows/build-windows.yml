@@ -127,11 +127,26 @@ jobs:
             --trim-logo false \
             --sign-msix false
 
-      - name: move unsigned MSIX(Store)
-        shell: bash
+      - name: Create AppxUpload for Store
+        shell: pwsh
         run: |
-          ls -lh build/windows/x64/runner/Release/*.msix
-          mv build/windows/x64/runner/Release/*.msix "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+          $msixPath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+          $appxuploadPath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload"
+
+          Move-Item "build/windows/x64/runner/Release/*.msix" $msixPath
+          Compress-Archive -Path $msixPath -DestinationPath $appxuploadPath -Force
+
+          Write-Host "Created store packages:"
+          Get-Item $msixPath, $appxuploadPath | Select-Object Name, Length
+
+      - name: Publish to Microsoft Store
+        uses: isaacrlevin/windows-store-action@v1
+        with:
+          tenant-id: ${{ secrets.PARTNER_TENANT }}
+          client-id: ${{ secrets.PARTNER_CLIENT }}
+          client-secret: ${{ secrets.PARTNER_SECRET }}
+          app-id: ${{ secrets.PARTNER_APP }}
+          package-path: "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload"
 
       - uses: azure/trusted-signing-action@v0
         with:
