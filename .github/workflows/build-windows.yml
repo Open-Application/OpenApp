@@ -37,26 +37,26 @@ jobs:
         run: |
           Install-Module -Name StoreBroker -Force
 
-      - name: Upload to Microsoft Store
-        shell: pwsh
-        env:
-          PARTNER_CLIENT: ${{ secrets.PARTNER_CLIENT }}
-          CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
-          PARTNER_TENANT: ${{ secrets.PARTNER_TENANT }}
-          PARTNER_APP: ${{ secrets.PARTNER_APP }}
-        run: |
-          $global:SBDisableTelemetry = $true
-          $global:SBSuppressTelemetryReminder = $true
+      # - name: Upload to Microsoft Store
+      #   shell: pwsh
+      #   env:
+      #     PARTNER_CLIENT: ${{ secrets.PARTNER_CLIENT }}
+      #     CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
+      #     PARTNER_TENANT: ${{ secrets.PARTNER_TENANT }}
+      #     PARTNER_APP: ${{ secrets.PARTNER_APP }}
+      #   run: |
+      #     $global:SBDisableTelemetry = $true
+      #     $global:SBSuppressTelemetryReminder = $true
 
-          $user = $Env:PARTNER_CLIENT
-          $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
-          $tenantId = $Env:PARTNER_TENANT
-          $appId = $Env:PARTNER_APP
-          $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
-          Set-StoreBrokerAuthentication -TenantId $tenantId -Credential $Cred
-          $configPath = Join-Path $PWD "submission.json"
+      #     $user = $Env:PARTNER_CLIENT
+      #     $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
+      #     $tenantId = $Env:PARTNER_TENANT
+      #     $appId = $Env:PARTNER_APP
+      #     $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
+      #     Set-StoreBrokerAuthentication -TenantId $tenantId -Credential $Cred
+      #     $configPath = Join-Path $PWD "submission.json"
 
-          New-StoreBrokerConfigFile -Path $configPath -AppId $appId
+      #     New-StoreBrokerConfigFile -Path $configPath -AppId $appId
 
       - name: Clean build artifacts
         shell: bash
