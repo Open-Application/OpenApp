@@ -52,11 +52,8 @@ jobs:
           Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
 
           $appId = "${{ secrets.PARTNER_APP }}"
-          $packagePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
           $configPath = Join-Path $PWD "submission.json"
-
           New-StoreBrokerConfigFile -Path $configPath -AppId $appId
-
       - name: Clean build artifacts
         shell: bash
         run: |
