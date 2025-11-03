@@ -127,17 +127,14 @@ jobs:
             --trim-logo false \
             --sign-msix false
 
-      - name: Create AppxUpload for Store
+      - name: Move Store MSIX
         shell: pwsh
         run: |
           $msixPath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
-          $appxuploadPath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload"
-
           Move-Item "build/windows/x64/runner/Release/*.msix" $msixPath
-          Compress-Archive -Path $msixPath -DestinationPath $appxuploadPath -Force
 
-          Write-Host "Created store packages:"
-          Get-Item $msixPath, $appxuploadPath | Select-Object Name, Length
+          Write-Host "Store package ready:"
+          Get-Item $msixPath | Select-Object Name, Length
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.3.1
@@ -147,44 +144,46 @@ jobs:
         run: |
           Install-Module -Name StoreBroker -Force
 
-      - name: Create submission config
-        shell: pwsh
-        run: |
-          $config = @{
-            applicationPackages = @(
-              @{
-                fileName = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload"
-                fileStatus = "PendingUpload"
-              }
-            )
-          } | ConvertTo-Json -Depth 10
-
-          Set-Content -Path "submission.json" -Value $config -Encoding UTF8
-          Write-Host "Created submission configuration"
-
       - name: Upload to Microsoft Store
         shell: pwsh
         env:
           CLIENT_ID: ${{ secrets.PARTNER_CLIENT }}
           CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
         run: |
+          $global:SBDisableTelemetry = $true
+          $global:SBSuppressTelemetryReminder = $true
+
           $user = $Env:CLIENT_ID
           $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
           $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
           Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
 
           $appId = "${{ secrets.PARTNER_APP }}"
-          New-SubmissionPackage -ConfigPath .\submission.json -AppxPath .\${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload -OutPath out -OutName package
-
+          $packagePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+          $app = Get-Application -AppId $appId
           $sub = New-ApplicationSubmission -AppId $appId -Force
-          $json = (Get-Content out\package.json -Encoding UTF8) | ConvertFrom-Json
+
+          Write-Host "Created submission ID: $($sub.id)"
+
           foreach ($package in $sub.applicationPackages) {
             $package.fileStatus = "PendingDelete"
           }
-          $sub.applicationPackages += $json.applicationPackages
+
+          $sub.applicationPackages += @{
+            fileName = $packagePath
+            fileStatus = "PendingUpload"
+            minimumDirectXVersion = "None"
+            minimumSystemRam = "None"
+          }
+
           Set-ApplicationSubmission -AppId $appId -UpdatedSubmission $sub
-          Set-SubmissionPackage -PackagePath out\package.zip -UploadUrl ($sub.fileUploadUrl)
+          Write-Host "Uploading package: $packagePath"
+          Set-SubmissionPackage -PackagePath $packagePath -UploadUrl ($sub.fileUploadUrl)
+
+          Write-Host "Committing submission..."
           Complete-ApplicationSubmission -AppId $appId -SubmissionId ($sub.id)
+
+          Write-Host "Submission completed successfully!"
 
       - uses: azure/trusted-signing-action@v0
         with:
