@@ -139,36 +139,52 @@ jobs:
           Write-Host "Created store packages:"
           Get-Item $msixPath, $appxuploadPath | Select-Object Name, Length
 
-      - name: Download Microsoft PackageUploader
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.3.1
+
+      - name: Configure the Microsoft Store CLI
         shell: pwsh
         run: |
-          $version = "v3.1.7"
-          $url = "https://github.com/microsoft/PackageUploader/releases/download/$version/PackageUploader.exe"
-          Invoke-WebRequest -Uri $url -OutFile PackageUploader.exe
-          Write-Host "Downloaded PackageUploader $version"
+          Install-Module -Name StoreBroker -Force
 
-      - name: Create PackageUploader config
+      - name: Create submission config
         shell: pwsh
         run: |
           $config = @{
-            operationName = "UploadUwpPackage"
-            productId = "${{ secrets.PARTNER_APP }}"
-            branchFriendlyName = "master"
-            packageFilePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload"
-            aadAuthInfo = @{
-              tenantId = "${{ secrets.PARTNER_TENANT }}"
-              clientId = "${{ secrets.PARTNER_CLIENT }}"
-              clientSecret = "${{ secrets.PARTNER_SECRET }}"
-            }
+            applicationPackages = @(
+              @{
+                fileName = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload"
+                fileStatus = "PendingUpload"
+              }
+            )
           } | ConvertTo-Json -Depth 10
 
-          Set-Content -Path "upload-config.json" -Value $config
-          Write-Host "Created configuration file"
+          Set-Content -Path "submission.json" -Value $config -Encoding UTF8
+          Write-Host "Created submission configuration"
 
-      - name: Publish to Microsoft Store
+      - name: Upload to Microsoft Store
         shell: pwsh
+        env:
+          CLIENT_ID: ${{ secrets.PARTNER_CLIENT }}
+          CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
         run: |
-          ./PackageUploader.exe UploadUwpPackage -c upload-config.json -a ClientSecret
+          $user = $Env:CLIENT_ID
+          $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
+          $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
+          Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
+
+          $appId = "${{ secrets.PARTNER_APP }}"
+          New-SubmissionPackage -ConfigPath .\submission.json -AppxPath .\${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.appxupload -OutPath out -OutName package
+
+          $sub = New-ApplicationSubmission -AppId $appId -Force
+          $json = (Get-Content out\package.json -Encoding UTF8) | ConvertFrom-Json
+          foreach ($package in $sub.applicationPackages) {
+            $package.fileStatus = "PendingDelete"
+          }
+          $sub.applicationPackages += $json.applicationPackages
+          Set-ApplicationSubmission -AppId $appId -UpdatedSubmission $sub
+          Set-SubmissionPackage -PackagePath out\package.zip -UploadUrl ($sub.fileUploadUrl)
+          Complete-ApplicationSubmission -AppId $appId -SubmissionId ($sub.id)
 
       - uses: azure/trusted-signing-action@v0
         with:
