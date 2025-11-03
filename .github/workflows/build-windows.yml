@@ -51,9 +51,6 @@ jobs:
           $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
           Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
 
-          $appId = "${{ secrets.PARTNER_APP }}"
-          $configPath = Join-Path $PWD "submission.json"
-          New-StoreBrokerConfigFile -Path $configPath -AppId $appId
       - name: Clean build artifacts
         shell: bash
         run: |
