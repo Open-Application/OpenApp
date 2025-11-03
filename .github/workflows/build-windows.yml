@@ -40,16 +40,23 @@ jobs:
       - name: Upload to Microsoft Store
         shell: pwsh
         env:
-          CLIENT_ID: ${{ secrets.PARTNER_CLIENT }}
+          PARTNER_CLIENT: ${{ secrets.PARTNER_CLIENT }}
           CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
+          PARTNER_TENANT: ${{ secrets.PARTNER_TENANT }}
+          PARTNER_APP: ${{ secrets.PARTNER_APP }}
         run: |
           $global:SBDisableTelemetry = $true
           $global:SBSuppressTelemetryReminder = $true
 
-          $user = $Env:CLIENT_ID
+          $user = $Env:PARTNER_CLIENT
           $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
+          $tenantId = $Env:PARTNER_TENANT
+          $appId = $Env:PARTNER_APP
           $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
-          Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
+          Set-StoreBrokerAuthentication -TenantId $tenantId -Credential $Cred
+          $configPath = Join-Path $PWD "submission.json"
+
+          New-StoreBrokerConfigFile -Path $configPath -AppId $appId
 
       - name: Clean build artifacts
         shell: bash
