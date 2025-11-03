@@ -29,6 +29,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.3.1
+
+      - name: Configure the Microsoft Store CLI
+        shell: pwsh
+        run: |
+          Install-Module -Name StoreBroker -Force
+
+      - name: Upload to Microsoft Store
+        shell: pwsh
+        env:
+          CLIENT_ID: ${{ secrets.PARTNER_CLIENT }}
+          CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
+        run: |
+          $global:SBDisableTelemetry = $true
+          $global:SBSuppressTelemetryReminder = $true
+
+          $user = $Env:CLIENT_ID
+          $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
+          $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
+          Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
+
       - name: Clean build artifacts
         shell: bash
         run: |
@@ -136,54 +158,46 @@ jobs:
           Write-Host "Store package ready:"
           Get-Item $msixPath | Select-Object Name, Length
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.3.1
+      # - name: Upload to Microsoft Store
+      #   shell: pwsh
+      #   env:
+      #     CLIENT_ID: ${{ secrets.PARTNER_CLIENT }}
+      #     CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
+      #   run: |
+      #     $global:SBDisableTelemetry = $true
+      #     $global:SBSuppressTelemetryReminder = $true
 
-      - name: Configure the Microsoft Store CLI
-        shell: pwsh
-        run: |
-          Install-Module -Name StoreBroker -Force
+      #     $user = $Env:CLIENT_ID
+      #     $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
+      #     $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
+      #     Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
 
-      - name: Upload to Microsoft Store
-        shell: pwsh
-        env:
-          CLIENT_ID: ${{ secrets.PARTNER_CLIENT }}
-          CLIENT_SECRET: ${{ secrets.PARTNER_SECRET }}
-        run: |
-          $global:SBDisableTelemetry = $true
-          $global:SBSuppressTelemetryReminder = $true
+      #     $appId = "${{ secrets.PARTNER_APP }}"
+      #     $packagePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+      #     $app = Get-Application -AppId $appId
+      #     $sub = New-ApplicationSubmission -AppId $appId -Force
 
-          $user = $Env:CLIENT_ID
-          $password = ConvertTo-SecureString $Env:CLIENT_SECRET -AsPlainText -Force
-          $Cred = New-Object System.Management.Automation.PSCredential($user, $password)
-          Set-StoreBrokerAuthentication -TenantId ${{ secrets.PARTNER_TENANT }} -Credential $Cred
+      #     Write-Host "Created submission ID: $($sub.id)"
 
-          $appId = "${{ secrets.PARTNER_APP }}"
-          $packagePath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
-          $app = Get-Application -AppId $appId
-          $sub = New-ApplicationSubmission -AppId $appId -Force
+      #     foreach ($package in $sub.applicationPackages) {
+      #       $package.fileStatus = "PendingDelete"
+      #     }
 
-          Write-Host "Created submission ID: $($sub.id)"
+      #     $sub.applicationPackages += @{
+      #       fileName = $packagePath
+      #       fileStatus = "PendingUpload"
+      #       minimumDirectXVersion = "None"
+      #       minimumSystemRam = "None"
+      #     }
 
-          foreach ($package in $sub.applicationPackages) {
-            $package.fileStatus = "PendingDelete"
-          }
+      #     Set-ApplicationSubmission -AppId $appId -UpdatedSubmission $sub
+      #     Write-Host "Uploading package: $packagePath"
+      #     Set-SubmissionPackage -PackagePath $packagePath -UploadUrl ($sub.fileUploadUrl)
 
-          $sub.applicationPackages += @{
-            fileName = $packagePath
-            fileStatus = "PendingUpload"
-            minimumDirectXVersion = "None"
-            minimumSystemRam = "None"
-          }
+      #     Write-Host "Committing submission..."
+      #     Complete-ApplicationSubmission -AppId $appId -SubmissionId ($sub.id)
 
-          Set-ApplicationSubmission -AppId $appId -UpdatedSubmission $sub
-          Write-Host "Uploading package: $packagePath"
-          Set-SubmissionPackage -PackagePath $packagePath -UploadUrl ($sub.fileUploadUrl)
-
-          Write-Host "Committing submission..."
-          Complete-ApplicationSubmission -AppId $appId -SubmissionId ($sub.id)
-
-          Write-Host "Submission completed successfully!"
+      #     Write-Host "Submission completed successfully!"
 
       - uses: azure/trusted-signing-action@v0
         with:
