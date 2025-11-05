@@ -55,4 +55,16 @@ post_install do |installer|
       end
     end
   end
+
+  ['Debug', 'Release', 'Profile'].each do |config_name|
+    config_file = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.#{config_name.downcase}.xcconfig"
+    if File.exist?(config_file)
+      content = File.read(config_file)
+      unless content.include?('#include "../../../Flutter/ephemeral/Flutter-Generated.xcconfig"')
+        content = content.gsub(/#include ".*Flutter.*Generated.xcconfig"[\n]?/, '')
+        content = '#include "../../../Flutter/ephemeral/Flutter-Generated.xcconfig"' + "\n" + content
+        File.write(config_file, content)
+      end
+    end
+  end
 end

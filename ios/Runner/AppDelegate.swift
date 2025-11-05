@@ -11,10 +11,9 @@ import UIKit
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
 
-    if let controller = window?.rootViewController as? FlutterViewController {
-      flutterBridge = FlutterBridge()
-      flutterBridge?.setup(binaryMessenger: controller.binaryMessenger)
-    }
+    let binaryMessenger = (self.registrar(forPlugin: "FlutterBridge")?.messenger())!
+    flutterBridge = FlutterBridge()
+    flutterBridge?.setup(binaryMessenger: binaryMessenger)
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
