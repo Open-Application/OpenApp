@@ -59,7 +59,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          channel: nightly
           cache: true
 
       - name: Set build environment
