@@ -3,8 +3,6 @@
 [![Build](https://github.com/Open-Application/OpenApp/workflows/build/badge.svg)](https://github.com/Open-Application/OpenApp/actions?query=workflow:build)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/github/v/release/Open-Application/OpenApp?label=Version)](https://github.com/Open-Application/OpenApp/releases)
-[![Open Issues](https://img.shields.io/github/issues/Open-Application/OpenApp)](https://github.com/Open-Application/OpenApp/issues)
-[![Code Size](https://img.shields.io/github/languages/code-size/Open-Application/OpenApp)](https://github.com/Open-Application/OpenApp)
 [![Releases](https://img.shields.io/badge/Releases-Download-blue)](https://github.com/Open-Application/OpenApp/releases)
 [![TestFlight](https://img.shields.io/badge/TestFlight-Test-blue)](https://testflight.apple.com/join/1mJPzBU6)
 
