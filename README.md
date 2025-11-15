@@ -12,6 +12,7 @@ Developed by Root Corporation PTY LTD Australia 🇦🇺
 
 [![Access for iOS/macOS](./assets/badges/apple.svg)](https://bit.ly/OpenAppApple)
 [![Get it on Google Play](./assets/badges/android.svg)](https://bit.ly/OpenAppGooglePlay)
+[![Download from Microsoft](./assets/badges/windows.svg)](https://github.com/Open-Application/OpenApp/releases)
 ---
 
 ## Overview
