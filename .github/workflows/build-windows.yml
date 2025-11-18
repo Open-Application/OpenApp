@@ -232,3 +232,24 @@ jobs:
 
             ### Installation
             Download and extract the tar.gz file to run the application
+
+      - name: Configure Store Credentials
+        uses: microsoft/store-submission@v1
+        with:
+          command: configure
+          type: win32
+          seller-id: ${{ secrets.PARTNER_STORE }}
+          product-id: ${{ secrets.PARTNER_STORE }}
+          tenant-id: ${{ secrets.PARTNER_TENANT }}
+          client-id: ${{ secrets.PARTNER_CLIENT }}
+          client-secret: ${{ secrets.PARTNER_SECRET }}
+      - name: Update Draft Submission
+        uses: microsoft/store-submission@v1
+        with:
+          command: update
+          product-update: '{"packages":[{"packageUrl":"https://github.com/${{ github.repository }}/releases/download/${{ inputs.version }}/${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix","languages":["en"],"architectures":["X64"],"isSilentInstall":true}]}'
+      - name: Publish Submission
+        uses: microsoft/store-submission@v1
+        with:
+          command: publish
+
