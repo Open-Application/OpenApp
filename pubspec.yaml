@@ -2,11 +2,11 @@ name: openapp
 description: "An Open Root-Corporation Flutter project."
 publish_to: 'none'
 
-version: 1.4.1
+version: 1.5.0
 
 environment:
-  sdk: ">=3.9.0 <4.0.0"
-  flutter: ">=3.35.0"
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.0"
 
 dependencies:
   flutter:
