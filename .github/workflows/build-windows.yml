@@ -113,18 +113,32 @@ jobs:
           ls -lh build/windows
           ls -lh build/windows/x64/runner/Release/
 
-      - name: Build MSIX package(Store)
+      - name: Compose MSIX env
         shell: bash
         run: |
           set -xeuo pipefail
-
-          echo "Building Store MSIX package for ${{ inputs.name }} ${{ inputs.version }}"
 
           VERSION="${{ inputs.version }}"
           VERSION="${VERSION#v}"
           IFS='.' read -r a b c <<< "$VERSION"
           BUILD_NUMBER=0
           MSIX_VERSION="${a}.${b}.${c}.${BUILD_NUMBER}"
+          MSIX_FILENAME="${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+
+          echo "Input version: ${{ inputs.version }}"
+          echo "MSIX version: ${MSIX_VERSION}"
+          echo "MSIX filename: ${MSIX_FILENAME}"
+
+          echo "MSIX_VERSION=${MSIX_VERSION}" >> "${GITHUB_ENV}"
+          echo "MSIX_FILENAME=${MSIX_FILENAME}" >> "${GITHUB_ENV}"
+
+      - name: Build MSIX package(Store)
+        shell: bash
+        run: |
+          set -xeuo pipefail
+
+          echo "Building Store MSIX package for ${{ inputs.name }} ${{ inputs.version }}"
+          echo "Using MSIX version: ${MSIX_VERSION}"
 
           dart run msix:create \
             -e "internetClient, privateNetworkClientServer" \
@@ -141,7 +155,7 @@ jobs:
       - name: Move Store MSIX
         shell: pwsh
         run: |
-          $msixPath = "${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+          $msixPath = "$env:MSIX_FILENAME"
           Move-Item "build/windows/x64/runner/Release/*.msix" $msixPath
 
           Write-Host "Store package ready:"
@@ -184,11 +198,32 @@ jobs:
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer $token" | jq -r '.pendingApplicationSubmission.id')
 
+          echo "Getting current submission JSON..."
+          submission_json=$(curl -sX GET "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $token")
+
+          echo "Updating version in submission JSON to ${MSIX_VERSION}..."
+          updated_json=$(echo "$submission_json" | jq \
+            --arg ver "${MSIX_VERSION}" \
+            --arg filename "${MSIX_FILENAME}" '
+            .applicationPackages |= map(
+              .version = $ver |
+              .fileName = $filename
+            )
+          ')
+
+          echo "Uploading updated submission metadata..."
+          curl -sX PUT "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $token" \
+            -d "$updated_json"
+
           echo "Uploading MSIX package..."
           curl -sX PUT "$link" \
             -H "x-ms-blob-type: BlockBlob" \
             -H "Content-Type: application/vnd.ms-package.msix" \
-            --data-binary @"${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+            --data-binary @"${MSIX_FILENAME}"
 
           echo "Committing submission..."
           curl -sX POST "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft/commit" \
@@ -212,6 +247,6 @@ jobs:
         with:
           store-id: ${{ secrets.PARTNER_STORE }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          asset-name-pattern: AppName_{version}_{arch}
+          asset-name-pattern: ${{ inputs.name }}_{version}_{arch}
 
 
