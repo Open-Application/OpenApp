@@ -142,7 +142,7 @@ class _ProfileState extends State<Profile>
       padding: UI.paddingAll(16),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: .circular(12),
         border: Border.all(
           color: theme.colorScheme.outline.withValues(alpha: 0.1),
         ),
@@ -186,7 +186,7 @@ class _ProfileState extends State<Profile>
     return Container(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: .circular(12),
         border: Border.all(
           color: theme.colorScheme.outline.withValues(alpha: 0.1),
         ),
@@ -195,7 +195,7 @@ class _ProfileState extends State<Profile>
         color: Colors.transparent,
         child: InkWell(
           onTap: () => _showLanguageDialog(context),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: .circular(12),
           child: Container(
             padding: UI.paddingAll(16),
             child: Row(
@@ -318,7 +318,7 @@ class _ProfileState extends State<Profile>
                 }
               }
             : null,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: .circular(8),
         child: Container(
           padding: UI.paddingSymmetric(horizontal: 16, vertical: 12),
           child: Row(
@@ -357,7 +357,7 @@ class _ProfileState extends State<Profile>
         width: UI.scaledDimension(52),
         height: UI.scaledDimension(28),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(UI.scaledDimension(20)),
+          borderRadius: .circular(UI.scaledDimension(20)),
           color: isDark
               ? theme.colorScheme.primary.withValues(alpha: 0.3)
               : theme.colorScheme.surfaceContainerHighest,

@@ -38,12 +38,12 @@ class RccBackButton extends StatelessWidget {
           HapticUtils.lightImpact();
           onTap();
         },
-        borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+        borderRadius: .circular(UI.scaledDimension(borderRadius)),
         child: Container(
           padding: effectivePadding,
           decoration: BoxDecoration(
             color: backgroundColor ?? theme.colorScheme.surface.withValues(alpha: Constants.defaultBackgroundOpacity),
-            borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+            borderRadius: .circular(UI.scaledDimension(borderRadius)),
             boxShadow: showShadow
                 ? [
                     BoxShadow(
@@ -94,7 +94,7 @@ class RccExpandableItem extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(UI.scaledDimension(12)),
+        borderRadius: .circular(UI.scaledDimension(12)),
         border: Border.all(
           color: isExpanded
               ? theme.colorScheme.primary.withValues(alpha: Constants.defaultOnSurfaceOpacity)
@@ -105,7 +105,7 @@ class RccExpandableItem extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(UI.scaledDimension(12)),
+          borderRadius: .circular(UI.scaledDimension(12)),
           child: Padding(
             padding: UI.paddingAll(16),
             child: Column(
@@ -274,7 +274,7 @@ class RccListItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor ?? theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+        borderRadius: .circular(UI.scaledDimension(borderRadius)),
         border: Border.all(
           color: theme.colorScheme.outline.withValues(alpha: Constants.defaultOutlineOpacity),
         ),
@@ -286,7 +286,7 @@ class RccListItem extends StatelessWidget {
             HapticUtils.selectionClick();
             onTap();
           },
-          borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+          borderRadius: .circular(UI.scaledDimension(borderRadius)),
           child: Container(
             padding: padding ?? UI.paddingAll(16),
             child: Row(
@@ -365,7 +365,7 @@ class RccCard extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         color: backgroundColor ?? theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+        borderRadius: .circular(UI.scaledDimension(borderRadius)),
         border: effectiveBorder,
         boxShadow: boxShadow,
       ),
@@ -377,7 +377,7 @@ class RccCard extends StatelessWidget {
                   HapticUtils.lightImpact();
                   onTap!();
                 },
-                borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+                borderRadius: .circular(UI.scaledDimension(borderRadius)),
                 child: Padding(
                   padding: padding ?? UI.paddingAll(16),
                   child: child,
@@ -435,7 +435,7 @@ class RccActionButton extends StatelessWidget {
           HapticUtils.selectionClick();
           onTap();
         },
-        borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+        borderRadius: .circular(UI.scaledDimension(borderRadius)),
         child: Container(
           padding: padding ?? UI.paddingSymmetric(vertical: 12, horizontal: 16),
           decoration: BoxDecoration(
@@ -447,7 +447,7 @@ class RccActionButton extends StatelessWidget {
                 : !isPrimary
                     ? theme.colorScheme.surface
                     : null,
-            borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+            borderRadius: .circular(UI.scaledDimension(borderRadius)),
             border: Border.all(
               color: isPrimary
                   ? Colors.transparent
@@ -616,13 +616,13 @@ class RccSimpleButton extends StatelessWidget {
         color: effectiveEnabled
           ? effectiveBackgroundColor
           : effectiveBackgroundColor.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+        borderRadius: .circular(UI.scaledDimension(borderRadius)),
         child: InkWell(
           onTap: effectiveEnabled ? () {
             HapticUtils.selectionClick();
             onPressed();
           } : null,
-          borderRadius: BorderRadius.circular(UI.scaledDimension(borderRadius)),
+          borderRadius: .circular(UI.scaledDimension(borderRadius)),
           child: Container(
             padding: padding ?? UI.paddingSymmetric(horizontal: 16),
             child: Row(
@@ -833,7 +833,7 @@ class RccSection extends StatelessWidget {
             padding: padding ?? UI.paddingAll(16),
             decoration: BoxDecoration(
               color: backgroundColor ?? theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(UI.scaledDimension(12)),
+              borderRadius: .circular(UI.scaledDimension(12)),
               border: showBorder
                   ? Border.all(
                       color: theme.colorScheme.outline.withValues(alpha: Constants.defaultOutlineOpacity),
@@ -885,7 +885,7 @@ class RccFilterChip extends StatelessWidget {
           color: isSelected
               ? effectiveBackgroundColor
               : theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(UI.scaledDimension(20)),
+          borderRadius: .circular(UI.scaledDimension(20)),
           border: Border.all(
             color: isSelected
                 ? effectiveSelectedColor
@@ -914,7 +914,7 @@ class RccFilterChip extends StatelessWidget {
                   color: isSelected
                       ? effectiveSelectedColor.withValues(alpha: 0.2)
                       : theme.colorScheme.onSurface.withValues(alpha: Constants.defaultOutlineOpacity),
-                  borderRadius: BorderRadius.circular(UI.scaledDimension(10)),
+                  borderRadius: .circular(UI.scaledDimension(10)),
                 ),
                 child: Text(
                   count.toString(),

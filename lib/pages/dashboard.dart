@@ -206,7 +206,7 @@ class _DashboardState extends State<Dashboard>
                 statusColor.withValues(alpha: 0.05),
               ],
             ),
-            borderRadius: BorderRadius.circular(UI.scaledDimension(16)),
+            borderRadius: .circular(UI.scaledDimension(16)),
             border: Border.all(color: statusColor.withValues(alpha: 0.2)),
           ),
           child: Column(
@@ -300,7 +300,7 @@ class _DashboardState extends State<Dashboard>
           padding: UI.paddingAll(16),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(UI.scaledDimension(12)),
+            borderRadius: .circular(UI.scaledDimension(12)),
             border: Border.all(
               color: theme.colorScheme.outline.withValues(alpha: 0.1),
             ),
@@ -334,7 +334,7 @@ class _DashboardState extends State<Dashboard>
                 ),
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(
+                  borderRadius: .circular(
                     UI.scaledDimension(6),
                   ),
                 ),
@@ -425,7 +425,7 @@ class _DashboardState extends State<Dashboard>
         return Container(
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(UI.scaledDimension(12)),
+            borderRadius: .circular(UI.scaledDimension(12)),
             border: Border.all(
               color: theme.colorScheme.outline.withValues(alpha: 0.1),
             ),
@@ -436,7 +436,7 @@ class _DashboardState extends State<Dashboard>
               onTap: (provider.isButtonEnabled as bool && !isLoading)
                   ? handleTap
                   : null,
-              borderRadius: BorderRadius.circular(UI.scaledDimension(12)),
+              borderRadius: .circular(UI.scaledDimension(12)),
               child: Container(
                 padding: UI.paddingAll(16),
                 child: Row(
@@ -494,7 +494,7 @@ class _DashboardState extends State<Dashboard>
         padding: UI.paddingAll(16),
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: .circular(12),
           border: Border.all(
             color: theme.colorScheme.outline.withValues(alpha: 0.1),
           ),
@@ -566,7 +566,7 @@ class _DashboardState extends State<Dashboard>
                   color: theme.brightness == Brightness.dark
                       ? Colors.black
                       : Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(UI.scaledDimension(8)),
+                  borderRadius: .circular(UI.scaledDimension(8)),
                   border: Border.all(
                     color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
@@ -698,7 +698,7 @@ class _DashboardState extends State<Dashboard>
                   color: theme.brightness == Brightness.dark
                       ? Colors.grey.shade900
                       : Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(UI.scaledDimension(8)),
+                  borderRadius: .circular(UI.scaledDimension(8)),
                   border: Border.all(
                     color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
@@ -755,7 +755,7 @@ class _DashboardState extends State<Dashboard>
                         foregroundColor: Colors.white,
                         padding: UI.paddingSymmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
+                          borderRadius: .circular(
                             UI.scaledDimension(8),
                           ),
                         ),
@@ -790,7 +790,7 @@ class _DashboardState extends State<Dashboard>
                           side: BorderSide(color: Colors.red),
                           padding: UI.paddingSymmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
+                            borderRadius: .circular(
                               UI.scaledDimension(8),
                             ),
                           ),

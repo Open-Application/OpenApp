@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui';
-import '../constants.dart';
+import './constants.dart';
 
 class RccCore extends StatelessWidget {
   const RccCore({super.key});
@@ -13,14 +13,17 @@ class RccCore extends StatelessWidget {
     final dynamic rccProvider = provider;
     final statusColor = rccProvider.statusColor as Color;
 
-    return Center(
+    return Semantics(
+      container: true,
+      label: 'Network connection control panel',
+      child: Center(
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const .all(20.0),
         child: Container(
           constraints: const BoxConstraints(maxWidth: 400),
           decoration: BoxDecoration(
             color: theme.cardColor.withValues(alpha: 0.9),
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: .circular(24),
             boxShadow: [
               BoxShadow(
                 color: statusColor.withValues(alpha: 0.2),
@@ -38,11 +41,11 @@ class RccCore extends StatelessWidget {
             border: Border.all(color: statusColor.withValues(alpha: 0.3), width: 1.5),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: .circular(24),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
               child: Container(
-                padding: const EdgeInsets.all(20),
+                padding: const .all(20),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -72,6 +75,7 @@ class RccCore extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }
@@ -86,10 +90,10 @@ class RccStatusBadge extends StatelessWidget {
     final statusColor = rccProvider.statusColor as Color;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const .symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: statusColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: .circular(20),
         border: Border.all(
           color: statusColor.withValues(alpha: 0.3),
         ),
@@ -308,7 +312,12 @@ class _RccButtonState extends State<RccButton> with SingleTickerProviderStateMix
     final dynamic rccProvider = provider;
     final isConnected = rccProvider.status == 'STARTED';
 
-    return GestureDetector(
+    return Semantics(
+      button: true,
+      enabled: rccProvider.isButtonEnabled as bool,
+      label: isConnected ? 'Disconnect from network' : 'Connect to network',
+      hint: rccProvider.isLoading as bool ? 'Processing...' : null,
+      child: GestureDetector(
       onTapDown: (_) => _controller.forward(),
       onTapUp: (_) => _controller.reverse(),
       onTapCancel: () => _controller.reverse(),
@@ -321,7 +330,7 @@ class _RccButtonState extends State<RccButton> with SingleTickerProviderStateMix
               width: double.infinity,
               height: 52,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: .circular(16),
                 boxShadow: [
                   BoxShadow(
                     color: (isConnected ? Colors.red : theme.colorScheme.primary).withValues(alpha: 0.25),
@@ -337,7 +346,7 @@ class _RccButtonState extends State<RccButton> with SingleTickerProviderStateMix
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: .circular(16),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                   child: Container(
@@ -355,7 +364,7 @@ class _RccButtonState extends State<RccButton> with SingleTickerProviderStateMix
                                 theme.colorScheme.primary.withValues(alpha: 0.95),
                               ],
                       ),
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: .circular(16),
                       border: Border.all(
                         color: Colors.white.withValues(alpha: 0.2),
                         width: 1,
@@ -367,11 +376,11 @@ class _RccButtonState extends State<RccButton> with SingleTickerProviderStateMix
                         onTap: rccProvider.isButtonEnabled as bool
                             ? () => rccProvider.toggle(context)
                             : null,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: .circular(16),
                         splashColor: Colors.white.withValues(alpha: 0.2),
                         highlightColor: Colors.white.withValues(alpha: 0.1),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: const .symmetric(horizontal: 24),
                           child: Center(
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -414,6 +423,7 @@ class _RccButtonState extends State<RccButton> with SingleTickerProviderStateMix
           );
         },
       ),
+    ),
     );
   }
 }

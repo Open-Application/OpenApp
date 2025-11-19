@@ -123,9 +123,9 @@ class RccModal extends StatelessWidget {
         height: MediaQuery.of(context).size.height * Constants.modalPopupHeightFactor,
         decoration: BoxDecoration(
           color: theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(UI.scaledDimension(Constants.modalBorderRadius)),
-            topRight: Radius.circular(UI.scaledDimension(Constants.modalBorderRadius)),
+          borderRadius: .only(
+            topLeft: .circular(UI.scaledDimension(Constants.modalBorderRadius)),
+            topRight: .circular(UI.scaledDimension(Constants.modalBorderRadius)),
           ),
         ),
         child: Column(
@@ -136,18 +136,18 @@ class RccModal extends StatelessWidget {
                   Container(
                     width: UI.scaledDimension(Constants.modalHandleWidth),
                     height: UI.scaledDimension(Constants.modalHandleHeight),
-                    margin: EdgeInsets.only(
+                    margin: .only(
                       top: UI.scaledDimension(Constants.modalHandleTopMargin),
                       bottom: UI.scaledDimension(Constants.modalHandleBottomMargin),
                     ),
                     decoration: BoxDecoration(
                       color: effectiveColor.withValues(alpha: 0.3),
-                      borderRadius: BorderRadius.circular(UI.scaledDimension(Constants.modalHandleHeight) / 2),
+                      borderRadius: .circular(UI.scaledDimension(Constants.modalHandleHeight) / 2),
                     ),
                   ),
 
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: UI.scaledDimension(Constants.modalHeaderPadding)),
+                    padding: .symmetric(horizontal: UI.scaledDimension(Constants.modalHeaderPadding)),
                     child: Row(
                       children: [
                         if (titleIcon != null) ...[
@@ -240,7 +240,7 @@ class RccModalSection extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: effectiveBackgroundColor,
-        borderRadius: BorderRadius.circular(UI.scaledDimension(16)),
+        borderRadius: .circular(UI.scaledDimension(16)),
         border: Border.all(
           color: theme.colorScheme.outline.withValues(alpha: 0.1),
         ),
@@ -406,7 +406,7 @@ class RccModalButton extends StatelessWidget {
                 backgroundColor: effectiveBackgroundColor,
                 foregroundColor: effectiveForegroundColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(UI.scaledDimension(Constants.modalButtonBorderRadius)),
+                  borderRadius: .circular(UI.scaledDimension(Constants.modalButtonBorderRadius)),
                 ),
               ),
               child: Text(
@@ -420,7 +420,7 @@ class RccModalButton extends StatelessWidget {
                 backgroundColor: effectiveBackgroundColor,
                 foregroundColor: effectiveForegroundColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(UI.scaledDimension(Constants.modalButtonBorderRadius)),
+                  borderRadius: .circular(UI.scaledDimension(Constants.modalButtonBorderRadius)),
                 ),
               ),
               child: Text(

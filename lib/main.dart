@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import './services/rcc_service.dart';
 import './components/rcc_scroll.dart';
 import './providers/preferences_provider.dart';
@@ -9,6 +10,7 @@ import './providers/rcc_provider.dart';
 import './l10n/app_localizations.dart';
 import './constants.dart';
 import './router.dart';
+import './utils/theme_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +31,29 @@ class RootCorporation extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PreferencesProvider()),
         ChangeNotifierProvider(create: (_) => RccProvider(rccService)),
       ],
-      child: Consumer<PreferencesProvider>(
+      child: DynamicColorBuilder(
+        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+          // Use dynamic colors if available, otherwise fall back to seed colors
+          ColorScheme lightColorScheme;
+          ColorScheme darkColorScheme;
+
+          if (lightDynamic != null && darkDynamic != null) {
+            // Dynamic colors available (Android 12+)
+            lightColorScheme = lightDynamic.harmonized();
+            darkColorScheme = darkDynamic.harmonized();
+          } else {
+            // Fallback to seed-generated colors
+            lightColorScheme = ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: Brightness.light,
+            );
+            darkColorScheme = ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: Brightness.dark,
+            );
+          }
+
+          return Consumer<PreferencesProvider>(
         builder: (context, preferencesProvider, child) {
           return MaterialApp.router(
             title: Constants.projectName,
@@ -55,33 +79,22 @@ class RootCorporation extends StatelessWidget {
             ],
             themeMode: preferencesProvider.themeMode,
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.blue,
-                brightness: Brightness.light,
-              ),
+              colorScheme: lightColorScheme,
               useMaterial3: true,
-              appBarTheme: const AppBarTheme(
+              appBarTheme: AppBarTheme(
                 centerTitle: true,
                 elevation: 0,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: Colors.transparent,
-                  statusBarIconBrightness: Brightness.dark,
-                  statusBarBrightness: Brightness.light,
-                  systemNavigationBarColor: Colors.transparent,
-                  systemNavigationBarIconBrightness: Brightness.dark,
+                systemOverlayStyle: ThemeHelper.getSystemUiOverlayStyle(
+                  brightness: Brightness.light,
                 ),
               ),
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
               scaffoldBackgroundColor: Colors.black,
-              colorScheme: const ColorScheme.dark(
-                primary: Colors.indigo,
-                secondary: Colors.indigoAccent,
-                surface: Color(0xFF000000),
-                surfaceContainer: Color(0xFF0A0A0A),
-                onSurface: Colors.white,
-                error: Color(0xFFCF6679),
+              colorScheme: darkColorScheme.copyWith(
+                surface: const Color(0xFF000000),
+                surfaceContainer: const Color(0xFF0A0A0A),
               ),
               cardColor: const Color(0xFF0A0A0A),
               canvasColor: Colors.black,
@@ -89,20 +102,18 @@ class RootCorporation extends StatelessWidget {
                 backgroundColor: Color(0xFF0A0A0A),
               ),
               useMaterial3: true,
-              appBarTheme: const AppBarTheme(
+              appBarTheme: AppBarTheme(
                 centerTitle: true,
                 elevation: 0,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: Colors.transparent,
-                  statusBarIconBrightness: Brightness.light,
-                  statusBarBrightness: Brightness.dark,
-                  systemNavigationBarColor: Colors.transparent,
-                  systemNavigationBarIconBrightness: Brightness.light,
+                systemOverlayStyle: ThemeHelper.getSystemUiOverlayStyle(
+                  brightness: Brightness.dark,
                 ),
               ),
             ),
             routerConfig: router,
           );
+        },
+      );
         },
       ),
     );
