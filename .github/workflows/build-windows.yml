@@ -2,6 +2,7 @@ name: build-windows
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PARTNER_CENTER_API: https://manage.devcenter.microsoft.com/v1.0/my/applications
 
 permissions:
   contents: write
@@ -144,6 +145,63 @@ jobs:
           Write-Host "Store package ready:"
           Get-Item $msixPath | Select-Object Name, Length
 
+      - name: Submit to Microsoft Store
+        shell: bash
+        run: |
+          set -xeuo pipefail
+
+          echo "Getting OAuth token..."
+          token=$(curl -sX POST "https://login.microsoftonline.com/${{ secrets.PARTNER_TENANT }}/oauth2/token" \
+            -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
+            -d "grant_type=client_credentials" \
+            -d "client_id=${{ secrets.PARTNER_CLIENT }}" \
+            -d "resource=https://manage.devcenter.microsoft.com" \
+            -d "client_secret=${{ secrets.PARTNER_SECRET }}" | jq -r '.access_token')
+
+          echo "Checking for existing draft submission..."
+          draft=$(curl -sX GET "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $token" | jq -r '.pendingApplicationSubmission.id')
+
+          if [ "$draft" != "null" ]; then
+            echo "Deleting existing draft submission: $draft"
+            curl -sX DELETE "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft" \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $token"
+          fi
+
+          echo "Creating new submission..."
+          link=$(curl -sX POST "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $token" \
+            -H "Content-Length: 0" | jq -r '.fileUploadUrl')
+
+          echo "Getting new draft ID..."
+          draft=$(curl -sX GET "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $token" | jq -r '.pendingApplicationSubmission.id')
+
+          echo "Uploading MSIX package..."
+          curl -sX PUT "$link" \
+            -H "x-ms-blob-type: BlockBlob" \
+            -H "Content-Type: application/vnd.ms-package.msix" \
+            --data-binary @"${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix"
+
+          echo "Committing submission..."
+          curl -sX POST "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft/commit" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $token" \
+            -H "Content-Length: 0"
+
+          echo "Microsoft Store submission completed successfully!"
+
+      - name: Upload store MSIX to release
+        uses: JasonWei512/Upload-Microsoft-Store-MSIX-Package-to-GitHub-Release@v1
+        with:
+          store-id: ${{ secrets.PARTNER_STORE }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          asset-name-pattern: AppName_{version}_{arch}
+
       # - uses: azure/trusted-signing-action@v0
       #   with:
       #     azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
@@ -210,46 +268,27 @@ jobs:
       #     cd build/windows/x64/runner/Release
       #     tar -czf ../../../../../${{ inputs.name }}-windows-amd64-${{ inputs.version }}.tar.gz *
 
-      - name: Upload to release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ inputs.version }}
-          name: Release ${{ inputs.version }}
-          draft: false
-          prerelease: false
-          overwrite_files: true
-          files: |
-            ${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix
-          body: |
-            ## Windows Application for ${{ inputs.version }}
+      # - name: Upload to release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     tag_name: ${{ inputs.version }}
+      #     name: Release ${{ inputs.version }}
+      #     draft: false
+      #     prerelease: false
+      #     overwrite_files: true
+      #     files: |
+      #       ${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix
+      #     body: |
+      #       ## Windows Application for ${{ inputs.version }}
 
-            ### Build Configuration
-            - **Platform**: Windows
-            - **Architecture**: amd64
-            - **Build Type**: Release (Obfuscated)
-            - **Code Obfuscation**: Enabled
-            - **Debug Symbols**: Available as workflow artifact
+      #       ### Build Configuration
+      #       - **Platform**: Windows
+      #       - **Architecture**: amd64
+      #       - **Build Type**: Release (Obfuscated)
+      #       - **Code Obfuscation**: Enabled
+      #       - **Debug Symbols**: Available as workflow artifact
 
-            ### Installation
-            Download and extract the tar.gz file to run the application
+      #       ### Installation
+      #       Download and extract the tar.gz file to run the application
 
-      - name: Configure Store Credentials
-        uses: microsoft/store-submission@v1
-        with:
-          command: configure
-          type: win32
-          seller-id: ${{ secrets.PARTNER_STORE }}
-          product-id: ${{ secrets.PARTNER_STORE }}
-          tenant-id: ${{ secrets.PARTNER_TENANT }}
-          client-id: ${{ secrets.PARTNER_CLIENT }}
-          client-secret: ${{ secrets.PARTNER_SECRET }}
-      - name: Update Draft Submission
-        uses: microsoft/store-submission@v1
-        with:
-          command: update
-          product-update: '{"packages":[{"packageUrl":"https://github.com/${{ github.repository }}/releases/download/${{ inputs.version }}/${{ inputs.name }}-windows-amd64-${{ inputs.version }}-store.msix","languages":["en"],"architectures":["X64"],"isSilentInstall":true}]}'
-      - name: Publish Submission
-        uses: microsoft/store-submission@v1
-        with:
-          command: publish
 

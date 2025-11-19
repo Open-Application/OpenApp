@@ -2,7 +2,7 @@ name: openapp
 description: "An Open Root-Corporation Flutter project."
 publish_to: 'none'
 
-version: 1.5.2
+version: 1.5.3
 
 environment:
   sdk: ">=3.10.0 <4.0.0"
