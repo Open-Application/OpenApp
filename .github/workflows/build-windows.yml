@@ -27,7 +27,7 @@ jobs:
   build-windows-app:
     runs-on: windows-latest
     outputs:
-      submission-success: ${{ steps.submit.outcome == 'success' }}
+      submission-success: ${{ steps.publish.outcome == 'success' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -185,8 +185,8 @@ jobs:
             Download and double-click the MSIX file to install the application
 
       - name: Publish to Store
+        id: publish
         run: msstore publish '${{ github.workspace }}/${{ env.MSIX_FILENAME }}' -id ${{ secrets.PARTNER_STORE }}
-
 
   upload-to-release:
     needs: build-windows-app
