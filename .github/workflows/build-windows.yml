@@ -32,8 +32,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.3.1
+      - uses: microsoft/microsoft-store-apppublisher@v1.2
+      - run: msstore reconfigure --tenantId ${{ secrets.PARTNER_TENANT }} --sellerId ${{ secrets.PARTNER_SELLER }} --clientId ${{ secrets.PARTNER_CLIENT }} --clientSecret ${{ secrets.PARTNER_SECRET }}
+      - run: msstore apps list
 
       - name: Configure the Microsoft Store CLI
         shell: pwsh
@@ -161,47 +162,29 @@ jobs:
           Write-Host "Store package ready:"
           Get-Item $msixPath | Select-Object Name, Length
 
-      - name: Submit to Microsoft Store
-        id: submit
-        shell: bash
-        run: |
-          set -xeuo pipefail
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.version }}
+          name: Release ${{ inputs.version }}
+          draft: false
+          prerelease: false
+          overwrite_files: true
+          files: |
+            ${MSIX_FILENAME }
+          body: |
+            ## Windows Application for ${{ inputs.version }}
 
-          echo "Getting OAuth token..."
-          token=$(curl -sX POST "https://login.microsoftonline.com/${{ secrets.PARTNER_TENANT }}/oauth2/token" \
-            -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
-            -d "grant_type=client_credentials" \
-            -d "client_id=${{ secrets.PARTNER_CLIENT }}" \
-            -d "resource=https://manage.devcenter.microsoft.com" \
-            -d "client_secret=${{ secrets.PARTNER_SECRET }}" | jq -r '.access_token')
+            ### Build Configuration
+            - **Platform**: Windows
+            - **Architecture**: amd64
+            - **Build Type**: Release (Obfuscated)
+            - **Code Obfuscation**: Enabled
+            - **Debug Symbols**: Available as workflow artifact
 
-          echo "Checking for existing draft submission..."
-          draft=$(curl -sX GET "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $token" | jq -r '.pendingApplicationSubmission.id')
+            ### Installation
+            Download and extract the tar.gz file to run the application
 
-          if [ "$draft" != "null" ]; then
-            echo "Deleting existing draft submission: $draft"
-            curl -sX DELETE "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft" \
-              -H "Content-Type: application/json" \
-              -H "Authorization: Bearer $token"
-          fi
-
-          echo "Creating new submission..."
-          link=$(curl -sX POST "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $token" \
-            -H "Content-Length: 0" | jq -r '.fileUploadUrl')
-
-
-          echo "Uploading MSIX package..."
-          curl -sX PUT "$link" \
-            -H "x-ms-blob-type: BlockBlob" \
-            -H "Content-Type: application/vnd.ms-package.msix" \
-            --data-binary @"${MSIX_FILENAME}"
-
-
-          # echo "Microsoft Store submission completed successfully!"
 
   upload-to-release:
     needs: build-windows-app
