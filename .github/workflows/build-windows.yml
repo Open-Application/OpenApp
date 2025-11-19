@@ -193,31 +193,6 @@ jobs:
             -H "Authorization: Bearer $token" \
             -H "Content-Length: 0" | jq -r '.fileUploadUrl')
 
-          echo "Getting new draft ID..."
-          draft=$(curl -sX GET "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $token" | jq -r '.pendingApplicationSubmission.id')
-
-          echo "Getting current submission JSON..."
-          submission_json=$(curl -sX GET "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $token")
-
-          echo "Updating version in submission JSON to ${MSIX_VERSION}..."
-          updated_json=$(echo "$submission_json" | jq \
-            --arg ver "${MSIX_VERSION}" \
-            --arg filename "${MSIX_FILENAME}" '
-            .applicationPackages |= map(
-              .version = $ver |
-              .fileName = $filename
-            )
-          ')
-
-          echo "Uploading updated submission metadata..."
-          curl -sX PUT "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $token" \
-            -d "$updated_json"
 
           echo "Uploading MSIX package..."
           curl -sX PUT "$link" \
@@ -225,13 +200,8 @@ jobs:
             -H "Content-Type: application/vnd.ms-package.msix" \
             --data-binary @"${MSIX_FILENAME}"
 
-          echo "Committing submission..."
-          curl -sX POST "${PARTNER_CENTER_API}/${{ secrets.PARTNER_STORE }}/submissions/$draft/commit" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $token" \
-            -H "Content-Length: 0"
 
-          echo "Microsoft Store submission completed successfully!"
+          # echo "Microsoft Store submission completed successfully!"
 
   upload-to-release:
     needs: build-windows-app
