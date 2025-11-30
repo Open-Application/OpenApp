@@ -48,20 +48,20 @@ jobs:
       version: ${{ needs.check-for-version.outputs.version }}
     secrets: inherit
 
-  # build-android:
-  #   needs: check-for-version
-  #   uses: ./.github/workflows/build-android.yml
-  #   with:
-  #     name: ${{ needs.check-for-version.outputs.name }}
-  #     pkg: ${{ needs.check-for-version.outputs.pkg }}
-  #     version: ${{ needs.check-for-version.outputs.version }}
-  #   secrets: inherit
+  build-android:
+    needs: check-for-version
+    uses: ./.github/workflows/build-android.yml
+    with:
+      name: ${{ needs.check-for-version.outputs.name }}
+      pkg: ${{ needs.check-for-version.outputs.pkg }}
+      version: ${{ needs.check-for-version.outputs.version }}
+    secrets: inherit
 
-  # build-apple:
-  #   needs: check-for-version
-  #   uses: ./.github/workflows/build-apple.yml
-  #   with:
-  #     name: ${{ needs.check-for-version.outputs.name }}
-  #     pkg: ${{ needs.check-for-version.outputs.pkg }}
-  #     version: ${{ needs.check-for-version.outputs.version }}
-  #   secrets: inherit
+  build-apple:
+    needs: check-for-version
+    uses: ./.github/workflows/build-apple.yml
+    with:
+      name: ${{ needs.check-for-version.outputs.name }}
+      pkg: ${{ needs.check-for-version.outputs.pkg }}
+      version: ${{ needs.check-for-version.outputs.version }}
+    secrets: inherit
