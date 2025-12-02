@@ -46,29 +46,6 @@ jobs:
           rm -rf build windows/.Dart_tool .dart_tool
           echo "Cleaned build artifacts for fresh amd64 build"
 
-      - name: Download Deps lib
-        shell: bash
-        run: |
-          set -xeuo pipefail
-
-          TARGET_LIB='liboc-windows-amd64'
-          LATEST_RELEASE=$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/${{ secrets.UPSTREAM_REPO }}/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
-
-          if [ -z "${LATEST_RELEASE}" ]; then
-            echo "Error: Failed to fetch latest release tag"
-            exit 1
-          fi
-
-          echo "Latest OpenCore release: ${LATEST_RELEASE}"
-
-          RELEASE_URL="https://github.com/${{ secrets.UPSTREAM_REPO }}/releases/download/${LATEST_RELEASE}"
-          DOWNLOAD_URL="${RELEASE_URL}/${TARGET_LIB}-${LATEST_RELEASE}.tar.gz"
-          echo "Downloading from: ${DOWNLOAD_URL}"
-
-          curl -L -H "Authorization: Bearer ${GITHUB_TOKEN}" -o ${TARGET_LIB}.tar.gz "${DOWNLOAD_URL}"
-          mkdir -p windows/
-          tar -xzf ${TARGET_LIB}.tar.gz -C windows/
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -140,9 +117,12 @@ jobs:
           echo "Building Store MSIX package for ${{ inputs.name }} ${{ inputs.version }}"
           echo "Using MSIX version: ${MSIX_VERSION}"
 
+          DISPLAY_NAME="${{ secrets.PARTNER_APP }}"
+          DISPLAY_NAME="${DISPLAY_NAME##*.}"
+
           dart run msix:create \
             -e "internetClient, privateNetworkClientServer" \
-            -d "Open-App" \
+            -d "${DISPLAY_NAME}" \
             -l "assets/logo.png" \
             -u "${{ secrets.PARTNER_COMPANY }}" \
             -i "${{ secrets.PARTNER_APP }}" \
