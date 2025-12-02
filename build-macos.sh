@@ -17,7 +17,7 @@ flutter build macos --release \
     --suppress-analytics \
     --no-tree-shake-icons
 
-APP_PATH="build/macos/Build/Products/Release/OpenApp.app"
+APP_PATH="build/macos/Build/Products/Release/${APP_NAME}.app"
 PKG_PATH="build/macos/$APP_NAME-$VERSION.pkg"
 
 echo "Creating PKG for App Store..."

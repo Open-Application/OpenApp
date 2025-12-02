@@ -7,7 +7,7 @@ VERSION=$(grep "^version:" pubspec.yaml | sed 's/version: //')
 
 echo "Building $APP_NAME v$VERSION (Release Mode)"
 
-cd ~/OpenApp
+cd ~/${APP_NAME}
 rm -rf .dart_tool build/
 flutter clean
 
@@ -35,10 +35,10 @@ CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v \
     -o liboc.dll \
     ./ffi.go
 
-cp liboc.dll ~/OpenApp/windows/
-cp liboc.h ~/OpenApp/windows/
+cp liboc.dll ~/${APP_NAME}/windows/
+cp liboc.h ~/${APP_NAME}/windows/
 
-cd ~/OpenApp/windows
+cd ~/${APP_NAME}/windows
 gendef liboc.dll
 dlltool -d liboc.def -D liboc.dll -l liboc.lib
 
@@ -46,7 +46,7 @@ rm -f ~/AppData/Roaming/io.rootcorporation.openapp/debug.log
 mkdir -p ~/AppData/Roaming/io.rootcorporation.openapp
 touch ~/AppData/Roaming/io.rootcorporation.openapp/debug.log
 
-cd ~/OpenApp
+cd ~/${APP_NAME}
 echo "Building Windows MSIX..."
 flutter build windows --release \
     --obfuscate \
