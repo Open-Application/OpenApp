@@ -161,7 +161,13 @@ jobs:
           Write-Host "Store package ready:"
           Get-Item $msixPath | Select-Object Name, Length
 
-      - name: Upload to release
+      - name: Publish to Store
+        id: publish
+        continue-on-error: true
+        run: msstore publish '${{ env.MSIX_FILENAME }}' -id ${{ secrets.PARTNER_STORE }}
+
+      - name: Upload MSIX to release (Store publish failed)
+        if: steps.publish.outcome == 'failure'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ inputs.version }}
@@ -184,9 +190,7 @@ jobs:
             ### Installation
             Download and double-click the MSIX file to install the application
 
-      - name: Publish to Store
-        id: publish
-        run: msstore publish '${{ github.workspace }}/${{ env.MSIX_FILENAME }}' -id ${{ secrets.PARTNER_STORE }}
+            > **Note**: Store publish failed. This is the unsigned MSIX package.
 
   upload-to-release:
     needs: build-windows-app
